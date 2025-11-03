@@ -1,6 +1,156 @@
+<script setup lang="ts">
+import { ref } from "vue"
+
+const isOpen = ref<boolean>(false)
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value
+}
+</script>
+
 <template>
-  This is the header
+  <header>
+    <div class="content">
+
+      <div class="top">
+        <div class="logo">Djacket</div>
+        <button class="menu-button" @click="toggleMenu()">
+          <img src="@/assets/menu.svg" alt="Menu" />
+        </button>
+      </div>
+
+      <nav :class="{ 'open': isOpen }">
+        <div class="nav-links">
+          <RouterLink class="nav-link" to="/">Accueil</RouterLink>
+          <RouterLink class="nav-link" to="/about">À propos</RouterLink>
+        </div>
+        <div class="auth">
+          <RouterLink class="login-button" to="/login">Connexion</RouterLink>
+        </div>
+      </nav>
+
+    </div>
+  </header>
 </template>
 
 <style scoped>
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: darkblue;
+  height: 60px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.logo {
+  color: white;
+  font-size: 22px;
+  font-family: "Fjalla One", sans-serif;
+  margin-right: 20px;
+}
+
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  background-color: rgb(0, 140, 140);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: rgb(0, 160, 160);
+}
+
+@media (max-width: 600px) {
+
+  header {
+    height: auto;
+  }
+
+  .content {
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  nav {
+    display: none;
+  }
+
+  nav.open {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-link {
+    margin: 10px 0;
+    padding: 0;
+  }
+
+  .nav-link:hover {
+    background-color: initial;
+  }
+
+  .auth {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+}
 </style>
