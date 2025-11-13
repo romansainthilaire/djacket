@@ -39,7 +39,7 @@ header {
   align-items: center;
   justify-content: center;
   background-color: rgb(0, 0, 140);
-  height: 60px;
+  height: 65px;
 }
 
 .content {
@@ -52,7 +52,7 @@ header {
 
 .logo {
   color: white;
-  font-size: 22px;
+  font-size: 23px;
   font-family: "Fjalla One", sans-serif;
   margin-right: 20px;
 }
