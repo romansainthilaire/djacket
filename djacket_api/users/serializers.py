@@ -2,11 +2,32 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from .models import UserProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+
+    email = serializers.EmailField(
+        required=True,
+        validators=[
+            UniqueValidator(
+                queryset=UserProfile.objects.all(),
+                message="Cette adresse e-mail est déjà utilisée."
+            )
+        ]
+    )
+
+    username = serializers.CharField(
+        required=True,
+        validators=[
+            UniqueValidator(
+                queryset=UserProfile.objects.all(),
+                message="Ce nom d'utilisateur est déjà pris."
+            )
+        ]
+    )
 
     password = serializers.CharField(
         write_only=True,

@@ -38,7 +38,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: darkblue;
+  background-color: rgb(0, 0, 140);
   height: 60px;
 }
 
@@ -60,8 +60,6 @@ header {
 .menu-button {
   display: none;
   background: none;
-  border: none;
-  cursor: pointer;
   padding: 0;
   line-height: 0;
 }
