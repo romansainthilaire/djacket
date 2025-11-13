@@ -74,9 +74,9 @@ nav {
 .nav-link {
   color: white;
   text-decoration: none;
-  font-size: 15px;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 4px;
   margin: 0 5px;
   transition: background-color 0.3s ease;
 }
@@ -88,10 +88,10 @@ nav {
 .login-button {
   color: white;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 4px;
   background-color: rgb(0, 140, 140);
-  padding: 5px 10px;
-  border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
@@ -100,7 +100,6 @@ nav {
 }
 
 @media (max-width: 600px) {
-
   header {
     height: auto;
   }
@@ -137,7 +136,7 @@ nav {
   }
 
   .nav-link {
-    margin: 10px 0;
+    margin: 8px 0;
     padding: 0;
   }
 
@@ -146,9 +145,7 @@ nav {
   }
 
   .auth {
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
-
 }
 </style>
