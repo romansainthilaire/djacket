@@ -3,6 +3,9 @@ import { useAuthStore } from "@/stores/auth"
 
 import HomeView from "../views/HomeView.vue"
 import SignupView from "../views/SignupView.vue"
+import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
+import VerifyEmailView from "../views/VerifyEmailView.vue"
+import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
 import AboutView from "../views/AboutView.vue"
 
 const router = createRouter({
@@ -17,6 +20,22 @@ const router = createRouter({
       path: "/signup",
       name: "signup",
       component: SignupView
+    },
+    {
+      path: "/verify-email-notice/:email",
+      name: "verify-email-notice",
+      component: VerifyEmailNoticeView,
+      props: true
+    },
+    {
+      path: "/verify-email",
+      name: "verify-email",
+      component: VerifyEmailView
+    },
+    {
+      path: "/resend-verification-email",
+      name: "resend-verification-email",
+      component: ResendVerificationEmailView
     },
     {
       path: "/about",

@@ -34,6 +34,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    email_verified = models.BooleanField(default=False)
+    email_verification_sent_at = models.DateTimeField(null=True, blank=True)
+
     objects = UserProfileManager()
 
     USERNAME_FIELD = "email"

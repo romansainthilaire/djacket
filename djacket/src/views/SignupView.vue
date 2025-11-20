@@ -55,7 +55,7 @@ async function signup() {
   loading.value = true
   try {
     await auth.signup(email.value, username.value, password.value)
-    router.push({ name: "home" })
+    router.push({ name: "verify-email-notice", params: { email: email.value } })
   } catch (error: any) {
     if (error.response?.data) {
       const data = error.response.data

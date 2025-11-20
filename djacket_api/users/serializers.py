@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 from .models import UserProfile
 
 
@@ -99,4 +101,14 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate(self, data):
         if data["old_password"] == data["new_password"]:
             raise serializers.ValidationError("New password must be different from old password.")
+        return data
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user: UserProfile = self.user
+        if not user.email_verified:
+            raise serializers.ValidationError({"email_verified": "Email not verified."})
         return data

@@ -14,6 +14,11 @@ type User = {
   updatedAt: string
 }
 
+type VerifyEmailResponse = {
+  email?: string
+  verified?: boolean
+}
+
 export type EditableUser = Pick<User, "username">
 
 export const useAuthStore = defineStore("auth", () => {
@@ -23,6 +28,24 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function signup(email: string, username: string, password: string) {
     await api.post("users/", { email, username, password })
+  }
+
+  async function verifyEmail(token: string): Promise<VerifyEmailResponse> {
+    try {
+      const response = await api.get(`users/verify-email/?token=${token}`)
+      return { email: response.data.email, verified: true }
+    } catch (error: any) {
+      const status = error.response?.status
+      const data = error.response?.data
+      if (status == 410) {
+        return { email: data.email, verified: false }
+      }
+      return { verified: false }
+    }
+  }
+
+  async function resendVerificationEmail(email: string) {
+    await api.post("users/resend-verification-email/", { email })
   }
 
   async function setUser() {
@@ -61,9 +84,11 @@ export const useAuthStore = defineStore("auth", () => {
   return {
     token,
     user,
+    signup,
+    verifyEmail,
+    resendVerificationEmail,
     setUser,
     editUser,
-    signup,
     login,
     logout
   }
