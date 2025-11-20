@@ -3,6 +3,8 @@ import { ref, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseButton from "@/components/BaseButton.vue"
+
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
@@ -69,18 +71,19 @@ function goToSignupPage() {
     <div v-else-if="loadingResend">Renvoi de l'e-mail...</div>
 
     <div v-else-if="emailVerified">
-      <p>Votre adresse e-mail <b>{{ email }}</b> est vérifiée. Vous pouvez maintenant vous connecter.</p>
-      <button @click="goToLoginPage()">Me connecter</button>
+      <p>Votre adresse e-mail <b>{{ email }}</b> est vérifiée.</p>
+      <p>Vous pouvez maintenant vous connecter.</p>
+      <BaseButton @click="goToLoginPage()">Me connecter</BaseButton>
     </div>
 
     <div v-else>
       <p class="error">{{ errorMessage }}</p>
         <template v-if="email">
           <p>Renvoyer l'e-mail de vérification à <b>{{ email }}</b> ?</p>
-          <button @click="resendVerificationEmail()">Renvoyer</button>       
+          <BaseButton @click="resendVerificationEmail()">Renvoyer</BaseButton>       
         </template>
         <p>Recréer un compte avec une autre adresse e-mail ?</p>
-        <button @click="goToSignupPage()">Recréer un compte</button>
+        <BaseButton @click="goToSignupPage()">Recréer un compte</BaseButton>
     </div>
 
   </div>

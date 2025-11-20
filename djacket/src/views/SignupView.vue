@@ -2,7 +2,9 @@
 import { ref, computed, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
+
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
+import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -126,9 +128,7 @@ watch(password, () => {
         
         <div class="submit-button-container">
           <BaseLoadingSpinner v-if="loading" />
-          <button v-else class="submit-button" type="submit">
-            Créer mon compte
-          </button>
+          <BaseButton v-else type="submit">Créer mon compte</BaseButton>
         </div>
 
       </form>
@@ -245,15 +245,6 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.submit-button {
-  height: fit-content;
-  padding: 8px 16px;
-  background-color: rgb(0, 0, 140);
-  color: white;
-  border-radius: 4px;
-  font-size: 16px;
 }
 
 .footer {

@@ -2,6 +2,8 @@
 import { ref } from "vue"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseButton from "@/components/BaseButton.vue"
+
 const auth = useAuthStore()
 
 const email = ref("")
@@ -37,7 +39,7 @@ async function resendEmail() {
     <p>Entrez votre adresse e-mail pour recevoir un nouvel e-mail de vérification :</p>
     <label for="email">Adresse e-mail</label>
     <input v-model="email" id="email" type="email" autofocus />
-    <button @click="resendEmail()" :disabled="!email">Renvoyer</button>
+    <BaseButton @click="resendEmail()" :disabled="!email">Renvoyer</BaseButton>
     <p v-if="successMessage">{{ successMessage }}</p>
     <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
