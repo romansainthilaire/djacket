@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router"
+import { RouterView } from "vue-router"
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
 </script>
@@ -7,8 +7,10 @@ import TheFooter from "@/components/TheFooter.vue"
 <template>
   <div class="layout">
     <TheHeader />
-    <main class="content">
-      <RouterView />
+    <main>
+      <div class="content">
+        <RouterView />
+      </div>
     </main>
     <TheFooter />
   </div>
@@ -21,7 +23,15 @@ import TheFooter from "@/components/TheFooter.vue"
   min-height: 100vh;
 }
 
-.content {
+main {
   flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 20px;
 }
 </style>
