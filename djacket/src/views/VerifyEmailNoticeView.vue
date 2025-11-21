@@ -7,6 +7,21 @@ const props = defineProps<{
 <template>
   <div>
     <h1>Vérification requise</h1>
-    <p>Un e-mail a été envoyé à <b>{{ email }}</b>. Cliquez sur le lien pour activer votre compte (valide 24h).</p>
+    <p>Un e-mail de vérification a été envoyé à : <b>{{ props.email }}</b></p>
+    <p>Cliquez sur le lien reçu pour activer votre compte (valide 24h).</p>
+    <p>👉 Pensez à vérifier votre dossier spam.</p>
   </div>
 </template>
+
+<style scoped>
+h1 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: rgb(0, 0, 140);
+  font-size: 25px;
+}
+
+p {
+  margin-bottom: 5px;
+}
+</style>
