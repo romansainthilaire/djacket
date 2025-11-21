@@ -271,12 +271,21 @@ input:focus {
 
 @media (max-width: 600px) {
   .content {
-    padding-top: 0;
+    padding: 0;
     padding-bottom: 50px;
   }
 
+  .header {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  form {
+    padding: 0;
+  }
+
   .card {
-    max-width: 100%;
+    max-width: none;
     border-radius: 0;
     box-shadow: none;
   }
