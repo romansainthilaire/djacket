@@ -271,7 +271,7 @@ input:focus {
 
 @media (max-width: 600px) {
   .content {
-    padding: 0;
+    padding-top: 0;
     padding-bottom: 50px;
   }
 

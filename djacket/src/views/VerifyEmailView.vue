@@ -64,14 +64,14 @@ function goToSignupPage() {
 </script>
 
 <template>
-  <div class="center">
+  <div class="content">
 
     <div v-if="loading">Vérification...</div>
 
     <div v-else-if="loadingResend">Renvoi de l'e-mail...</div>
 
     <div v-else-if="emailVerified">
-      <p>Votre adresse e-mail <b>{{ email }}</b> est vérifiée.</p>
+      <p>✅ Votre adresse e-mail <b>{{ email }}</b> est vérifiée.</p>
       <p>Vous pouvez maintenant vous connecter.</p>
       <BaseButton @click="goToLoginPage()">Me connecter</BaseButton>
     </div>
@@ -88,3 +88,17 @@ function goToSignupPage() {
 
   </div>
 </template>
+
+<style scoped>
+.content {
+  margin-top: 20px;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 20px;
+}
+</style>

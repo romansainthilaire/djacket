@@ -5,10 +5,10 @@ import TheFooter from "@/components/TheFooter.vue"
 </script>
 
 <template>
-  <div class="layout">
+  <div class="app-layout">
     <TheHeader />
     <main>
-      <div class="content">
+      <div class="app-content">
         <RouterView />
       </div>
     </main>
@@ -17,7 +17,7 @@ import TheFooter from "@/components/TheFooter.vue"
 </template>
 
 <style scoped>
-.layout {
+.app-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -29,7 +29,7 @@ main {
   justify-content: center;
 }
 
-.content {
+.app-content {
   width: 100%;
   max-width: 1000px;
   padding: 0 20px;
