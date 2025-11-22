@@ -78,10 +78,10 @@ function goToSignupPage() {
 
     <div v-else>
       <p class="error-message">{{ errorMessage }}</p>
-      <template v-if="email">
+      <div v-if="email" class="resend-container">
         <p>Renvoyer l'e-mail de vérification à <b>{{ email }}</b> ?</p>
         <BaseButton @click="resendVerificationEmail()">Renvoyer</BaseButton>       
-      </template>
+      </div>
       <p>Recréer un compte avec une autre adresse e-mail ?</p>
       <BaseButton @click="goToSignupPage()">Recréer un compte</BaseButton>
     </div>
@@ -104,5 +104,10 @@ button {
 
 .error-message {
   color: rgb(220, 20, 80);
+}
+
+.resend-container {
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 </style>

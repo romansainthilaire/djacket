@@ -1,5 +1,3 @@
-import base64
-
 from django.utils import timezone
 from django.conf import settings
 from django.core.mail import send_mail
@@ -25,18 +23,14 @@ def verify_email_token(token: str, max_age=60 * 60 * 24) -> str | None:  # 24h
 
 
 def extract_email_from_token(token: str) -> str | None:
-    """Extract the email from a TimestampSigner generated token."""
+    """
+    Extract the email from a TimestampSigner generated token.
+    Token format: <email>:<timestamp>:<signature>
+    """
     try:
-        email_base64 = token.split(":")[0]
-
-        missing_padding = len(email_base64) % 4
-        if missing_padding != 0:
-            email_base64 += "=" * (4 - missing_padding)
-
-        email_bytes = base64.urlsafe_b64decode(email_base64.encode())
-        email = email_bytes.decode()
+        email, _, _ = token.rsplit(":", 2)
         return email
-    except Exception:
+    except ValueError:
         return None
 
 
