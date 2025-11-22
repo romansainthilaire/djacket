@@ -10,7 +10,8 @@ signer = TimestampSigner()
 
 def generate_email_token(email: str) -> str:
     """Generate a signed token for email verification."""
-    return signer.sign(email)
+    token = signer.sign(email)
+    return token
 
 
 def verify_email_token(token: str, max_age=60 * 60 * 24) -> str | None:  # 24h
