@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const route = useRoute()
@@ -66,9 +67,15 @@ function goToSignupPage() {
 <template>
   <div class="content">
 
-    <div v-if="loading">Vérification...</div>
+    <div v-if="loading" class="loading-container">
+      <BaseLoadingSpinner />
+      <div class="loading-text">Vérification...</div>
+    </div>
 
-    <div v-else-if="loadingResend">Renvoi de l'e-mail...</div>
+    <div v-else-if="loadingResend" class="loading-container">
+      <BaseLoadingSpinner />
+      <div class="loading-text">Renvoi de l'e-mail...</div>
+    </div>
 
     <div v-else-if="emailVerified">
       <p>✅ Votre adresse e-mail <b>{{ email }}</b> est vérifiée.</p>
@@ -92,6 +99,14 @@ function goToSignupPage() {
 <style scoped>
 .content {
   margin-top: 20px;
+}
+
+.loading-container {
+  text-align: center;
+}
+
+.loading-text {
+  margin-top: 10px;
 }
 
 p {
