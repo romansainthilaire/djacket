@@ -29,7 +29,7 @@ onMounted(async () => {
       emailVerified.value = true
     } else if (result.email) {
       email.value = result.email
-      errorMessage.value = "Le lien de vérification a expiré."
+      errorMessage.value = "Le lien de vérification est invalide ou expiré."
     } else {
       errorMessage.value = "Le lien de vérification est invalide."
     }

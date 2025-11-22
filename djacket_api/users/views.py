@@ -62,7 +62,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
 
         extracted_email = extract_email_from_token(token)
         if extracted_email:
-            return Response({"detail": "Token expired.", "email": extracted_email}, status=410)
+            return Response({"detail": "Token invalid or expired.", "email": extracted_email}, status=410)
 
         return Response({"detail": "Invalid verification link."}, status=400)
 
