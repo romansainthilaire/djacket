@@ -6,6 +6,7 @@ import SignupView from "../views/SignupView.vue"
 import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
 import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
+import LoginView from "../views/LoginView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,11 @@ const router = createRouter({
       path: "/resend-verification-email",
       name: "resend-verification-email",
       component: ResendVerificationEmailView
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView
     }
   ]
 })

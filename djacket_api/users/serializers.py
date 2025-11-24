@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from rest_framework.exceptions import AuthenticationFailed
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -107,7 +108,11 @@ class ChangePasswordSerializer(serializers.Serializer):
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
-        data = super().validate(attrs)
+        try:
+            data = super().validate(attrs)
+        except AuthenticationFailed:
+            raise serializers.ValidationError({"invalid_credentials": "Invalid username or password."})
+
         user: UserProfile = self.user
         if not user.email_verified:
             raise serializers.ValidationError({"email_verified": "Email not verified."})
