@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { useAuthStore } from "@/stores/auth"
 
+const auth = useAuthStore()
 const isOpen = ref<boolean>(false)
 
 const toggleMenu = () => {
@@ -25,7 +27,8 @@ const toggleMenu = () => {
           <RouterLink class="nav-link" to="/about">À propos</RouterLink>
         </div>
         <div class="auth">
-          <RouterLink class="login-button" to="/login">Connexion</RouterLink>
+          <template v-if="auth.user">{{ auth.user.username }}</template>
+          <RouterLink v-else class="login-button" to="/login">Connexion</RouterLink>
         </div>
       </nav>
 
