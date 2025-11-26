@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+const router = useRouter()
 const auth = useAuthStore()
+
 const isOpen = ref<boolean>(false)
 
-const toggleMenu = () => {
+function toggleMenu() {
   isOpen.value = !isOpen.value
+}
+
+function logout() {
+  auth.logout()
+  router.push("/login")
 }
 </script>
 
@@ -26,8 +34,16 @@ const toggleMenu = () => {
           <RouterLink class="nav-link" to="/">Accueil</RouterLink>
           <RouterLink class="nav-link" to="/about">À propos</RouterLink>
         </div>
-        <div class="auth">
-          <template v-if="auth.user">{{ auth.user.username }}</template>
+        <div class="auth" :class="{ 'logged-in': auth.user }">
+          <template v-if="auth.user">
+            <RouterLink class="nav-link" to="/user-settings">
+              <img class="user-icon" src="@/assets/user.svg" />
+              {{ auth.user.username }}
+            </RouterLink>
+            <button class="logout-button" @click="logout()">
+              <img src="@/assets/logout.svg" alt="Déconnexion" height="25" />
+            </button>
+          </template>
           <RouterLink v-else class="login-button" to="/login">Connexion</RouterLink>
         </div>
       </nav>
@@ -86,6 +102,31 @@ nav {
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+}
+
+.auth > .nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  width: 25px;
+  margin-right: 5px;
+}
+
+.logout-button {
+  background-color: var(--color-error);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 3px;
+  line-height: 0;
+  margin-left: 5px;
 }
 
 .login-button {
@@ -149,6 +190,14 @@ nav {
 
   .auth {
     margin: 20px 0;
+  }
+
+  .auth.logged-in {
+    margin: 10px 0;
+  }
+
+  .logout-button {
+    margin-left: 20px;
   }
 }
 </style>

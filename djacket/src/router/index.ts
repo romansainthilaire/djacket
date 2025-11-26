@@ -7,6 +7,7 @@ import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
 import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
 import LoginView from "../views/LoginView.vue"
+import UserSettingsView from "../views/UserSettingsView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,12 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView
+    },
+    {
+      path: "/user-settings",
+      name: "user-settings",
+      component: UserSettingsView,
+      meta: { loginRequired: true }
     }
   ]
 })
@@ -51,8 +58,7 @@ router.beforeEach(async (to, from, next) => {
     await auth.setUser()
   }
   if (!auth.user && to.meta.loginRequired) {
-    // TODO: user should be sent back to their original destination (redirect)
-    return next("/")
+    return next("/login")
   }
   next()
 })
