@@ -11,8 +11,8 @@ const {
   type = "button",
   disabled = false,
   color = "white",
-  bgColor = "rgb(0, 0, 140)",
-  hoverBgColor = "rgb(0, 0, 140)"
+  bgColor = "var(--color-primary)",
+  hoverBgColor = "var(--color-primary)"
 } = defineProps<Props>()
 </script>
 

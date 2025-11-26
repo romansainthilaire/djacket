@@ -81,7 +81,7 @@ watch(email, () => {
 
 h1 {
   margin-bottom: 10px;
-  color: rgb(0, 0, 140);
+  color: var(--color-primary);
   font-size: 25px;
 }
 
@@ -103,16 +103,16 @@ input {
   border: none;
   border-radius: 4px;
   outline: 1px solid rgb(200, 200, 200);
-  color: rgb(0, 0, 140);
+  color: var(--color-primary);
   font-size: 16px;
 }
 
 input:focus {
-  outline: 1px solid rgb(0, 0, 140);
+  outline: 1px solid var(--color-primary);
 }
 
 .error-message {
   margin-top: 15px;
-  color: rgb(220, 20, 80);
+  color: var(--color-error);
 }
 </style>

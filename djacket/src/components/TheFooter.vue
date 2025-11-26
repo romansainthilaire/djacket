@@ -18,7 +18,7 @@
 footer {
   display: flex;
   justify-content: center;
-  background-color: rgb(0, 0, 140);
+  background-color: var(--color-primary);
   color: white;
   font-size: 15px;
 }

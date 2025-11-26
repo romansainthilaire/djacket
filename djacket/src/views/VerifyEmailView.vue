@@ -118,7 +118,7 @@ button {
 }
 
 .error-message {
-  color: rgb(220, 20, 80);
+  color: var(--color-error);
 }
 
 .resend-container {

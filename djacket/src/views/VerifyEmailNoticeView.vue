@@ -15,7 +15,7 @@ const props = defineProps<{
 h1 {
   margin-top: 30px;
   margin-bottom: 10px;
-  color: rgb(0, 0, 140);
+  color: var(--color-primary);
   font-size: 25px;
 }
 

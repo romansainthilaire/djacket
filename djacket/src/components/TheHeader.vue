@@ -41,7 +41,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(0, 0, 140);
+  background-color: var(--color-primary);
   height: 65px;
 }
 

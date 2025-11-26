@@ -162,11 +162,11 @@ watch(password, () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(245, 245, 255);
+  background-color: var(--color-secondary);
 }
 
 h1 {
-  color: rgb(0, 0, 140);
+  color: var(--color-primary);
   font-size: 25px;
   font-weight: 600;
 }
@@ -193,18 +193,18 @@ input {
   border: none;
   border-radius: 4px;
   outline: 1px solid rgb(200, 200, 200);
-  color: rgb(0, 0, 140);
+  color: var(--color-primary);
   font-size: 16px;
 }
 
 input:focus {
-  outline: 1px solid rgb(0, 0, 140);
+  outline: 1px solid var(--color-primary);
 }
 
 .error-message {
   margin-top: 5px;
   font-size: 13px;
-  color: rgb(220, 20, 80);
+  color: var(--color-error);
 }
 
 .error-message.unknown {
@@ -237,7 +237,7 @@ input:focus {
 
 .password-validation-rules li.checked::before {
   content: "✔";
-  color: rgb(0, 150, 50);
+  color: var(--color-success);
 }
 
 .submit-button-container {
