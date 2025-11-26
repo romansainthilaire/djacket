@@ -6,7 +6,7 @@ const { size = "60px" } = defineProps<Props>()
 
 <template>
   <img
-    src="@/assets/loading-spinner.svg"
+    src="@/assets/svg-icons/loading-spinner.svg"
     alt="Chargement"
     :style="{ 'width': size, 'height': size }"
   />

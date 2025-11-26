@@ -25,7 +25,7 @@ function logout() {
       <div class="top">
         <div class="logo">Djacket</div>
         <button class="menu-button" @click="toggleMenu()">
-          <img src="@/assets/menu.svg" alt="Menu" />
+          <img src="@/assets/svg-icons/menu.svg" alt="Menu" />
         </button>
       </div>
 
@@ -37,11 +37,11 @@ function logout() {
         <div class="auth" :class="{ 'logged-in': auth.user }">
           <template v-if="auth.user">
             <RouterLink class="nav-link" to="/user-settings">
-              <img class="user-icon" src="@/assets/user.svg" />
+              <img class="user-icon" src="@/assets/svg-icons/user.svg" />
               {{ auth.user.username }}
             </RouterLink>
             <button class="logout-button" @click="logout()">
-              <img src="@/assets/logout.svg" alt="Déconnexion" height="25" />
+              <img src="@/assets/svg-icons/logout.svg" alt="Déconnexion" height="25" />
             </button>
           </template>
           <RouterLink v-else class="login-button" to="/login">Connexion</RouterLink>
