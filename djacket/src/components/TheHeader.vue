@@ -3,10 +3,13 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseModal from "./BaseModal.vue"
+
 const router = useRouter()
 const auth = useAuthStore()
 
-const isOpen = ref<boolean>(false)
+const isOpen = ref(false)
+const showLogoutModal = ref(false)
 
 function toggleMenu() {
   isOpen.value = !isOpen.value
@@ -40,13 +43,22 @@ function logout() {
               <img class="user-icon" src="@/assets/svg-icons/user.svg" />
               {{ auth.user.username }}
             </RouterLink>
-            <button class="logout-button" @click="logout()">
+            <button class="logout-button" @click="showLogoutModal = true">
               <img src="@/assets/svg-icons/logout.svg" alt="Déconnexion" height="25" />
             </button>
           </template>
           <RouterLink v-else class="login-button" to="/login">Connexion</RouterLink>
         </div>
       </nav>
+
+      <BaseModal
+        v-if="showLogoutModal"
+        title="Déconnexion"
+        text="Êtes-vous sûr de vouloir vous déconnecter ?"
+        show-confirm-button
+        @close="showLogoutModal = false"
+        @confirm="logout()"
+      />
 
     </div>
   </header>
@@ -79,8 +91,6 @@ header {
 .menu-button {
   display: none;
   background: none;
-  padding: 0;
-  line-height: 0;
 }
 
 nav {
@@ -121,11 +131,8 @@ nav {
 
 .logout-button {
   background-color: var(--color-error);
-  border: none;
-  cursor: pointer;
   border-radius: 4px;
   padding: 3px;
-  line-height: 0;
   margin-left: 5px;
 }
 
