@@ -1,3 +1,52 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth"
+
+const auth = useAuthStore()
+</script>
+
 <template>
-Paramètres utilisateurs
+  <div class="content">
+
+    <h1>Compte utilisateur</h1>
+
+    <div class="user-info">Date de création du compte : {{ auth.user?.createdAt }}</div>
+    <div class="user-info">Nom d'utilisateur : {{ auth.user?.username }}</div>
+    <div class="user-info">Adresse e-mail : {{ auth.user?.email }}</div>
+    <div class="user-info">
+      Mot de passe : ************
+      <RouterLink class="change-password-link" to="/change-password">Modifier</RouterLink>
+    </div>
+
+  </div>
 </template>
+
+<style scoped>
+.content {
+  padding-top: 30px;
+  padding-bottom: 50px
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: var(--color-primary);
+  font-size: 25px;
+}
+
+.user-info {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.change-password-link {
+  font-size: 16px;
+  margin-left: 10px;
+  color: rgb(20, 150, 250);
+  text-decoration: none;
+}
+
+.change-password-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+</style>
