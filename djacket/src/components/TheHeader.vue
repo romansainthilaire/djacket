@@ -39,7 +39,7 @@ function logout() {
         </div>
         <div class="auth" :class="{ 'logged-in': auth.user }">
           <template v-if="auth.user">
-            <RouterLink class="nav-link" to="/user-settings">
+            <RouterLink class="nav-link" to="/user-account">
               <img class="user-icon" src="@/assets/svg-icons/user.svg" />
               {{ auth.user.username }}
             </RouterLink>

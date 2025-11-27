@@ -7,7 +7,7 @@ import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
 import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
 import LoginView from "../views/LoginView.vue"
-import UserSettingsView from "../views/UserSettingsView.vue"
+import UserAccountView from "../views/UserAccountView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,9 +44,9 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: "/user-settings",
-      name: "user-settings",
-      component: UserSettingsView,
+      path: "/user-account",
+      name: "user-account",
+      component: UserAccountView,
       meta: { loginRequired: true }
     }
   ]
