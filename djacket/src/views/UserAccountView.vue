@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { ref, computed } from "vue"
+import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 const route = useRoute()
 const auth = useAuthStore()
 
-const modified = computed(() => route.query.modified == "true")
+const showSuccessMessage = ref(false)
 
-const showModifiedMessage = ref(modified.value)
-
-if (showModifiedMessage.value) {
-  setTimeout(() => showModifiedMessage.value = false, 4000)
-}
+onMounted(() => {
+  if (route.query.modified == "true") {
+    showSuccessMessage.value = true
+    setTimeout(() => showSuccessMessage.value = false, 4000)
+  }
+})
 </script>
 
 <template>
   <div class="content">
 
-    <div v-if="showModifiedMessage" class="modified-message">
+    <div v-if="showSuccessMessage" class="success-message">
       Modifications enregistrées avec succès.
     </div>
 
@@ -41,7 +42,7 @@ if (showModifiedMessage.value) {
   padding-bottom: 50px
 }
 
-.modified-message {
+.success-message {
   background-color: var(--color-success-light);
   color: var(--color-success);
   padding: 10px 15px;
