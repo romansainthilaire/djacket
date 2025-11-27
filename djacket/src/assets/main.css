@@ -1,8 +1,12 @@
 :root {
   --color-primary: rgb(0, 0, 140);
-  --color-secondary: rgb(245, 245, 255);
+  --color-primary-light: rgb(245, 245, 255);
+
   --color-success: rgb(0, 150, 50);
+  --color-success-light: rgb(220, 255, 220);
+
   --color-error: rgb(220, 20, 80);
+  --color-error-light: rgb(255, 220, 230);
 }
 
 body {

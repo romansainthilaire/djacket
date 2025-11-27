@@ -121,7 +121,7 @@ watch([email, password], () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary-light);
 }
 
 h1 {

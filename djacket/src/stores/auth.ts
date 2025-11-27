@@ -81,6 +81,13 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = response.data
   }
 
+  async function changePassword(oldPassword: string, newPassword: string) {
+    if (!user.value) {
+      return
+    }
+    await api.put("users/change-password/", { oldPassword, newPassword })
+  }
+
   return {
     token,
     user,
@@ -89,6 +96,7 @@ export const useAuthStore = defineStore("auth", () => {
     resendVerificationEmail,
     setUser,
     editUser,
+    changePassword,
     login,
     logout
   }

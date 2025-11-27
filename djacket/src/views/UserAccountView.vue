@@ -1,11 +1,26 @@
 <script setup lang="ts">
+import { ref, computed } from "vue"
+import { useRoute } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+const route = useRoute()
 const auth = useAuthStore()
+
+const modified = computed(() => route.query.modified == "true")
+
+const showModifiedMessage = ref(modified.value)
+
+if (showModifiedMessage.value) {
+  setTimeout(() => showModifiedMessage.value = false, 4000)
+}
 </script>
 
 <template>
   <div class="content">
+
+    <div v-if="showModifiedMessage" class="modified-message">
+      Modifications enregistrées avec succès.
+    </div>
 
     <h1>Compte utilisateur</h1>
 
@@ -24,6 +39,13 @@ const auth = useAuthStore()
 .content {
   padding-top: 30px;
   padding-bottom: 50px
+}
+
+.modified-message {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+  padding: 10px 15px;
+  margin-bottom: 20px;
 }
 
 h1 {

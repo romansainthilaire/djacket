@@ -8,6 +8,7 @@ import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
 import LoginView from "../views/LoginView.vue"
 import UserAccountView from "../views/UserAccountView.vue"
+import ChangePasswordView from "../views/ChangePasswordView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +48,12 @@ const router = createRouter({
       path: "/user-account",
       name: "user-account",
       component: UserAccountView,
+      meta: { loginRequired: true }
+    },
+    {
+      path: "/change-password",
+      name: "change-password",
+      component: ChangePasswordView,
       meta: { loginRequired: true }
     }
   ]

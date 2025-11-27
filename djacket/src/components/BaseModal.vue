@@ -84,7 +84,7 @@ function confirm() {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary-light);
 }
 
 .modal-title {

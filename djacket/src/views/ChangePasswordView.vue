@@ -9,61 +9,45 @@ import BaseButton from "@/components/BaseButton.vue"
 const router = useRouter()
 const auth = useAuthStore()
 
-const email = ref("")
-const username = ref("")
-const password = ref("")
+const oldPassword = ref("")
+const newPassword = ref("")
 
 const loading = ref(false)
 
-const emailErrorMessage = ref("")
-const usernameErrorMessage = ref("")
-const passwordErrorMessage = ref("")
+const oldPasswordErrorMessage = ref("")
+const newPasswordErrorMessage = ref("")
 const unknownErrorMessage = ref("")
 
 const passwordValidationRules = computed((): Array<{ text: string, checked: boolean }> => [
-  { text: "Au moins 8 caractères", checked: password.value.length >= 8 },
-  { text: "Une lettre majuscule", checked: /[A-Z]/.test(password.value) },
-  { text: "Une lettre minuscule", checked: /[a-z]/.test(password.value) },
-  { text: "Un chiffre", checked: /\d/.test(password.value) },
-  { text: "Un caractère spécial (!@#$%^&* etc.)", checked: /[!@#$%^&*(),.?":{}|<>]/.test(password.value) }
+  { text: "Au moins 8 caractères", checked: newPassword.value.length >= 8 },
+  { text: "Une lettre majuscule", checked: /[A-Z]/.test(newPassword.value) },
+  { text: "Une lettre minuscule", checked: /[a-z]/.test(newPassword.value) },
+  { text: "Un chiffre", checked: /\d/.test(newPassword.value) },
+  { text: "Un caractère spécial (!@#$%^&* etc.)", checked: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword.value) }
 ])
 
-const usernameIsValid = computed((): boolean =>
-  username.value.length >= 3 && username.value.length <= 30
-)
-
-const passwordIsValid = computed((): boolean =>
+const newPasswordIsValid = computed(() =>
   passwordValidationRules.value.every(rule => rule.checked)
 )
 
-function validateForm(): boolean {
-  let isValid = true
-  if (!usernameIsValid.value) {
-    usernameErrorMessage.value = "Le nom d'utilisateur doit contenir entre 3 et 30 caractères."
-    isValid = false
-  }
-  if (!passwordIsValid.value) {
-    passwordErrorMessage.value = "Le mot de passe ne respecte pas les règles de sécurité."
-    isValid = false
-  }
-  return isValid
-}
-
-async function signup() {
+async function changePassword() {
   unknownErrorMessage.value = ""
-  if (!validateForm()) {
+  if (!newPasswordIsValid.value) {
+    newPasswordErrorMessage.value = "Le nouveau mot de passe ne respecte pas les règles de sécurité."
+    return
+  } else if (oldPassword.value == newPassword.value) {
+    newPasswordErrorMessage.value = "Le nouveau mot de passe doit être différent de l'ancien."
     return
   }
   loading.value = true
   try {
-    await auth.signup(email.value, username.value, password.value)
-    router.push({ name: "verify-email-notice", params: { email: email.value } })
+    await auth.changePassword(oldPassword.value, newPassword.value)
+    router.push({ path: "/user-account", query: { modified: "true" } })
   } catch (error: any) {
     if (error.response?.data) {
       const data = error.response.data
-      emailErrorMessage.value = data.email ? data.email.join(" ") : ""
-      usernameErrorMessage.value = data.username ? data.username.join(" ") : ""
-      passwordErrorMessage.value = data.password ? data.password.join(" ") : ""
+      oldPasswordErrorMessage.value = data.old_password ? "Mot de passe incorrect." : ""
+      newPasswordErrorMessage.value = data.new_password ? data.new_password.join(" ") : ""
     } else {
       unknownErrorMessage.value = "Une erreur est survenue. Veuillez réessayer plus tard."
     }
@@ -72,18 +56,13 @@ async function signup() {
   }
 }
 
-watch(email, () => {
-  emailErrorMessage.value = ""
+watch(oldPassword, () => {
+  oldPasswordErrorMessage.value = ""
   unknownErrorMessage.value = ""
 })
 
-watch(username, () => {
-  usernameErrorMessage.value = ""
-  unknownErrorMessage.value = ""
-})
-
-watch(password, () => {
-  passwordErrorMessage.value = ""
+watch(newPassword, () => {
+  newPasswordErrorMessage.value = ""
   unknownErrorMessage.value = ""
 })
 </script>
@@ -93,27 +72,21 @@ watch(password, () => {
     <div class="card">
 
       <div class="header">
-        <h1>Inscription</h1>
+        <h1>Modification du mot de passe</h1>
       </div>
 
-      <form @submit.prevent="signup()">
-        
+      <form @submit.prevent="changePassword()">
+
         <div class="form-field">
-          <label for="email">Adresse e-mail</label>
-          <input v-model="email" id="email" type="email" required />
-          <p v-if="emailErrorMessage" class="error-message">{{ emailErrorMessage }}</p>
+          <label for="old-password">Mot de passe actuel</label>
+          <input v-model="oldPassword" id="old-password" type="password" required />
+          <p v-if="oldPasswordErrorMessage" class="error-message">{{ oldPasswordErrorMessage }}</p>
         </div>
 
         <div class="form-field">
-          <label for="username">Nom d'utilisateur</label>
-          <input v-model="username" id="username" type="text" required />
-          <p v-if="usernameErrorMessage" class="error-message">{{ usernameErrorMessage }}</p>
-        </div>
-
-        <div class="form-field">
-          <label for="password">Mot de passe</label>
-          <input v-model="password" id="password" type="password" required />
-          <p v-if="passwordErrorMessage" class="error-message">{{ passwordErrorMessage }}</p>
+          <label for="new-password">Nouveau mot de passe</label>
+          <input v-model="newPassword" id="new-password" type="password" required />
+          <p v-if="newPasswordErrorMessage" class="error-message">{{ newPasswordErrorMessage }}</p>
           <div class="password-validation-rules">
             Doit inclure :
             <ul>
@@ -125,18 +98,13 @@ watch(password, () => {
         </div>
 
         <p v-if="unknownErrorMessage" class="error-message unknown">{{ unknownErrorMessage }}</p>
-        
+
         <div class="submit-button-container">
           <BaseLoadingSpinner v-if="loading" />
-          <BaseButton v-else type="submit">Créer mon compte</BaseButton>
+          <BaseButton v-else type="submit">Changer mon mot de passe</BaseButton>
         </div>
 
       </form>
-
-      <div class="footer">
-        <span class="footer-text">Vous avez déjà un compte ?</span>
-        <RouterLink class="footer-link" to="/login">Me connecter</RouterLink>
-      </div>
 
     </div>
   </div>
@@ -245,28 +213,6 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.footer {
-  text-align: center;
-  padding-bottom: 30px;
-}
-
-.footer-text {
-  color: rgb(100, 100, 100);
-  font-size: 13px;
-}
-
-.footer-link {
-  font-size: 16px;
-  margin-left: 10px;
-  color: rgb(20, 150, 250);
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 2px;
 }
 
 @media (max-width: 600px) {
