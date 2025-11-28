@@ -54,18 +54,18 @@ watch([email, password], () => {
   <BaseForm title="Connexion" @submit="login()">
 
     <BaseFormField
-      id="email"
-      label="Adresse e-mail"
       v-model="email"
+      id="email"
       type="email"
+      label="Adresse e-mail"
       required
     />
 
     <BaseFormField
-      id="password"
-      label="Mot de passe"
       v-model="password"
+      id="password"
       type="password"
+      label="Mot de passe"
       required
     />
 

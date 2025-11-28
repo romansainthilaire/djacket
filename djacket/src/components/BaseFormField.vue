@@ -1,21 +1,21 @@
 <script setup lang="ts">
 type Props = {
   id: string
-  label?: string
   type: "text" | "email" | "password"
+  label?: string
   required?: boolean
   errorMessage?: string
 }
 
 const {
   id,
-  label,
   type = "text",
+  label = "",
   required = false,
-  errorMessage
+  errorMessage = ""
 } = defineProps<Props>()
 
-const value = defineModel<string>()
+const value = defineModel<string>({ required: true })
 </script>
 
 <template>

@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
 import BaseFormField from "@/components/BaseFormField.vue"
+import PasswordFieldWithValidation from "@/components/PasswordFieldWithValidation.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -14,6 +15,7 @@ const auth = useAuthStore()
 const email = ref("")
 const username = ref("")
 const password = ref("")
+const passwordField = ref()
 
 const loading = ref(false)
 
@@ -22,20 +24,8 @@ const usernameErrorMessage = ref("")
 const passwordErrorMessage = ref("")
 const unknownErrorMessage = ref("")
 
-const passwordValidationRules = computed((): Array<{ text: string, checked: boolean }> => [
-  { text: "Au moins 8 caractères", checked: password.value.length >= 8 },
-  { text: "Une lettre majuscule", checked: /[A-Z]/.test(password.value) },
-  { text: "Une lettre minuscule", checked: /[a-z]/.test(password.value) },
-  { text: "Un chiffre", checked: /\d/.test(password.value) },
-  { text: "Un caractère spécial (!@#$%^&* etc.)", checked: /[!@#$%^&*(),.?":{}|<>]/.test(password.value) }
-])
-
 const usernameIsValid = computed((): boolean =>
   username.value.length >= 3 && username.value.length <= 30
-)
-
-const passwordIsValid = computed((): boolean =>
-  passwordValidationRules.value.every(rule => rule.checked)
 )
 
 function validateForm(): boolean {
@@ -44,7 +34,7 @@ function validateForm(): boolean {
     usernameErrorMessage.value = "Le nom d'utilisateur doit contenir entre 3 et 30 caractères."
     isValid = false
   }
-  if (!passwordIsValid.value) {
+  if (!passwordField.value.passwordIsValid) {
     passwordErrorMessage.value = "Le mot de passe ne respecte pas les règles de sécurité."
     isValid = false
   }
@@ -94,40 +84,31 @@ watch(password, () => {
   <BaseForm title="Inscription" @submit="signup()">
 
     <BaseFormField
-      id="email"
-      label="Adresse e-mail"
       v-model="email"
+      id="email"
       type="email"
+      label="Adresse e-mail"
       required
       :error-message="emailErrorMessage"
     />
 
     <BaseFormField
-      id="username"
-      label="Nom d'utilisateur"
       v-model="username"
+      id="username"
       type="text"
+      label="Nom d'utilisateur"
       required
       :error-message="usernameErrorMessage"
     />
 
-    <BaseFormField
+    <PasswordFieldWithValidation
+      v-model="password"
+      ref="passwordField"
       id="password"
       label="Mot de passe"
-      v-model="password"
-      type="password"
       required
       :error-message="passwordErrorMessage"
     />
-
-    <div class="password-validation-rules">
-      Doit inclure :
-      <ul>
-        <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
-          <span>{{ rule.text }}</span>
-        </li>
-      </ul>
-    </div>
 
     <p v-if="unknownErrorMessage" class="error-message">{{ unknownErrorMessage }}</p>
     
@@ -149,35 +130,6 @@ watch(password, () => {
   margin-top: 15px;
   font-size: 13px;
   color: var(--color-error);
-}
-
-.password-validation-rules {
-  margin-top: 10px;
-  font-size: 13px;
-  color: rgb(100, 100, 100);
-}
-
-.password-validation-rules ul {
-  list-style: none;
-  margin-top: 5px;
-}
-
-.password-validation-rules li {
-  position: relative;
-  padding-left: 20px;
-}
-
-.password-validation-rules li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  width: 15px;
-  text-align: center;
-}
-
-.password-validation-rules li.checked::before {
-  content: "✔";
-  color: var(--color-success);
 }
 
 .submit-button-container {
