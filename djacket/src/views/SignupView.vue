@@ -3,6 +3,7 @@ import { ref, computed, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseForm from "@/components/BaseForm.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -89,92 +90,50 @@ watch(password, () => {
 </script>
 
 <template>
-  <div class="content">
-    <div class="card">
-
-      <div class="header">
-        <h1>Inscription</h1>
-      </div>
-
-      <form @submit.prevent="signup()">
-        
-        <div class="form-field">
-          <label for="email">Adresse e-mail</label>
-          <input v-model="email" id="email" type="email" required />
-          <p v-if="emailErrorMessage" class="error-message">{{ emailErrorMessage }}</p>
-        </div>
-
-        <div class="form-field">
-          <label for="username">Nom d'utilisateur</label>
-          <input v-model="username" id="username" type="text" required />
-          <p v-if="usernameErrorMessage" class="error-message">{{ usernameErrorMessage }}</p>
-        </div>
-
-        <div class="form-field">
-          <label for="password">Mot de passe</label>
-          <input v-model="password" id="password" type="password" required />
-          <p v-if="passwordErrorMessage" class="error-message">{{ passwordErrorMessage }}</p>
-          <div class="password-validation-rules">
-            Doit inclure :
-            <ul>
-              <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
-                <span>{{ rule.text }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <p v-if="unknownErrorMessage" class="error-message unknown">{{ unknownErrorMessage }}</p>
-        
-        <div class="submit-button-container">
-          <BaseLoadingSpinner v-if="loading" />
-          <BaseButton v-else type="submit">Créer mon compte</BaseButton>
-        </div>
-
-      </form>
-
-      <div class="footer">
-        <span class="footer-text">Vous avez déjà un compte ?</span>
-        <RouterLink class="footer-link" to="/login">Me connecter</RouterLink>
-      </div>
-
+  <BaseForm title="Inscription" @submit="signup()">
+      
+    <div class="form-field">
+      <label for="email">Adresse e-mail</label>
+      <input v-model="email" id="email" type="email" required />
+      <p v-if="emailErrorMessage" class="error-message">{{ emailErrorMessage }}</p>
     </div>
-  </div>
+
+    <div class="form-field">
+      <label for="username">Nom d'utilisateur</label>
+      <input v-model="username" id="username" type="text" required />
+      <p v-if="usernameErrorMessage" class="error-message">{{ usernameErrorMessage }}</p>
+    </div>
+
+    <div class="form-field">
+      <label for="password">Mot de passe</label>
+      <input v-model="password" id="password" type="password" required />
+      <p v-if="passwordErrorMessage" class="error-message">{{ passwordErrorMessage }}</p>
+      <div class="password-validation-rules">
+        Doit inclure :
+        <ul>
+          <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
+            <span>{{ rule.text }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p v-if="unknownErrorMessage" class="error-message unknown">{{ unknownErrorMessage }}</p>
+    
+    <div class="submit-button-container">
+      <BaseLoadingSpinner v-if="loading" />
+      <BaseButton v-else type="submit">Créer mon compte</BaseButton>
+    </div>
+
+    <div class="footer">
+      <span class="footer-text">Vous avez déjà un compte ?</span>
+      <RouterLink class="footer-link" to="/login">Me connecter</RouterLink>
+    </div>
+
+  </BaseForm>
 </template>
 
 <style scoped>
-.content {
-  display: flex;
-  justify-content: center;
-  padding-top: 60px;
-  padding-bottom: 100px;
-}
-
-.card {
-  width: 100%;
-  max-width: 450px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.header {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary-light);
-}
-
-h1 {
-  color: var(--color-primary);
-  font-size: 25px;
-  font-weight: 600;
-}
-
-form {
-  padding: 0 30px;
-}
-
 .form-field {
   display: flex;
   flex-direction: column;
@@ -267,27 +226,5 @@ input:focus {
 .footer-link:hover {
   text-decoration: underline;
   text-underline-offset: 2px;
-}
-
-@media (max-width: 600px) {
-  .content {
-    padding-top: 0;
-    padding-bottom: 50px;
-  }
-
-  .header {
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-
-  form {
-    padding: 0;
-  }
-
-  .card {
-    max-width: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
 }
 </style>
