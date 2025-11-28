@@ -4,6 +4,7 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
+import BaseFormField from "@/components/BaseFormField.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -91,34 +92,44 @@ watch(password, () => {
 
 <template>
   <BaseForm title="Inscription" @submit="signup()">
-      
-    <div class="form-field">
-      <label for="email">Adresse e-mail</label>
-      <input v-model="email" id="email" type="email" required />
-      <p v-if="emailErrorMessage" class="error-message">{{ emailErrorMessage }}</p>
+
+    <BaseFormField
+      id="email"
+      label="Adresse e-mail"
+      v-model="email"
+      type="email"
+      required
+      :error-message="emailErrorMessage"
+    />
+
+    <BaseFormField
+      id="username"
+      label="Nom d'utilisateur"
+      v-model="username"
+      type="text"
+      required
+      :error-message="usernameErrorMessage"
+    />
+
+    <BaseFormField
+      id="password"
+      label="Mot de passe"
+      v-model="password"
+      type="password"
+      required
+      :error-message="passwordErrorMessage"
+    />
+
+    <div class="password-validation-rules">
+      Doit inclure :
+      <ul>
+        <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
+          <span>{{ rule.text }}</span>
+        </li>
+      </ul>
     </div>
 
-    <div class="form-field">
-      <label for="username">Nom d'utilisateur</label>
-      <input v-model="username" id="username" type="text" required />
-      <p v-if="usernameErrorMessage" class="error-message">{{ usernameErrorMessage }}</p>
-    </div>
-
-    <div class="form-field">
-      <label for="password">Mot de passe</label>
-      <input v-model="password" id="password" type="password" required />
-      <p v-if="passwordErrorMessage" class="error-message">{{ passwordErrorMessage }}</p>
-      <div class="password-validation-rules">
-        Doit inclure :
-        <ul>
-          <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
-            <span>{{ rule.text }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <p v-if="unknownErrorMessage" class="error-message unknown">{{ unknownErrorMessage }}</p>
+    <p v-if="unknownErrorMessage" class="error-message">{{ unknownErrorMessage }}</p>
     
     <div class="submit-button-container">
       <BaseLoadingSpinner v-if="loading" />
@@ -134,40 +145,10 @@ watch(password, () => {
 </template>
 
 <style scoped>
-.form-field {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-label {
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  outline: 1px solid rgb(200, 200, 200);
-  color: var(--color-primary);
-  font-size: 16px;
-}
-
-input:focus {
-  outline: 1px solid var(--color-primary);
-}
-
 .error-message {
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 13px;
   color: var(--color-error);
-}
-
-.error-message.unknown {
-  margin-top: 15px;
 }
 
 .password-validation-rules {

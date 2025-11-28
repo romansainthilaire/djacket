@@ -4,6 +4,7 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
+import BaseFormField from "@/components/BaseFormField.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -52,15 +53,21 @@ watch([email, password], () => {
 <template>
   <BaseForm title="Connexion" @submit="login()">
 
-    <div class="form-field">
-      <label for="email">Adresse e-mail</label>
-      <input v-model="email" id="email" type="email" required />
-    </div>
+    <BaseFormField
+      id="email"
+      label="Adresse e-mail"
+      v-model="email"
+      type="email"
+      required
+    />
 
-    <div class="form-field">
-      <label for="password">Mot de passe</label>
-      <input v-model="password" id="password" type="password" required />
-    </div>
+    <BaseFormField
+      id="password"
+      label="Mot de passe"
+      v-model="password"
+      type="password"
+      required
+    />
 
     <p v-if="invalidCredentialsError" class="error-message">
       Nom d'utilisateur ou mot de passe incorrect.
@@ -93,32 +100,6 @@ watch([email, password], () => {
 </template>
 
 <style scoped>
-.form-field {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-label {
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  outline: 1px solid rgb(200, 200, 200);
-  color: var(--color-primary);
-  font-size: 16px;
-}
-
-input:focus {
-  outline: 1px solid var(--color-primary);
-}
-
 .error-message {
   margin-top: 20px;
   font-size: 13px;

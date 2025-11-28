@@ -4,6 +4,7 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
+import BaseFormField from "@/components/BaseFormField.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -71,27 +72,34 @@ watch(newPassword, () => {
 <template>
   <BaseForm title="Modification du mot de passe" @submit="changePassword()">
 
-    <div class="form-field">
-      <label for="old-password">Mot de passe actuel</label>
-      <input v-model="oldPassword" id="old-password" type="password" required />
-      <p v-if="oldPasswordErrorMessage" class="error-message">{{ oldPasswordErrorMessage }}</p>
+    <BaseFormField
+      id="old-password"
+      label="Mot de passe actuel"
+      v-model="oldPassword"
+      type="password"
+      required
+      :error-message="oldPasswordErrorMessage"
+    />
+
+    <BaseFormField
+      id="new-password"
+      label="Nouveau mot de passe"
+      v-model="newPassword"
+      type="password"
+      required
+      :error-message="newPasswordErrorMessage"
+    />
+
+    <div class="password-validation-rules">
+      Doit inclure :
+      <ul>
+        <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
+          <span>{{ rule.text }}</span>
+        </li>
+      </ul>
     </div>
 
-    <div class="form-field">
-      <label for="new-password">Nouveau mot de passe</label>
-      <input v-model="newPassword" id="new-password" type="password" required />
-      <p v-if="newPasswordErrorMessage" class="error-message">{{ newPasswordErrorMessage }}</p>
-      <div class="password-validation-rules">
-        Doit inclure :
-        <ul>
-          <li v-for="rule in passwordValidationRules" :key="rule.text" :class="{ 'checked': rule.checked }">
-            <span>{{ rule.text }}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <p v-if="unknownErrorMessage" class="error-message unknown">{{ unknownErrorMessage }}</p>
+    <p v-if="unknownErrorMessage" class="error-message">{{ unknownErrorMessage }}</p>
 
     <div class="submit-button-container">
       <BaseLoadingSpinner v-if="loading" />
@@ -102,40 +110,10 @@ watch(newPassword, () => {
 </template>
 
 <style scoped>
-.form-field {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-label {
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  outline: 1px solid rgb(200, 200, 200);
-  color: var(--color-primary);
-  font-size: 16px;
-}
-
-input:focus {
-  outline: 1px solid var(--color-primary);
-}
-
 .error-message {
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 13px;
   color: var(--color-error);
-}
-
-.error-message.unknown {
-  margin-top: 15px;
 }
 
 .password-validation-rules {
