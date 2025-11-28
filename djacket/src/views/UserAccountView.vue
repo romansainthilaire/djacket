@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
+import { formatDate } from "@/utils/format"
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -25,7 +26,7 @@ onMounted(() => {
 
     <h1>Compte utilisateur</h1>
 
-    <div class="user-info">Date de création du compte : {{ auth.user?.createdAt }}</div>
+    <div class="user-info">Date de création du compte : {{ formatDate(auth.user?.createdAt) }}</div>
     <div class="user-info">Nom d'utilisateur : {{ auth.user?.username }}</div>
     <div class="user-info">Adresse e-mail : {{ auth.user?.email }}</div>
     <div class="user-info">
