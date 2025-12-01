@@ -4,7 +4,7 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
-import BaseFormField from "@/components/BaseFormField.vue"
+import BaseInput from "@/components/BaseInput.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -53,7 +53,7 @@ watch([email, password], () => {
 <template>
   <BaseForm title="Connexion" @submit="login()">
 
-    <BaseFormField
+    <BaseInput
       v-model="email"
       id="email"
       type="email"
@@ -61,7 +61,7 @@ watch([email, password], () => {
       required
     />
 
-    <BaseFormField
+    <BaseInput
       v-model="password"
       id="password"
       type="password"

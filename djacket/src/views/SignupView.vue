@@ -4,8 +4,8 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
-import BaseFormField from "@/components/BaseFormField.vue"
-import PasswordFieldWithValidation from "@/components/PasswordFieldWithValidation.vue"
+import BaseInput from "@/components/BaseInput.vue"
+import BasePasswordInputWithValidation from "@/components/BasePasswordInputWithValidation.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -83,7 +83,7 @@ watch(password, () => {
 <template>
   <BaseForm title="Inscription" @submit="signup()">
 
-    <BaseFormField
+    <BaseInput
       v-model="email"
       id="email"
       type="email"
@@ -92,7 +92,7 @@ watch(password, () => {
       :error-message="emailErrorMessage"
     />
 
-    <BaseFormField
+    <BaseInput
       v-model="username"
       id="username"
       type="text"
@@ -101,7 +101,7 @@ watch(password, () => {
       :error-message="usernameErrorMessage"
     />
 
-    <PasswordFieldWithValidation
+    <BasePasswordInputWithValidation
       v-model="password"
       ref="passwordField"
       id="password"

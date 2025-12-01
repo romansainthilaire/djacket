@@ -4,8 +4,8 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
-import BaseFormField from "@/components/BaseFormField.vue"
-import PasswordFieldWithValidation from "@/components/PasswordFieldWithValidation.vue"
+import BaseInput from "@/components/BaseInput.vue"
+import BasePasswordInputWithValidation from "@/components/BasePasswordInputWithValidation.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -62,7 +62,7 @@ watch(newPassword, () => {
 <template>
   <BaseForm title="Modification du mot de passe" @submit="changePassword()">
 
-    <BaseFormField
+    <BaseInput
       v-model="oldPassword"
       id="old-password"
       type="password"
@@ -71,7 +71,7 @@ watch(newPassword, () => {
       :error-message="oldPasswordErrorMessage"
     />
 
-    <PasswordFieldWithValidation
+    <BasePasswordInputWithValidation
       v-model="newPassword"
       ref="newPasswordField"
       id="new-password"

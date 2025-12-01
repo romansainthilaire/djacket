@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import BaseFormField from "@/components/BaseFormField.vue"
+import BaseInput from "@/components/BaseInput.vue"
 
 type Props = {
   id: string
@@ -37,7 +37,7 @@ defineExpose({
 
 <template>
 
-  <BaseFormField
+  <BaseInput
     v-model="password"
     type="password"
     :id="id"
