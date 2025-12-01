@@ -114,7 +114,6 @@ watch([email, password], () => {
 
 .resend-link {
   color: var(--color-error);
-  text-underline-offset: 2px;
 }
 
 .submit-button-container {
