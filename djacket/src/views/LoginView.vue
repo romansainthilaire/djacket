@@ -92,8 +92,10 @@ watch([email, password], () => {
     </div>
 
     <div class="footer">
-      <span class="footer-text">Vous n'avez pas de compte ?</span>
+      <div class="footer-text">Vous n'avez pas encore de compte ?</div>
       <RouterLink class="footer-link" to="/signup">Créer mon compte</RouterLink>
+      <div class="footer-text">Vous ne vous souvenez plus de votre mot de passe ?</div>
+      <RouterLink class="footer-link" to="/forgot-password">Mot de passe oublié</RouterLink>
     </div>
 
   </BaseForm>
@@ -128,19 +130,18 @@ watch([email, password], () => {
 }
 
 .footer-text {
-  color: rgb(100, 100, 100);
   font-size: 13px;
+  color: rgb(100, 100, 100);
+  margin-bottom: 5px;
+}
+
+.footer-text:last-of-type {
+  margin-top: 15px;
 }
 
 .footer-link {
-  font-size: 16px;
-  margin-left: 10px;
+  font-size: 14px;
   color: rgb(20, 150, 250);
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
   text-underline-offset: 2px;
 }
 </style>

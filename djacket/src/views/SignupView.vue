@@ -118,7 +118,7 @@ watch(password, () => {
     </div>
 
     <div class="footer">
-      <span class="footer-text">Vous avez déjà un compte ?</span>
+      <div class="footer-text">Vous possédez déjà un compte ?</div>
       <RouterLink class="footer-link" to="/login">Me connecter</RouterLink>
     </div>
 
@@ -145,19 +145,14 @@ watch(password, () => {
 }
 
 .footer-text {
-  color: rgb(100, 100, 100);
   font-size: 13px;
+  color: rgb(100, 100, 100);
+  margin-bottom: 5px;
 }
 
 .footer-link {
-  font-size: 16px;
-  margin-left: 10px;
+  font-size: 14px;
   color: rgb(20, 150, 250);
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  text-decoration: underline;
   text-underline-offset: 2px;
 }
 </style>
