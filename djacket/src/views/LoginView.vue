@@ -141,7 +141,5 @@ watch([email, password], () => {
 
 .footer-link {
   font-size: 14px;
-  color: rgb(20, 150, 250);
-  text-underline-offset: 2px;
 }
 </style>

@@ -34,3 +34,8 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+a {
+  color: rgb(20, 150, 250);
+  text-underline-offset: 2px;
+}
