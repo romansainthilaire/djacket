@@ -63,14 +63,9 @@ h1 {
 }
 
 .change-password-link {
-  font-size: 16px;
-  margin-left: 10px;
+  font-size: 14px;
   color: rgb(20, 150, 250);
-  text-decoration: none;
-}
-
-.change-password-link:hover {
-  text-decoration: underline;
   text-underline-offset: 2px;
+  margin-left: 10px;
 }
 </style>
