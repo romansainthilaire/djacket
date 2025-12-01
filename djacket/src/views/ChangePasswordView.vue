@@ -5,7 +5,7 @@ import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
 import BaseInput from "@/components/BaseInput.vue"
-import BasePasswordInputWithValidation from "@/components/BasePasswordInputWithValidation.vue"
+import BaseInputPasswordWithValidation from "@/components/BaseInputPasswordWithValidation.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -71,7 +71,7 @@ watch(newPassword, () => {
       :error-message="oldPasswordErrorMessage"
     />
 
-    <BasePasswordInputWithValidation
+    <BaseInputPasswordWithValidation
       v-model="newPassword"
       ref="newPasswordField"
       id="new-password"
