@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { ref, useTemplateRef, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
@@ -14,8 +14,7 @@ const auth = useAuthStore()
 
 const oldPassword = ref("")
 const newPassword = ref("")
-const newPasswordRef = ref()
-
+const newPasswordRef = useTemplateRef("newPasswordRef")
 const loading = ref(false)
 
 const oldPasswordErrorMessage = ref("")
@@ -24,7 +23,7 @@ const unknownErrorMessage = ref("")
 
 async function changePassword() {
   unknownErrorMessage.value = ""
-  if (!newPasswordRef.value.passwordIsValid) {
+  if (!newPasswordRef.value?.passwordIsValid) {
     newPasswordErrorMessage.value = "Le nouveau mot de passe ne respecte pas les règles de sécurité."
     return
   } else if (oldPassword.value == newPassword.value) {
