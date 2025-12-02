@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type Props = {
   id: string
-  type: "text" | "email" | "password"
+  type: "text" | "email"
   label?: string
   required?: boolean
   errorMessage?: string

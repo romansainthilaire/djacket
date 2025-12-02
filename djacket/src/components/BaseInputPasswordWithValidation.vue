@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import BaseInput from "@/components/BaseInput.vue"
+import BaseInputPassword from "@/components/BaseInputPassword.vue"
 
 type Props = {
   id: string
@@ -37,9 +37,8 @@ defineExpose({
 
 <template>
 
-  <BaseInput
+  <BaseInputPassword
     v-model="password"
-    type="password"
     :id="id"
     :label="label"
     :required="required"

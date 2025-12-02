@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
 import BaseInput from "@/components/BaseInput.vue"
+import BaseInputPassword from "@/components/BaseInputPassword.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
@@ -61,10 +62,9 @@ watch([email, password], () => {
       required
     />
 
-    <BaseInput
+    <BaseInputPassword
       v-model="password"
       id="password"
-      type="password"
       label="Mot de passe"
       required
     />

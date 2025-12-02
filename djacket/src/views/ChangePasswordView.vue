@@ -4,7 +4,7 @@ import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
 import BaseForm from "@/components/BaseForm.vue"
-import BaseInput from "@/components/BaseInput.vue"
+import BaseInputPassword from "@/components/BaseInputPassword.vue"
 import BaseInputPasswordWithValidation from "@/components/BaseInputPasswordWithValidation.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
@@ -14,7 +14,7 @@ const auth = useAuthStore()
 
 const oldPassword = ref("")
 const newPassword = ref("")
-const newPasswordField = ref()
+const newPasswordRef = ref()
 
 const loading = ref(false)
 
@@ -24,7 +24,7 @@ const unknownErrorMessage = ref("")
 
 async function changePassword() {
   unknownErrorMessage.value = ""
-  if (!newPasswordField.value.passwordIsValid) {
+  if (!newPasswordRef.value.passwordIsValid) {
     newPasswordErrorMessage.value = "Le nouveau mot de passe ne respecte pas les règles de sécurité."
     return
   } else if (oldPassword.value == newPassword.value) {
@@ -62,10 +62,9 @@ watch(newPassword, () => {
 <template>
   <BaseForm title="Modification du mot de passe" @submit="changePassword()">
 
-    <BaseInput
+    <BaseInputPassword
       v-model="oldPassword"
       id="old-password"
-      type="password"
       label="Mot de passe actuel"
       required
       :error-message="oldPasswordErrorMessage"
@@ -73,7 +72,7 @@ watch(newPassword, () => {
 
     <BaseInputPasswordWithValidation
       v-model="newPassword"
-      ref="newPasswordField"
+      ref="newPasswordRef"
       id="new-password"
       label="Nouveau mot de passe"
       required
