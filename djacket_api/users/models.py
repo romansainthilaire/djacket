@@ -30,7 +30,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(auto_now=True)
 
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=30, unique=True, validators=[MinLengthValidator(3)])
+    username = models.CharField(max_length=15, unique=True, validators=[MinLengthValidator(3)])
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

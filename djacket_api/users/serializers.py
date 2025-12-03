@@ -1,5 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
@@ -25,9 +26,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         required=True,
         validators=[
+            MinLengthValidator(3),
+            MaxLengthValidator(15),
             UniqueValidator(
                 queryset=UserProfile.objects.all(),
                 message="Ce nom d'utilisateur est déjà pris."
+            ),
+            RegexValidator(
+                regex=r"^(?!.*_{2})[A-Za-z0-9](?:[A-Za-z0-9_]*[A-Za-z0-9])$",
+                message=(
+                    'Caractères autorisés : lettres, chiffres et "_". '
+                    'Ne peut pas commencer ou finir par "_", ni contenir deux "_" consécutifs.'
+                )
             )
         ]
     )

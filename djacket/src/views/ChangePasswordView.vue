@@ -82,7 +82,7 @@ watch(newPassword, () => {
 
     <div class="submit-button-container">
       <BaseLoadingSpinner v-if="loading" />
-      <BaseButton v-else type="submit">Changer mon mot de passe</BaseButton>
+      <BaseButton v-else type="submit">Enregistrer</BaseButton>
     </div>
 
   </BaseForm>

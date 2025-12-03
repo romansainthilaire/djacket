@@ -44,7 +44,7 @@ async function togglePasswordVisibility() {
         @focus="outlineColor = 'var(--color-primary)'"
         @blur="outlineColor = 'rgb(200, 200, 200)'"
       />
-      <button @click.prevent="togglePasswordVisibility()">
+      <button type="button" @click.prevent="togglePasswordVisibility()">
         <img v-if="!showPassword" src="@/assets/svg-icons/eye.svg" alt="Montrer le mot de passe">
         <img v-else src="@/assets/svg-icons/eye-off.svg" alt="Cacher le mot de passe">
       </button>

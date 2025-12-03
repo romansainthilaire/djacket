@@ -8,6 +8,7 @@ import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
 import LoginView from "../views/LoginView.vue"
 import UserAccountView from "../views/UserAccountView.vue"
+import ChangeUsernameView from "../views/ChangeUsernameView.vue"
 import ChangePasswordView from "../views/ChangePasswordView.vue"
 
 const router = createRouter({
@@ -48,6 +49,12 @@ const router = createRouter({
       path: "/user-account",
       name: "user-account",
       component: UserAccountView,
+      meta: { loginRequired: true }
+    },
+    {
+      path: "/change-username",
+      name: "change-username",
+      component: ChangeUsernameView,
       meta: { loginRequired: true }
     },
     {

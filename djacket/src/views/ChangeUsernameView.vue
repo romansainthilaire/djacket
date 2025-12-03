@@ -1,0 +1,87 @@
+<script setup lang="ts">
+import { ref, watch } from "vue"
+import { useRouter } from "vue-router"
+import { useAuthStore } from "@/stores/auth"
+
+import BaseForm from "@/components/BaseForm.vue"
+import BaseInput from "@/components/BaseInput.vue"
+import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
+import BaseButton from "@/components/BaseButton.vue"
+
+const router = useRouter()
+const auth = useAuthStore()
+
+const username = ref("")
+const loading = ref(false)
+
+const usernameErrorMessage = ref("")
+const unknownErrorMessage = ref("")
+
+async function changeUsername() {
+  unknownErrorMessage.value = ""
+  loading.value = true
+  try {
+    await auth.editUser({ username: username.value })
+    router.push({ path: "/user-account", query: { modified: "true" } })
+  } catch (error: any) {
+    if (error.response?.data) {
+      const data = error.response.data
+      usernameErrorMessage.value = data.username ? data.username.join(" ") : ""
+    } else {
+      unknownErrorMessage.value = "Une erreur est survenue. Veuillez réessayer plus tard."
+    }
+  } finally {
+    loading.value = false
+  }
+}
+
+watch(username, () => {
+  usernameErrorMessage.value = ""
+  unknownErrorMessage.value = ""
+})
+</script>
+
+<template>
+  <BaseForm title="Modification du nom d'utilisateur" @submit="changeUsername()">
+
+    <p class="intro">
+      Votre nom d'utilisateur actuel est : <b>{{ auth.user?.username }}</b>
+    </p>
+
+    <BaseInput
+      v-model="username"
+      id="username"
+      type="text"
+      label="Nouveau nom d'utilisateur"
+      required
+      :error-message="usernameErrorMessage"
+    />
+
+    <p v-if="unknownErrorMessage" class="error-message">{{ unknownErrorMessage }}</p>
+
+    <div class="submit-button-container">
+      <BaseLoadingSpinner v-if="loading" />
+      <BaseButton v-else type="submit">Enregistrer</BaseButton>
+    </div>
+
+  </BaseForm>
+</template>
+
+<style scoped>
+.intro {
+  margin-top: 30px;
+}
+
+.error-message {
+  margin-top: 15px;
+  font-size: 13px;
+  color: var(--color-error);
+}
+
+.submit-button-container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
