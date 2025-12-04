@@ -130,10 +130,10 @@ nav {
 }
 
 .logout-button {
-  background-color: var(--color-error);
+  background-color: white;
   border-radius: 4px;
   padding: 3px;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .login-button {
