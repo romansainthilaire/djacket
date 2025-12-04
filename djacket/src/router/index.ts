@@ -52,13 +52,13 @@ const router = createRouter({
       meta: { loginRequired: true }
     },
     {
-      path: "/change-username",
+      path: "/user-account/change-username",
       name: "change-username",
       component: ChangeUsernameView,
       meta: { loginRequired: true }
     },
     {
-      path: "/change-password",
+      path: "/user-account/change-password",
       name: "change-password",
       component: ChangePasswordView,
       meta: { loginRequired: true }

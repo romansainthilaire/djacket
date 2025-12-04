@@ -29,12 +29,12 @@ onMounted(() => {
     <div class="user-info">Date de création du compte : {{ formatDate(auth.user?.createdAt) }}</div>
     <div class="user-info">
       Nom d'utilisateur : {{ auth.user?.username }}
-      <RouterLink class="change-username-link" to="/change-username">Modifier</RouterLink>
+      <RouterLink class="change-username-link" to="/user-account/change-username">Modifier</RouterLink>
     </div>
     <div class="user-info">Adresse e-mail : {{ auth.user?.email }}</div>
     <div class="user-info">
       Mot de passe : ************
-      <RouterLink class="change-password-link" to="/change-password">Modifier</RouterLink>
+      <RouterLink class="change-password-link" to="/user-account/change-password">Modifier</RouterLink>
     </div>
 
   </div>
