@@ -3,6 +3,7 @@ import { ref, useTemplateRef, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseBreadcrumb from "@/components/BaseBreadcrumb.vue"
 import BaseForm from "@/components/BaseForm.vue"
 import BaseInputPassword from "@/components/BaseInputPassword.vue"
 import BaseInputPasswordWithValidation from "@/components/BaseInputPasswordWithValidation.vue"
@@ -59,6 +60,13 @@ watch(newPassword, () => {
 </script>
 
 <template>
+  <BaseBreadcrumb
+    :items="[
+      { title: 'Compte utilisateur', to: '/user-account' },
+      { title: 'Modification du mot de passe' }
+    ]"
+  />
+
   <BaseForm title="Modification du mot de passe" @submit="changePassword()">
 
     <BaseInputPassword

@@ -3,6 +3,7 @@ import { ref, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseBreadcrumb from "@/components/BaseBreadcrumb.vue"
 import BaseForm from "@/components/BaseForm.vue"
 import BaseInput from "@/components/BaseInput.vue"
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
@@ -42,6 +43,13 @@ watch(username, () => {
 </script>
 
 <template>
+  <BaseBreadcrumb
+    :items="[
+      { title: 'Compte utilisateur', to: '/user-account' },
+      { title: 'Modification du nom d\'utilisateur' }
+    ]"
+  />
+
   <BaseForm title="Modification du nom d'utilisateur" @submit="changeUsername()">
 
     <p class="intro">
