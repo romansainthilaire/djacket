@@ -52,14 +52,7 @@ async function togglePasswordVisibility() {
       />
       <button type="button" @click.prevent="togglePasswordVisibility()">
         <BaseSvgIcon
-          v-if="!showPassword"
-          :svg="eyeIcon"
-          color="rgb(100, 100, 100)"
-          width="28px"
-        />
-        <BaseSvgIcon
-          v-else
-          :svg="eyeOffIcon"
+          :svg="showPassword ? eyeOffIcon : eyeIcon"
           color="rgb(100, 100, 100)"
           width="28px"
         />
