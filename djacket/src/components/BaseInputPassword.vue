@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, useTemplateRef, nextTick } from "vue"
 
+import BaseSvgIcon from "./BaseSvgIcon.vue"
+
+import eyeIcon from "@/assets/svg-icons/eye.svg?raw"
+import eyeOffIcon from "@/assets/svg-icons/eye-off.svg?raw"
+
+
 type Props = {
   id: string
   label?: string
@@ -45,8 +51,18 @@ async function togglePasswordVisibility() {
         @blur="outlineColor = 'rgb(200, 200, 200)'"
       />
       <button type="button" @click.prevent="togglePasswordVisibility()">
-        <img v-if="!showPassword" src="@/assets/svg-icons/eye.svg" alt="Montrer le mot de passe">
-        <img v-else src="@/assets/svg-icons/eye-off.svg" alt="Cacher le mot de passe">
+        <BaseSvgIcon
+          v-if="!showPassword"
+          :svg="eyeIcon"
+          color="rgb(100, 100, 100)"
+          width="28px"
+        />
+        <BaseSvgIcon
+          v-else
+          :svg="eyeOffIcon"
+          color="rgb(100, 100, 100)"
+          width="28px"
+        />
       </button>
     </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -84,10 +100,6 @@ input {
 button {
   width: 50px;
   background-color: rgb(240, 240, 240);
-}
-
-button img {
-  width: 28px;
 }
 
 .error-message {

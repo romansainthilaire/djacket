@@ -3,7 +3,13 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseSvgIcon from "./BaseSvgIcon.vue"
 import BaseModal from "./BaseModal.vue"
+
+import menuIcon from "@/assets/svg-icons/menu.svg?raw"
+import userIcon from "@/assets/svg-icons/user.svg?raw"
+import logoutIcon from "@/assets/svg-icons/logout.svg?raw"
+
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -28,7 +34,7 @@ function logout() {
       <div class="top">
         <div class="logo">Djacket</div>
         <button class="menu-button" @click="toggleMenu()">
-          <img src="@/assets/svg-icons/menu.svg" alt="Menu" />
+          <BaseSvgIcon :svg="menuIcon" color="white" />
         </button>
       </div>
 
@@ -40,11 +46,11 @@ function logout() {
         <div class="auth" :class="{ 'logged-in': auth.user }">
           <template v-if="auth.user">
             <RouterLink class="nav-link" to="/user-account">
-              <img class="user-icon" src="@/assets/svg-icons/user.svg" />
+              <BaseSvgIcon class="user-icon" :svg="userIcon" color="white" width="25px" />
               {{ auth.user.username }}
             </RouterLink>
             <button class="logout-button" @click="showLogoutModal = true">
-              <img src="@/assets/svg-icons/logout.svg" alt="Déconnexion" height="25" />
+              <BaseSvgIcon :svg="logoutIcon" color="var(--color-primary)" width="25px" />
             </button>
           </template>
           <RouterLink v-else class="login-button" to="/login">Connexion</RouterLink>
@@ -125,7 +131,6 @@ nav {
 }
 
 .user-icon {
-  width: 25px;
   margin-right: 5px;
 }
 
