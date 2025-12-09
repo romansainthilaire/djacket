@@ -89,6 +89,7 @@ watch(password, () => {
       type="email"
       label="Adresse e-mail"
       required
+      help-text="Vérifiez votre e-mail : vous recevrez un lien de vérification pour finaliser votre inscription."
       :error-message="emailErrorMessage"
     />
 

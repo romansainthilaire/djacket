@@ -5,6 +5,7 @@ type Props = {
   label?: string
   required?: boolean
   errorMessage?: string
+  helpText?: string
 }
 
 const {
@@ -12,7 +13,8 @@ const {
   type = "text",
   label = "",
   required = false,
-  errorMessage = ""
+  errorMessage = "",
+  helpText = ""
 } = defineProps<Props>()
 
 const value = defineModel<string>({ required: true })
@@ -28,6 +30,7 @@ const value = defineModel<string>({ required: true })
       v-model="value"
     />
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p v-else-if="helpText" class="help-text">{{ helpText }}</p>
   </div>
 </template>
 
@@ -62,5 +65,11 @@ input:focus {
   margin-top: 5px;
   font-size: 13px;
   color: var(--color-error);
+}
+
+.help-text {
+  margin-top: 5px;
+  font-size: 13px;
+  color: rgb(100, 100, 100);
 }
 </style>
