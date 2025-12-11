@@ -6,6 +6,8 @@ import SignupView from "../views/SignupView.vue"
 import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
 import VerifyEmailView from "../views/VerifyEmailView.vue"
 import ResendVerificationEmailView from "../views/ResendVerificationEmailView.vue"
+import ResetPasswordView from "../views/ResetPasswordView.vue"
+import ResetPasswordNoticeView from "../views/ResetPasswordNoticeView.vue"
 import LoginView from "../views/LoginView.vue"
 import UserAccountView from "../views/UserAccountView.vue"
 import ChangeUsernameView from "../views/ChangeUsernameView.vue"
@@ -39,6 +41,17 @@ const router = createRouter({
       path: "/resend-verification-email",
       name: "resend-verification-email",
       component: ResendVerificationEmailView
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: ResetPasswordView
+    },
+    {
+      path: "/reset-password-notice/:email",
+      name: "reset-password-notice",
+      component: ResetPasswordNoticeView,
+      props: true
     },
     {
       path: "/login",

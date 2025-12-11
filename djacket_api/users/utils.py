@@ -1,3 +1,6 @@
+import secrets
+import string
+
 from django.utils import timezone
 from django.conf import settings
 from django.core.mail import send_mail
@@ -6,6 +9,16 @@ from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from .models import UserProfile
 
 signer = TimestampSigner()
+
+
+def generate_random_password(length: int = 20) -> str:
+    """Generate a secure random password."""
+    characters = (
+        string.ascii_uppercase +
+        string.ascii_lowercase +
+        string.digits
+    )
+    return "".join(secrets.choice(characters) for _ in range(length))
 
 
 def generate_email_token(email: str) -> str:
@@ -47,4 +60,17 @@ def send_verification_email(user: UserProfile):
         fail_silently=False
     )
     user.email_verification_sent_at = timezone.now()
+    user.save()
+
+
+def send_temporary_password_email(user: UserProfile, password: string):
+    """Send an email with a temporary password."""
+    send_mail(
+        subject="DJACKET - Réinitialisation de votre mot de passe",
+        message=f"Votre nouveau mot de passe est : {password}",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user.email],
+        fail_silently=False
+    )
+    user.temporary_password_sent_at = timezone.now()
     user.save()

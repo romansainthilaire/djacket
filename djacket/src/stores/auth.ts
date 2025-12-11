@@ -6,6 +6,7 @@ type User = {
   id: number
   email: string
   username: string
+  mustChangePassword: boolean
   isActive: boolean
   isStaff: boolean
   isSuperuser: boolean
@@ -46,6 +47,10 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function resendVerificationEmail(email: string) {
     await api.post("users/resend-verification-email/", { email })
+  }
+
+  async function resetPassword(email: string) {
+    await api.post("users/reset-password/", { email })
   }
 
   async function setUser() {
@@ -94,6 +99,7 @@ export const useAuthStore = defineStore("auth", () => {
     signup,
     verifyEmail,
     resendVerificationEmail,
+    resetPassword,
     setUser,
     editUser,
     changePassword,

@@ -95,7 +95,7 @@ watch([email, password], () => {
       <div class="footer-text">Vous n'avez pas encore de compte ?</div>
       <RouterLink class="footer-link" to="/signup">Créer mon compte</RouterLink>
       <div class="footer-text">Vous ne vous souvenez plus de votre mot de passe ?</div>
-      <RouterLink class="footer-link" to="/forgot-password">Mot de passe oublié</RouterLink>
+      <RouterLink class="footer-link" to="/reset-password">Mot de passe oublié</RouterLink>
     </div>
 
   </BaseForm>

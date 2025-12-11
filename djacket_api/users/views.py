@@ -7,7 +7,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import UserProfile
 from .serializers import UserProfileSerializer, ChangePasswordSerializer, CustomTokenObtainPairSerializer
-from .utils import send_verification_email, verify_email_token, extract_email_from_token
+from .utils import (
+    generate_random_password,
+    send_verification_email,
+    send_temporary_password_email,
+    verify_email_token,
+    extract_email_from_token
+)
 
 
 class UserProfileViewSet(mixins.CreateModelMixin,
@@ -21,7 +27,12 @@ class UserProfileViewSet(mixins.CreateModelMixin,
         return UserProfile.objects.filter(id=self.request.user.id)
 
     def get_permissions(self):
-        if self.action in ["create", "verify_email", "resend_verification_email"]:
+        if self.action in [
+            "create",
+            "verify_email",
+            "resend_verification_email",
+            "reset_password"
+        ]:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
@@ -87,9 +98,26 @@ class UserProfileViewSet(mixins.CreateModelMixin,
         serializer = UserProfileSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @action(detail=False, methods=["post"], url_path="reset-password")
+    def reset_password(self, request):
+        email = request.data.get("email")
+        if not email:
+            return Response({"detail": "Email is required."}, status=400)
+
+        user = UserProfile.objects.filter(email=email).first()
+
+        if user:
+            new_password = generate_random_password()
+            user.set_password(new_password)
+            user.must_change_password = True
+            user.save()
+            send_temporary_password_email(user, new_password)
+
+        return Response({"detail": "Temporary password sent if the account exists."}, status=200)
+
     @action(detail=False, methods=["put"], url_path="change-password")
     def change_password(self, request):
-        user = self.request.user
+        user: UserProfile = self.request.user
         serializer = ChangePasswordSerializer(data=request.data, context={"user": user})
         if serializer.is_valid():
             old_password = serializer.validated_data["old_password"]
@@ -97,6 +125,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
             if not user.check_password(old_password):
                 return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
             user.set_password(new_password)
+            user.must_change_password = False
             user.save()
             return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

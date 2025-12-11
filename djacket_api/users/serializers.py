@@ -55,6 +55,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "email",
             "username",
             "password",
+            "must_change_password",
             "is_active",
             "is_staff",
             "is_superuser",
@@ -64,6 +65,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = [
             "id",
+            "must_change_password",
             "is_active",
             "is_staff",
             "is_superuser",
