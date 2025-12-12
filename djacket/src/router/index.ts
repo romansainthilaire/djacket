@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import NotFoundView from "../views/NotFoundView.vue"
 import HomeView from "../views/HomeView.vue"
 import SignupView from "../views/SignupView.vue"
 import VerifyEmailNoticeView from "../views/VerifyEmailNoticeView.vue"
@@ -16,6 +17,11 @@ import ChangePasswordView from "../views/ChangePasswordView.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFoundView 
+    },
     {
       path: "/",
       name: "home",
