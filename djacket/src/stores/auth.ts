@@ -91,6 +91,7 @@ export const useAuthStore = defineStore("auth", () => {
       return
     }
     await api.put("users/change-password/", { oldPassword, newPassword })
+    user.value.mustChangePassword = false
   }
 
   return {

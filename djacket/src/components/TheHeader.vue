@@ -61,6 +61,7 @@ function logout() {
         v-if="showLogoutModal"
         title="Déconnexion"
         text="Êtes-vous sûr de vouloir vous déconnecter ?"
+        show-close-button
         show-confirm-button
         @close="showLogoutModal = false"
         @confirm="logout()"

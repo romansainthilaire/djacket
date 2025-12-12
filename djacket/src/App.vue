@@ -1,7 +1,18 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router"
+import { useRouter, RouterView } from "vue-router"
+import { useAuthStore } from "@/stores/auth"
+
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
+import BaseModal from "@/components/BaseModal.vue"
+import BaseButton from "@/components/BaseButton.vue"
+
+const router = useRouter()
+const auth = useAuthStore()
+
+function goToChangePasswordPage() {
+  router.push({ name: "change-password" })
+}
 </script>
 
 <template>
@@ -13,6 +24,15 @@ import TheFooter from "@/components/TheFooter.vue"
       </div>
     </main>
     <TheFooter />
+    <BaseModal
+      v-if="auth.user?.mustChangePassword && router.currentRoute.value.name != 'change-password'"
+      title="Action requise"
+    >
+      <p>Pour sécuriser votre compte, vous devez changer votre mot de passe maintenant.</p>
+      <div class="change-password-button-container">
+        <BaseButton @click="goToChangePasswordPage()">J'ai compris</BaseButton>
+      </div>
+    </BaseModal>
   </div>
 </template>
 
@@ -33,5 +53,11 @@ main {
   width: 100%;
   max-width: 1000px;
   padding: 0 20px;
+}
+
+.change-password-button-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
 }
 </style>

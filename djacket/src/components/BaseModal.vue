@@ -3,15 +3,17 @@ import BaseButton from "./BaseButton.vue"
 
 type Props = {
   title: string
-  text: string
+  text?: string
   width?: string
+  showCloseButton?: boolean
   showConfirmButton?: boolean
 }
 
 const {
   title,
-  text,
+  text = "",
   width = "450px",
+  showCloseButton = false,
   showConfirmButton = false
 } = defineProps<Props>()
 
@@ -37,7 +39,7 @@ function confirm() {
 
         <div class="modal-header">
           <div class="modal-title">{{ title }}</div>
-          <div class="modal-close">
+          <div class="modal-close" v-if="showCloseButton">
             <button class="close-button" @click="close()">&times;</button>
           </div>
         </div>
