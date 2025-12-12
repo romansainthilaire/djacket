@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 import { formatDate } from "@/utils/format"
 
 const route = useRoute()
+const router = useRouter()
 const auth = useAuthStore()
 
 const showSuccessMessage = ref(false)
@@ -13,6 +14,9 @@ onMounted(() => {
   if (route.query.modified == "true") {
     showSuccessMessage.value = true
     setTimeout(() => showSuccessMessage.value = false, 4000)
+    const newQuery = { ...route.query }
+    delete newQuery.modified
+    router.replace({ query: newQuery })
   }
 })
 </script>
