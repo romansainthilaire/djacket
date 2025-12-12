@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter, RouterView } from "vue-router"
-import { useAuthStore } from "@/stores/auth"
+import { useUserStore } from "@/stores/user"
 
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
@@ -8,7 +8,7 @@ import BaseModal from "@/components/BaseModal.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
-const auth = useAuthStore()
+const userStore = useUserStore()
 
 function goToChangePasswordPage() {
   router.push({ name: "change-password" })
@@ -25,7 +25,7 @@ function goToChangePasswordPage() {
     </main>
     <TheFooter />
     <BaseModal
-      v-if="auth.user?.mustChangePassword && router.currentRoute.value.name != 'change-password'"
+      v-if="userStore.user?.mustChangePassword && router.currentRoute.value.name != 'change-password'"
       title="Action requise"
     >
       <p>Pour sécuriser votre compte, vous devez changer votre mot de passe maintenant.</p>

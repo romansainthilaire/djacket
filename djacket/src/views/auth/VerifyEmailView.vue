@@ -8,7 +8,7 @@ import BaseButton from "@/components/BaseButton.vue"
 
 const route = useRoute()
 const router = useRouter()
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
 const loading = ref(true)
 const email = ref("")
@@ -23,7 +23,7 @@ onMounted(async () => {
     return
   }
   try {
-    const result = await auth.verifyEmail(token)
+    const result = await authStore.verifyEmail(token)
     if (result.verified) {
       email.value = result.email!
       emailVerified.value = true
@@ -46,7 +46,7 @@ async function resendVerificationEmail() {
   }
   loadingResend.value = true
   try {
-    await auth.resendVerificationEmail(email.value)
+    await authStore.resendVerificationEmail(email.value)
     router.push({ name: "verify-email-notice", params: { email: email.value } })
   } catch {
     errorMessage.value = "Une erreur est survenue lors de l'envoi de l'e-mail."

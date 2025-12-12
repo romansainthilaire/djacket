@@ -10,7 +10,7 @@ import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
 const email = ref("")
 const username = ref("")
@@ -48,7 +48,7 @@ async function signup() {
   }
   loading.value = true
   try {
-    await auth.signup(email.value, username.value, password.value)
+    await authStore.signup(email.value, username.value, password.value)
     router.push({ name: "verify-email-notice", params: { email: email.value } })
   } catch (error: any) {
     if (error.response?.data) {

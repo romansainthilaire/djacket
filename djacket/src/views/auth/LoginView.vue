@@ -10,7 +10,7 @@ import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
 const email = ref("")
 const password = ref("")
@@ -31,7 +31,7 @@ async function login() {
   resetErrors()
   loading.value = true
   try {
-    await auth.login(email.value, password.value)
+    await authStore.login(email.value, password.value)
     router.push({ name: "home" })
   } catch (error: any) {
     if (error.response?.data) {

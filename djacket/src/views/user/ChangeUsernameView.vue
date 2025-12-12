@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { useRouter } from "vue-router"
-import { useAuthStore } from "@/stores/auth"
+import { useUserStore } from "@/stores/user"
 
 import BaseBreadcrumb from "@/components/BaseBreadcrumb.vue"
 import BaseForm from "@/components/BaseForm.vue"
@@ -10,7 +10,7 @@ import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
-const auth = useAuthStore()
+const userStore = useUserStore()
 
 const username = ref("")
 const loading = ref(false)
@@ -22,7 +22,7 @@ async function changeUsername() {
   unknownErrorMessage.value = ""
   loading.value = true
   try {
-    await auth.editUser({ username: username.value })
+    await userStore.editUser({ username: username.value })
     router.push({ path: "/user-account", query: { modified: "true" } })
   } catch (error: any) {
     if (error.response?.data) {
@@ -53,7 +53,7 @@ watch(username, () => {
   <BaseForm title="Modification du nom d'utilisateur" @submit="changeUsername()">
 
     <p class="intro">
-      Votre nom d'utilisateur actuel est : <b>{{ auth.user?.username }}</b>
+      Votre nom d'utilisateur actuel est : <b>{{ userStore.user?.username }}</b>
     </p>
 
     <BaseInput

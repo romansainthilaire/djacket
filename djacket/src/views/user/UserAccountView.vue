@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { useAuthStore } from "@/stores/auth"
+import { useUserStore } from "@/stores/user"
 import { formatDate } from "@/utils/format"
 
 const route = useRoute()
 const router = useRouter()
-const auth = useAuthStore()
+const userStore = useUserStore()
 
 const showSuccessMessage = ref(false)
 
@@ -30,12 +30,12 @@ onMounted(() => {
 
     <h1>Compte utilisateur</h1>
 
-    <div class="user-info">Date de création du compte : {{ formatDate(auth.user?.createdAt) }}</div>
+    <div class="user-info">Date de création du compte : {{ formatDate(userStore.user?.createdAt) }}</div>
     <div class="user-info">
-      Nom d'utilisateur : {{ auth.user?.username }}
+      Nom d'utilisateur : {{ userStore.user?.username }}
       <RouterLink class="change-username-link" to="/user-account/change-username">Modifier</RouterLink>
     </div>
-    <div class="user-info">Adresse e-mail : {{ auth.user?.email }}</div>
+    <div class="user-info">Adresse e-mail : {{ userStore.user?.email }}</div>
     <div class="user-info">
       Mot de passe : ************
       <RouterLink class="change-password-link" to="/user-account/change-password">Modifier</RouterLink>

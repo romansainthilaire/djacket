@@ -1,31 +1,18 @@
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import api from "@/plugins/axios"
+import { useUserStore } from "@/stores/user"
 
-type User = {
-  id: number
-  email: string
-  username: string
-  mustChangePassword: boolean
-  isActive: boolean
-  isStaff: boolean
-  isSuperuser: boolean
-  lastLogin: string
-  createdAt: string
-  updatedAt: string
-}
 
 type VerifyEmailResponse = {
   email?: string
   verified?: boolean
 }
 
-export type EditableUser = Pick<User, "username">
-
 export const useAuthStore = defineStore("auth", () => {
 
   const token = ref<string | null>(localStorage.getItem("token"))
-  const user = ref<User | null>(null)
+  const userStore = useUserStore()
 
   async function signup(email: string, username: string, password: string) {
     await api.post("users/", { email, username, password })
@@ -53,57 +40,25 @@ export const useAuthStore = defineStore("auth", () => {
     await api.post("users/reset-password/", { email })
   }
 
-  async function setUser() {
-    if (!token.value) {
-      return
-    }
-    try {
-      const response = await api.get("users/me/")
-      user.value = response.data
-    } catch (error) {
-      logout()
-    }
-  }
-
   async function login(email: string, password: string) {
     const response = await api.post("token/", { email, password })
     token.value = response.data.access
     localStorage.setItem("token", token.value!)
-    await setUser()
+    await userStore.fetchUser()
   }
 
   function logout() {
     token.value = null
-    user.value = null
     localStorage.removeItem("token")
-  }
-
-  async function editUser(data: Partial<EditableUser>) {
-    if (!user.value) {
-      return
-    }
-    const response = await api.patch(`users/${user.value.id}/`, data)
-    user.value = response.data
-  }
-
-  async function changePassword(oldPassword: string, newPassword: string) {
-    if (!user.value) {
-      return
-    }
-    await api.put("users/change-password/", { oldPassword, newPassword })
-    user.value.mustChangePassword = false
+    userStore.clearUser()
   }
 
   return {
     token,
-    user,
     signup,
     verifyEmail,
     resendVerificationEmail,
     resetPassword,
-    setUser,
-    editUser,
-    changePassword,
     login,
     logout
   }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, useTemplateRef, watch } from "vue"
 import { useRouter } from "vue-router"
-import { useAuthStore } from "@/stores/auth"
+import { useUserStore } from "@/stores/user"
 
 import BaseBreadcrumb from "@/components/BaseBreadcrumb.vue"
 import BaseForm from "@/components/BaseForm.vue"
@@ -11,7 +11,7 @@ import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/BaseButton.vue"
 
 const router = useRouter()
-const auth = useAuthStore()
+const userStore = useUserStore()
 
 const oldPassword = ref("")
 const newPassword = ref("")
@@ -33,7 +33,7 @@ async function changePassword() {
   }
   loading.value = true
   try {
-    await auth.changePassword(oldPassword.value, newPassword.value)
+    await userStore.changePassword(oldPassword.value, newPassword.value)
     router.push({ path: "/user-account", query: { modified: "true" } })
   } catch (error: any) {
     if (error.response?.data) {

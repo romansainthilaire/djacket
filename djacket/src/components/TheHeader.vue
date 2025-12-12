@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
+import { useUserStore } from "@/stores/user"
 
 import BaseSvgIcon from "./BaseSvgIcon.vue"
 import BaseModal from "./BaseModal.vue"
@@ -12,7 +13,8 @@ import logoutIcon from "@/assets/svg-icons/logout.svg?raw"
 
 
 const router = useRouter()
-const auth = useAuthStore()
+const authStore = useAuthStore()
+const userStore = useUserStore()
 
 const isOpen = ref(false)
 const showLogoutModal = ref(false)
@@ -22,7 +24,7 @@ function toggleMenu() {
 }
 
 function logout() {
-  auth.logout()
+  authStore.logout()
   router.push("/login")
 }
 </script>
@@ -43,11 +45,11 @@ function logout() {
           <RouterLink class="nav-link" to="/">Accueil</RouterLink>
           <RouterLink class="nav-link" to="/about">À propos</RouterLink>
         </div>
-        <div class="auth" :class="{ 'logged-in': auth.user }">
-          <template v-if="auth.user">
+        <div class="auth" :class="{ 'logged-in': userStore.user }">
+          <template v-if="userStore.user">
             <RouterLink class="nav-link" to="/user-account">
               <BaseSvgIcon class="user-icon" :svg="userIcon" color="white" width="25px" />
-              {{ auth.user.username }}
+              {{ userStore.user.username }}
             </RouterLink>
             <button class="logout-button" @click="showLogoutModal = true">
               <BaseSvgIcon :svg="logoutIcon" color="var(--color-primary)" width="25px" />
