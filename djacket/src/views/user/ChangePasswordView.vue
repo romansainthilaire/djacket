@@ -34,7 +34,7 @@ async function changePassword() {
   loading.value = true
   try {
     await userStore.changePassword(oldPassword.value, newPassword.value)
-    router.push({ path: "/user-account", query: { modified: "true" } })
+    router.push({ name: "user-account", query: { modified: "true" } })
   } catch (error: any) {
     if (error.response?.data) {
       const data = error.response.data

@@ -7,7 +7,7 @@ type Props = {
   disabled?: boolean
   color?: string
   bgColor?: string
-  hoverBgColor?: string
+  bgColorHover?: string
 }
 
 const {
@@ -16,7 +16,7 @@ const {
   disabled = false,
   color = "white",
   bgColor = "var(--color-primary)",
-  hoverBgColor = "var(--color-primary)"
+  bgColorHover = "var(--color-primary)"
 } = defineProps<Props>()
 
 const sizeStyle = computed(() => {
@@ -61,7 +61,7 @@ button {
 }
 
 button:hover {
-  background-color: v-bind(hoverBgColor);
+  background-color: v-bind(bgColorHover);
 }
 
 button:disabled {

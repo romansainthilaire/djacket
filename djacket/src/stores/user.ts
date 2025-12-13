@@ -48,6 +48,14 @@ export const useUserStore = defineStore("user", () => {
     user.value = response.data
   }
 
+  async function deleteUser() {
+    if (!user.value) {
+      return
+    }
+    await api.delete(`users/${user.value.id}/`)
+    authStore.logout()
+  }
+
   async function changePassword(oldPassword: string, newPassword: string) {
     if (!user.value) {
       return
@@ -61,6 +69,7 @@ export const useUserStore = defineStore("user", () => {
     fetchUser,
     clearUser,
     editUser,
+    deleteUser,
     changePassword
   }
 })

@@ -4,11 +4,16 @@ import { useRoute, useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
 import { formatDate } from "@/utils/format"
 
+import BaseButton from "@/components/BaseButton.vue"
+import BaseModal from "@/components/BaseModal.vue"
+
+
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
 const showSuccessMessage = ref(false)
+const showDeleteAccountModal = ref(false)
 
 onMounted(() => {
   if (route.query.modified == "true") {
@@ -19,6 +24,12 @@ onMounted(() => {
     router.replace({ query: newQuery })
   }
 })
+
+async function deleteAccount() {
+  await userStore.deleteUser()
+  showDeleteAccountModal.value = false
+  router.push({ name: "login" })
+}
 </script>
 
 <template>
@@ -40,6 +51,38 @@ onMounted(() => {
       Mot de passe : ************
       <RouterLink class="change-password-link" to="/user-account/change-password">Modifier</RouterLink>
     </div>
+
+    <BaseButton
+      class="delete-account-button"
+      size="small"
+      bg-color="var(--color-error)"
+      bg-color-hover="var(--color-error)"
+      @click="showDeleteAccountModal = true"
+    >
+      Supprimer mon compte
+    </BaseButton>
+
+    <BaseModal
+      v-if="showDeleteAccountModal"
+      title="Suppression de compte"
+      show-close-button
+      @close="showDeleteAccountModal = false"
+    >
+      <div class="delete-account-modal-content">
+        <p class="warning-emoji">⚠️</p>
+        <p><strong>La suppression de votre compte est irréversible.</strong></p>
+        <p>Toutes les données associées seront perdues.</p>
+        <p>Êtes-vous sûr de vouloir continuer ?</p>
+        <BaseButton
+          class="delete-account-modal-button"
+          bg-color="var(--color-error)"
+          bg-color-hover="var(--color-error)"
+          @click="deleteAccount()"
+        >
+          Confirmer la suppression
+        </BaseButton>
+      </div>
+    </BaseModal>
 
   </div>
 </template>
@@ -73,5 +116,30 @@ h1 {
 .change-password-link {
   font-size: 14px;
   margin-left: 10px;
+}
+
+.delete-account-button {
+  margin-top: 30px;
+}
+
+.delete-account-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.warning-emoji {
+  font-size: 40px;
+  line-height: 40px;
+  margin-bottom: 25px;
+}
+
+.delete-account-modal-content :not(:first-child):not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.delete-account-modal-button {
+  margin-top: 20px;
 }
 </style>

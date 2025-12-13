@@ -23,7 +23,7 @@ async function changeUsername() {
   loading.value = true
   try {
     await userStore.editUser({ username: username.value })
-    router.push({ path: "/user-account", query: { modified: "true" } })
+    router.push({ name: "user-account", query: { modified: "true" } })
   } catch (error: any) {
     if (error.response?.data) {
       const data = error.response.data
