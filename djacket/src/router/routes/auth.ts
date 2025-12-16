@@ -11,38 +11,45 @@ export default [
     {
       path: "/signup",
       name: "signup",
-      component: SignupView
+      component: SignupView,
+      meta: { title: "Inscription" }
     },
     {
       path: "/verify-email-notice/:email",
       name: "verify-email-notice",
       component: VerifyEmailNoticeView,
-      props: true
+      props: true,
+      meta: { title: "Vérification de l'email" }
     },
     {
       path: "/verify-email",
       name: "verify-email",
-      component: VerifyEmailView
+      component: VerifyEmailView,
+      meta: { title: "Vérification de l'email" }
     },
     {
       path: "/resend-verification-email",
       name: "resend-verification-email",
-      component: ResendVerificationEmailView
+      component: ResendVerificationEmailView,
+      meta: { title: "Vérification de l'email" }
     },
     {
       path: "/reset-password",
       name: "reset-password",
-      component: ResetPasswordView
+      component: ResetPasswordView,
+      meta: { title: "Mot de passe oublié" }
     },
     {
       path: "/reset-password-notice/:email",
       name: "reset-password-notice",
       component: ResetPasswordNoticeView,
-      props: true
+      props: true,
+      meta: { title: "Réinitialisation du mot de passe" }
     },
     {
       path: "/login",
       name: "login",
-      component: LoginView
+      component: LoginView,
+      meta: { title: "Connexion" }
     }
 ]
