@@ -15,7 +15,9 @@ const userStore = useUserStore()
 
 const oldPassword = ref("")
 const newPassword = ref("")
-const newPasswordRef = useTemplateRef("newPasswordRef")
+
+const newPasswordRef = useTemplateRef<InstanceType<typeof BaseInputPasswordWithValidation>>("newPasswordRef")
+
 const loading = ref(false)
 
 const oldPasswordErrorMessage = ref("")

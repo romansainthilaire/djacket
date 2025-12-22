@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue"
+import { ref, computed, watch, useTemplateRef } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
@@ -15,7 +15,8 @@ const authStore = useAuthStore()
 const email = ref("")
 const username = ref("")
 const password = ref("")
-const passwordField = ref()
+
+const passwordRef = useTemplateRef<InstanceType<typeof BaseInputPasswordWithValidation>>("passwordRef")
 
 const loading = ref(false)
 
@@ -34,7 +35,7 @@ function validateForm(): boolean {
     usernameErrorMessage.value = "Le nom d'utilisateur doit contenir entre 3 et 30 caractères."
     isValid = false
   }
-  if (!passwordField.value.passwordIsValid) {
+  if (!passwordRef.value?.passwordIsValid) {
     passwordErrorMessage.value = "Le mot de passe ne respecte pas les règles de sécurité."
     isValid = false
   }
@@ -104,7 +105,7 @@ watch(password, () => {
 
     <BaseInputPasswordWithValidation
       v-model="password"
-      ref="passwordField"
+      ref="passwordRef"
       id="password"
       label="Mot de passe"
       required

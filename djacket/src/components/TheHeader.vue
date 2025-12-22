@@ -6,6 +6,7 @@ import { useUserStore } from "@/stores/user"
 
 import BaseSvgIcon from "./BaseSvgIcon.vue"
 import BaseModal from "./BaseModal.vue"
+import HeaderNavDropdown from "./HeaderNavDropdown.vue"
 
 import menuIcon from "@/assets/svg-icons/menu.svg?raw"
 import userIcon from "@/assets/svg-icons/user.svg?raw"
@@ -43,7 +44,15 @@ function logout() {
       <nav :class="{ 'open': isOpen }">
         <div class="nav-links">
           <RouterLink class="nav-link" to="/">Accueil</RouterLink>
-          <RouterLink class="nav-link" to="/about">À propos</RouterLink>
+          <HeaderNavDropdown
+            name="Collections"
+            :links="[
+              { text: 'Hiver', to: '/collections/hiver' },
+              { text: 'Été', to: '/collections/ete' },
+              { text: 'Automne', to: '/collections/automne' },
+              { text: 'Printemps', to: '/collections/printemps' }
+            ]"
+          />
         </div>
         <div class="auth" :class="{ 'logged-in': userStore.user }">
           <template v-if="userStore.user">
@@ -200,7 +209,7 @@ nav {
   }
 
   .nav-link:hover {
-    background-color: initial;
+    background-color: transparent;
   }
 
   .auth {
