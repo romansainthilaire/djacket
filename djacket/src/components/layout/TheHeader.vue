@@ -9,6 +9,7 @@ import BaseModal from "../base/BaseModal.vue"
 import HeaderNavDropdown from "./HeaderNavDropdown.vue"
 
 import menuIcon from "@/assets/svg-icons/menu.svg?raw"
+import shoppingCartIcon from "@/assets/svg-icons/shopping-cart.svg?raw"
 import userIcon from "@/assets/svg-icons/user.svg?raw"
 import logoutIcon from "@/assets/svg-icons/logout.svg?raw"
 
@@ -53,6 +54,10 @@ function logout() {
               { text: 'Printemps', to: '/collections/printemps' }
             ]"
           />
+          <RouterLink class="nav-link" to="/shopping-cart">
+            <BaseSvgIcon class="shopping-cart-icon" :svg="shoppingCartIcon" color="white" width="25px" />
+            Panier
+          </RouterLink>
         </div>
         <div class="auth" :class="{ 'logged-in': userStore.user }">
           <template v-if="userStore.user">
@@ -118,7 +123,14 @@ nav {
   width: 100%;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
 .nav-link {
+  display: inline-flex;
+  align-items: center;
   color: white;
   text-decoration: none;
   font-size: 16px;
@@ -137,11 +149,7 @@ nav {
   align-items: center;
 }
 
-.auth > .nav-link {
-  display: flex;
-  align-items: center;
-}
-
+.shopping-cart-icon,
 .user-icon {
   margin-right: 5px;
 }
@@ -199,8 +207,8 @@ nav {
   }
 
   .nav-links {
-    display: flex;
     flex-direction: column;
+    align-items: start;
   }
 
   .nav-link {
