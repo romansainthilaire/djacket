@@ -2,8 +2,8 @@
 import { useRouter, RouterView } from "vue-router"
 import { useUserStore } from "@/stores/user"
 
-import TheHeader from "@/components/TheHeader.vue"
-import TheFooter from "@/components/TheFooter.vue"
+import TheHeader from "@/components/layout/TheHeader.vue"
+import TheFooter from "@/components/layout/TheFooter.vue"
 import BaseModal from "@/components/base/BaseModal.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 

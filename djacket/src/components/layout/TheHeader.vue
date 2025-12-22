@@ -6,7 +6,7 @@ import { useUserStore } from "@/stores/user"
 
 import BaseSvgIcon from "./base/BaseSvgIcon.vue"
 import BaseModal from "./base/BaseModal.vue"
-import HeaderNavDropdown from "./HeaderNavDropdown.vue"
+import HeaderNavDropdown from "./layout/HeaderNavDropdown.vue"
 
 import menuIcon from "@/assets/svg-icons/menu.svg?raw"
 import userIcon from "@/assets/svg-icons/user.svg?raw"
