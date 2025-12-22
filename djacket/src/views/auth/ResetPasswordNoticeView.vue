@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
 
-import BaseButton from "@/components/BaseButton.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
 
 const props = defineProps<{
   email: string

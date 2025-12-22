@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import BaseInputPassword from "@/components/BaseInputPassword.vue"
+import BaseInputPassword from "@/components/base/BaseInputPassword.vue"
 
 type Props = {
   id: string

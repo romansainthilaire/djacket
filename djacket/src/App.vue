@@ -4,8 +4,8 @@ import { useUserStore } from "@/stores/user"
 
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
-import BaseModal from "@/components/BaseModal.vue"
-import BaseButton from "@/components/BaseButton.vue"
+import BaseModal from "@/components/base/BaseModal.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
 
 const router = useRouter()
 const userStore = useUserStore()

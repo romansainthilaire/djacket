@@ -3,8 +3,8 @@ import { ref, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
-import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
-import BaseButton from "@/components/BaseButton.vue"
+import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
 
 const route = useRoute()
 const router = useRouter()

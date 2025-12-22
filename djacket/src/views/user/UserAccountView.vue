@@ -4,8 +4,8 @@ import { useRoute, useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
 import { formatDate } from "@/utils/format"
 
-import BaseButton from "@/components/BaseButton.vue"
-import BaseModal from "@/components/BaseModal.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
+import BaseModal from "@/components/base/BaseModal.vue"
 
 
 const route = useRoute()

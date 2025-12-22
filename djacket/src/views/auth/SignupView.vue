@@ -3,11 +3,11 @@ import { ref, computed, watch, useTemplateRef } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
-import BaseForm from "@/components/BaseForm.vue"
-import BaseInput from "@/components/BaseInput.vue"
-import BaseInputPasswordWithValidation from "@/components/BaseInputPasswordWithValidation.vue"
-import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
-import BaseButton from "@/components/BaseButton.vue"
+import BaseForm from "@/components/base/BaseForm.vue"
+import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputPasswordWithValidation from "@/components/base/BaseInputPasswordWithValidation.vue"
+import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
 
 const router = useRouter()
 const authStore = useAuthStore()

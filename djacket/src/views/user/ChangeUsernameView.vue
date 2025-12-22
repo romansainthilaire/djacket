@@ -3,11 +3,11 @@ import { ref, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
 
-import BaseBreadcrumb from "@/components/BaseBreadcrumb.vue"
-import BaseForm from "@/components/BaseForm.vue"
-import BaseInput from "@/components/BaseInput.vue"
-import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue"
-import BaseButton from "@/components/BaseButton.vue"
+import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
+import BaseForm from "@/components/base/BaseForm.vue"
+import BaseInput from "@/components/base/BaseInput.vue"
+import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
+import BaseButton from "@/components/base/BaseButton.vue"
 
 const router = useRouter()
 const userStore = useUserStore()
