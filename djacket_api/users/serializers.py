@@ -1,4 +1,5 @@
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.models import update_last_login
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 
@@ -128,4 +129,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         user: UserProfile = self.user
         if not user.email_verified:
             raise serializers.ValidationError({"email_verified": "Email not verified."})
+
+        update_last_login(None, user)
         return data
