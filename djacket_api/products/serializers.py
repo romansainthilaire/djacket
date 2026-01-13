@@ -15,8 +15,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
 
-    thumbnail_url = serializers.SerializerMethodField()
-
     class Meta:
         model = Product
         fields = [
@@ -24,21 +22,13 @@ class ProductListSerializer(serializers.ModelSerializer):
             "category",
             "name",
             "price",
-            "thumbnail_url"
+            "thumbnail"
         ]
-
-    def get_thumbnail_url(self, obj):
-        request = self.context.get("request")
-        if obj.thumbnail:
-            return request.build_absolute_uri(obj.thumbnail.url)
-        return None
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
 
     category = CategorySerializer()
-    image_url = serializers.SerializerMethodField()
-    thumbnail_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -48,18 +38,5 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "price",
-            "image_url",
-            "thumbnail_url"
+            "image"
         ]
-
-    def get_image_url(self, obj):
-        request = self.context.get("request")
-        if obj.image:
-            return request.build_absolute_uri(obj.image.url)
-        return None
-
-    def get_thumbnail_url(self, obj):
-        request = self.context.get("request")
-        if obj.thumbnail:
-            return request.build_absolute_uri(obj.thumbnail.url)
-        return None

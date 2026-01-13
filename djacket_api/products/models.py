@@ -42,16 +42,24 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    def make_thumbnail(self, image, size=(300, 200)):
+    def make_thumbnail(self, image, size=(300, 300)):
         img = Image.open(image)
         img = img.convert("RGB")
         img.thumbnail(size)
         thumb_io = BytesIO()
         img.save(thumb_io, format="JPEG", quality=85)
-        thumbnail = File(thumb_io, name=os.path.basename(image.name))
-        return thumbnail
+        thumb_name = f"thumb_{os.path.basename(image.name)}"
+        self.thumbnail.save(thumb_name, File(thumb_io), save=False)
 
     def save(self, *args, **kwargs):
-        if self.image:
-            self.thumbnail = self.make_thumbnail(self.image)
+        image_changed = False
+        if self.pk:
+            old_instance = Product.objects.filter(pk=self.pk).first()
+            if old_instance and old_instance.image != self.image:
+                image_changed = True
+        else:
+            if self.image:
+                image_changed = True
+        if image_changed and self.image:
+            self.make_thumbnail(self.image)
         super().save(*args, **kwargs)

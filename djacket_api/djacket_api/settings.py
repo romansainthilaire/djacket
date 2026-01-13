@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "users",
-    "products"
+    "products",
+    "django_cleanup.apps.CleanupConfig"
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
