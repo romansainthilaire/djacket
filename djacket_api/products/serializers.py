@@ -13,9 +13,30 @@ class CategorySerializer(serializers.ModelSerializer):
         ]
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductListSerializer(serializers.ModelSerializer):
 
-    category = serializers.CharField(source="category.name")
+    thumbnail_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "category",
+            "name",
+            "price",
+            "thumbnail_url"
+        ]
+
+    def get_thumbnail_url(self, obj):
+        request = self.context.get("request")
+        if obj.thumbnail:
+            return request.build_absolute_uri(obj.thumbnail.url)
+        return None
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+
+    category = CategorySerializer()
     image_url = serializers.SerializerMethodField()
     thumbnail_url = serializers.SerializerMethodField()
 

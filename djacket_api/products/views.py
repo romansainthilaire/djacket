@@ -4,7 +4,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 from .models import Category, Product
-from .serializers import CategorySerializer, ProductSerializer
+from .serializers import (
+    CategorySerializer,
+    ProductListSerializer,
+    ProductDetailSerializer
+)
 
 
 class CategoryViewSet(mixins.ListModelMixin,
@@ -20,7 +24,6 @@ class ProductViewSet(mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
                      viewsets.GenericViewSet):
 
-    serializer_class = ProductSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):
@@ -29,6 +32,11 @@ class ProductViewSet(mixins.ListModelMixin,
         if category_id:
             queryset = queryset.filter(category_id=category_id)
         return queryset
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return ProductDetailSerializer
+        return ProductListSerializer
 
     @action(detail=False, methods=["get"], url_path="latest")
     def latest(self, request):
