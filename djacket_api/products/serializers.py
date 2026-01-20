@@ -19,7 +19,7 @@ class ProductListSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             "id",
-            "category",
+            "category_id",
             "name",
             "price",
             "thumbnail"
