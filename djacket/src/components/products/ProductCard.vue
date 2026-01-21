@@ -1,7 +1,7 @@
 <script setup lang="ts">
 export type Product = {
   id: number
-  categoryId: number
+  category: string
   name: string
   price: number
   thumbnail: string

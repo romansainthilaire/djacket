@@ -8,18 +8,20 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            "id",
-            "name"
+            "name",
+            "slug"
         ]
 
 
 class ProductListSerializer(serializers.ModelSerializer):
 
+    category = serializers.SlugRelatedField(slug_field="slug", read_only=True)
+
     class Meta:
         model = Product
         fields = [
             "id",
-            "category_id",
+            "category",
             "name",
             "price",
             "thumbnail"

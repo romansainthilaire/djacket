@@ -19,6 +19,8 @@ class CategoryViewSet(mixins.ListModelMixin,
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
 
+    lookup_field = "slug"
+
 
 class ProductViewSet(mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
@@ -28,9 +30,9 @@ class ProductViewSet(mixins.ListModelMixin,
 
     def get_queryset(self):
         queryset = Product.objects.select_related("category")
-        category_id = self.request.query_params.get("category")
-        if category_id:
-            queryset = queryset.filter(category_id=category_id)
+        category_slug = self.request.query_params.get("category")
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
         return queryset
 
     def get_serializer_class(self):
