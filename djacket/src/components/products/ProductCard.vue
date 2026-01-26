@@ -1,19 +1,27 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router"
+
 export type Product = {
   id: number
-  category: string
+  categorySlug: string
   name: string
-  price: number
+  price: string
   thumbnail: string
 }
 
 const props = defineProps<{
   product: Product
 }>()
+
+const router = useRouter()
+
+function goToProductDetail(categorySlug: string, productId: number) {
+  router.push({ name: "product-detail", params: { categorySlug, productId } })
+}
 </script>
 
 <template>
-  <div class="product-card">
+  <div class="product-card" @click="goToProductDetail(props.product.categorySlug, props.product.id)">
     <img class="product-thumbnail" :src="props.product.thumbnail" :alt="props.product.name" />
     <div class="product-info">
       <div class="product-name">{{ props.product.name }}</div>

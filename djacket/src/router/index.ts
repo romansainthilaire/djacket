@@ -6,6 +6,7 @@ import userRoutes from "./routes/user"
 
 import NotFoundView from "../views/NotFoundView.vue"
 import HomeView from "../views/HomeView.vue"
+import ProductDetailView from "../views/ProductDetailView.vue"
 
 
 const router = createRouter({
@@ -18,6 +19,12 @@ const router = createRouter({
     },
     ...authRoutes,
     ...userRoutes,
+    {
+      path: "/:categorySlug/:productId",
+      name: "product-detail",
+      component: ProductDetailView,
+      props: route => ({ productId: Number(route.params.productId) })
+    },
     {
       path: "/:pathMatch(.*)*",
       name: "not-found",

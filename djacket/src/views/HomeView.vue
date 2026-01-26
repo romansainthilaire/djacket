@@ -4,6 +4,7 @@ import api from "@/plugins/axios"
 
 import type { Product } from "@/components/products/ProductCard.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
+import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
 
 const latestProducts = ref<Product[]>([])
@@ -15,26 +16,37 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div class="content">
 
-  <div class="header">
-    <h1>Bienvenue sur <span class="brand">Djacket</span></h1>
-    <h2>Le meilleur endroit pour trouver votre veste idéale.</h2>
+    <div class="header">
+      <h1>Bienvenue sur <span class="brand">Djacket</span></h1>
+      <h2>Le meilleur endroit pour trouver votre veste idéale.</h2>
+    </div>
+
+    <h3>Nouveaux produits</h3>
+
+    <ProductGrid
+      class="latest-products"
+      v-if="latestProducts.length"
+      :products="latestProducts"
+    />
+
+    <div v-else class="loading-container">
+      <BaseLoadingSpinner />
+      <div class="loading-text">Chargement...</div>
+    </div>
+
   </div>
-
-  <h3>Nouveaux produits</h3>
-
-  <ProductGrid
-    class="latest-products"
-    v-if="latestProducts.length"
-    :products="latestProducts"
-  />
-
 </template>
 
 <style scoped>
+.content {
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+
 .header {
   margin: auto;
-  margin-top: 80px;
   width: fit-content;
   text-align: center;
   border: 2px solid var(--color-primary);
@@ -69,13 +81,17 @@ h3 {
   color: var(--color-primary);
 }
 
-.latest-products {
-  margin-bottom: 100px;
+.loading-container {
+  text-align: center;
 }
 
 @media (max-width: 600px) {
+  .content {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+
   .header {
-    margin-top: 40px;
     border: none;
     padding: 0;
   }
@@ -92,10 +108,6 @@ h3 {
   h3 {
     font-size: 20px;
     margin: 40px 0;
-  }
-
-  .latest-products {
-    margin-bottom: 50px;
   }
 }
 </style>
