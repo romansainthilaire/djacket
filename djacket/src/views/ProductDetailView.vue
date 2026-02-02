@@ -26,6 +26,7 @@ const cartStore = useCartStore()
 
 const product = ref<Product | null>(null)
 const quantity = ref(1)
+const addToCartSuccessMessage = ref("")
 
 const isValidQuantity = computed(() => {
   return Number.isInteger(quantity.value) && quantity.value >= 1
@@ -45,6 +46,15 @@ function addToCart() {
     productId: props.productId,
     quantity: quantity.value
   })
+  addToCartSuccessMessage.value = `
+    ${quantity.value}
+    produit${quantity.value > 1 ? "s" : ""}
+    ajouté${quantity.value > 1 ? "s" : ""}
+    au panier.
+  `
+  setTimeout(() => {
+    addToCartSuccessMessage.value = ""
+  }, 3000)
 }
 </script>
 
@@ -72,11 +82,12 @@ function addToCart() {
             <button
               class="add-to-cart-button" 
               @click="addToCart()"
-              :disabled="!isValidQuantity"
+              :disabled="!isValidQuantity || !!addToCartSuccessMessage"
             >
               Ajouter au panier
             </button>
           </div>
+          <div class="add-to-cart-success-message" v-if="addToCartSuccessMessage">{{ addToCartSuccessMessage }}</div>
         </div>
       </div>
     </template>
@@ -171,7 +182,12 @@ function addToCart() {
 }
 
 .add-to-cart-button:disabled {
-  cursor: not-allowed;
+  cursor: initial;
+}
+
+.add-to-cart-success-message {
+  margin-top: 15px;
+  color: var(--color-success);
 }
 
 .loading-container {
