@@ -54,7 +54,7 @@ function addToCart() {
   `
   setTimeout(() => {
     addToCartSuccessMessage.value = ""
-  }, 3000)
+  }, 2000)
 }
 </script>
 
