@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref, computed, onMounted } from "vue"
 import api from "@/plugins/axios"
+import { useCartStore } from "@/stores/cart"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
@@ -21,13 +22,30 @@ const props = defineProps<{
   productId: number
 }>()
 
+const cartStore = useCartStore()
+
 const product = ref<Product | null>(null)
+const quantity = ref(1)
+
+const isValidQuantity = computed(() => {
+  return Number.isInteger(quantity.value) && quantity.value >= 1
+})
 
 onMounted(async () => {
   const response = await api.get(`products/${props.productId}/`)
   product.value = response.data
   document.title = `Djacket - ${product.value?.name}`
 })
+
+function addToCart() {
+  if (!isValidQuantity.value) {
+    return
+  }
+  cartStore.addToCart({
+    productId: props.productId,
+    quantity: quantity.value
+  })
+}
 </script>
 
 <template>
@@ -50,8 +68,14 @@ onMounted(async () => {
         <div class="product-purchase">
           <h2 class="product-price">Prix : <span class="product-price-value">{{ product.price }} €</span></h2>
           <div class="add-to-cart-container">
-            <input class="quantity-input" type="number" min="1" step="1" value="1">
-            <button class="add-to-cart-button">Ajouter au panier</button>
+            <input class="quantity-input" type="number" min="1" step="1" v-model="quantity">
+            <button
+              class="add-to-cart-button" 
+              @click="addToCart()"
+              :disabled="!isValidQuantity"
+            >
+              Ajouter au panier
+            </button>
           </div>
         </div>
       </div>
@@ -144,6 +168,10 @@ onMounted(async () => {
   color: white;
   font-size: 16px;
   cursor: pointer;
+}
+
+.add-to-cart-button:disabled {
+  cursor: not-allowed;
 }
 
 .loading-container {

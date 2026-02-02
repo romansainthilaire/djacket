@@ -3,6 +3,7 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 import { useUserStore } from "@/stores/user"
+import { useCartStore } from "@/stores/cart"
 
 import BaseSvgIcon from "../base/BaseSvgIcon.vue"
 import BaseModal from "../base/BaseModal.vue"
@@ -17,6 +18,7 @@ import logoutIcon from "@/assets/svg-icons/logout.svg?raw"
 const router = useRouter()
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const cartStore = useCartStore()
 
 const isOpen = ref(false)
 const showLogoutModal = ref(false)
@@ -57,6 +59,9 @@ function logout() {
           <RouterLink class="nav-link" to="/shopping-cart">
             <BaseSvgIcon class="shopping-cart-icon" :svg="shoppingCartIcon" color="white" width="25px" />
             Panier
+            <span v-if="cartStore.totalQuantity > 0" class="cart-total-quantity">
+              ({{ cartStore.totalQuantity }})
+            </span>
           </RouterLink>
         </div>
         <div class="auth" :class="{ 'logged-in': userStore.user }">
@@ -152,6 +157,10 @@ nav {
 .shopping-cart-icon,
 .user-icon {
   margin-right: 5px;
+}
+
+.cart-total-quantity {
+  margin-left: 5px;
 }
 
 .logout-button {
