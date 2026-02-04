@@ -3,6 +3,7 @@ import { ref, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseForm from "@/components/base/BaseForm.vue"
 import BaseInput from "@/components/base/BaseInput.vue"
 import BaseInputPassword from "@/components/base/BaseInputPassword.vue"
@@ -52,6 +53,13 @@ watch([email, password], () => {
 </script>
 
 <template>
+  <BaseBreadcrumb
+    :items="[
+      { title: 'Accueil', to: '/' },
+      { title: 'Connexion' }
+    ]"
+  />
+
   <BaseForm title="Connexion" @submit="login()">
 
     <BaseInput

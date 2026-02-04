@@ -3,6 +3,7 @@ import { ref, computed, watch } from "vue"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 
+import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseForm from "@/components/base/BaseForm.vue"
 import BaseInput from "@/components/base/BaseInput.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
@@ -39,6 +40,14 @@ watch(email, () => {
 </script>
 
 <template>
+  <BaseBreadcrumb
+    :items="[
+      { title: 'Accueil', to: '/' },
+      { title: 'Connexion', to: '/login' },
+      { title: 'Réinitialisation du mot de passe' }
+    ]"
+  />
+
   <BaseForm title="Réinitialisation du mot de passe" @submit="resetPassword()">
 
     <p class="intro">
