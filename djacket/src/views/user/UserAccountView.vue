@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
 import { formatDate } from "@/utils/format"
 
+import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 import BaseModal from "@/components/base/BaseModal.vue"
 
@@ -34,6 +35,12 @@ async function deleteAccount() {
 
 <template>
   <div class="content">
+    <BaseBreadcrumb
+      :items="[
+        { title: 'Accueil', to: '/' },
+        { title: 'Compte utilisateur' }
+      ]"
+    />
 
     <div v-if="showSuccessMessage" class="success-message">
       Modifications enregistrées avec succès.
@@ -89,7 +96,6 @@ async function deleteAccount() {
 
 <style scoped>
 .content {
-  padding-top: 30px;
   padding-bottom: 50px
 }
 
@@ -97,10 +103,12 @@ async function deleteAccount() {
   background-color: var(--color-success-light);
   color: var(--color-success);
   padding: 10px 15px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
 h1 {
+  margin-top: 30px;
   margin-bottom: 20px;
   color: var(--color-primary);
   font-size: 25px;

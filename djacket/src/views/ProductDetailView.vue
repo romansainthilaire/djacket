@@ -65,6 +65,7 @@ function addToCart() {
       <BaseBreadcrumb
         class="breadcrumb"
         :items="[
+          { title: 'Accueil', to: '/' },
           { title: product.category.name, to: `/${product.category.slug}` },
           { title: product.name }
         ]"

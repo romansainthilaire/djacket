@@ -45,6 +45,7 @@ watch(username, () => {
 <template>
   <BaseBreadcrumb
     :items="[
+      { title: 'Accueil', to: '/' },
       { title: 'Compte utilisateur', to: '/user-account' },
       { title: 'Modification du nom d\'utilisateur' }
     ]"

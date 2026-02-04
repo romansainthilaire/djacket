@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
+import api from "@/plugins/axios"
 import { useRouter } from "vue-router"
 import { useAuthStore } from "@/stores/auth"
 import { useUserStore } from "@/stores/user"
 import { useCartStore } from "@/stores/cart"
+
+import type { Category } from "@/views/CategoryDetailView.vue"
 
 import BaseSvgIcon from "../base/BaseSvgIcon.vue"
 import BaseModal from "../base/BaseModal.vue"
@@ -22,6 +25,12 @@ const cartStore = useCartStore()
 
 const isOpen = ref(false)
 const showLogoutModal = ref(false)
+const categories = ref<Category[]>([])
+
+onMounted(async () => {
+  const response = await api.get("categories/")
+  categories.value = response.data
+})
 
 function toggleMenu() {
   isOpen.value = !isOpen.value
@@ -48,12 +57,10 @@ function logout() {
         <div class="nav-links">
           <RouterLink class="nav-link" to="/">Accueil</RouterLink>
           <HeaderNavDropdown
+            v-if="categories.length"
             name="Collections"
             :links="[
-              { text: 'Hiver', to: '/collections/hiver' },
-              { text: 'Été', to: '/collections/ete' },
-              { text: 'Automne', to: '/collections/automne' },
-              { text: 'Printemps', to: '/collections/printemps' }
+              ...categories.map(category => ({ text: category.name, to: `/${category.slug}` }))
             ]"
           />
           <RouterLink class="nav-link" to="/shopping-cart">

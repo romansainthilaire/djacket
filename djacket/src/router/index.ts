@@ -6,6 +6,7 @@ import userRoutes from "./routes/user"
 
 import NotFoundView from "../views/NotFoundView.vue"
 import HomeView from "../views/HomeView.vue"
+import CategoryDetailView from "../views/CategoryDetailView.vue"
 import ProductDetailView from "../views/ProductDetailView.vue"
 
 
@@ -19,6 +20,12 @@ const router = createRouter({
     },
     ...authRoutes,
     ...userRoutes,
+    {
+      path: "/:categorySlug",
+      name: "category-detail",
+      component: CategoryDetailView,
+      props: true
+    },
     {
       path: "/:categorySlug/:productId",
       name: "product-detail",
