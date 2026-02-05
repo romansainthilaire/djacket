@@ -1,6 +1,4 @@
 from rest_framework import mixins, viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 from .models import Category, Product
@@ -39,9 +37,3 @@ class ProductViewSet(mixins.ListModelMixin,
         if self.action == "retrieve":
             return ProductDetailSerializer
         return ProductListSerializer
-
-    @action(detail=False, methods=["get"], url_path="latest")
-    def latest(self, request):
-        latest_products = self.get_queryset().order_by("-created_at")[:4]
-        serializer = self.get_serializer(latest_products, many=True)
-        return Response(serializer.data)

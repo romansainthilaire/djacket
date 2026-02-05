@@ -7,11 +7,11 @@ import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
 
-const latestProducts = ref<Product[]>([])
+const products = ref<Product[]>([])
 
 onMounted(async () => {
-  const response = await api.get("products/latest/")
-  latestProducts.value = response.data
+  const response = await api.get("products/")
+  products.value = response.data
 })
 </script>
 
@@ -23,13 +23,9 @@ onMounted(async () => {
       <h2>Le meilleur endroit pour trouver votre veste idéale.</h2>
     </div>
 
-    <h3>Nouveaux produits</h3>
+    <h3>Tous les produits</h3>
 
-    <ProductGrid
-      class="latest-products"
-      v-if="latestProducts.length"
-      :products="latestProducts"
-    />
+    <ProductGrid v-if="products.length" :products="products" />
 
     <div v-else class="loading-container">
       <BaseLoadingSpinner />
