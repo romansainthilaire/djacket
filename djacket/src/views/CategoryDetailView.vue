@@ -58,10 +58,7 @@ watch(() => props.categorySlug, async () => {
       <ProductGrid class="products" :products="products" />
     </template>
     
-    <div v-else class="loading-container">
-      <BaseLoadingSpinner />
-      <div class="loading-text">Chargement...</div>
-    </div>
+    <BaseLoadingSpinner v-else class="loading-spinner" text="Chargement..." />
 
   </div>
 </template>
@@ -80,9 +77,8 @@ h1 {
   color: var(--color-primary);
 }
 
-.loading-container {
+.loading-spinner {
   margin-top: 50px;
-  text-align: center;
 }
 
 @media (max-width: 600px) {

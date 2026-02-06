@@ -27,10 +27,7 @@ onMounted(async () => {
 
     <ProductGrid v-if="products.length" :products="products" />
 
-    <div v-else class="loading-container">
-      <BaseLoadingSpinner />
-      <div class="loading-text">Chargement...</div>
-    </div>
+    <BaseLoadingSpinner v-else text="Chargement..." />
 
   </div>
 </template>
@@ -75,10 +72,6 @@ h3 {
   margin-top: 80px;
   margin-bottom: 50px;
   color: var(--color-primary);
-}
-
-.loading-container {
-  text-align: center;
 }
 
 @media (max-width: 600px) {

@@ -67,15 +67,8 @@ function goToSignupPage() {
 <template>
   <div class="content">
 
-    <div v-if="loading" class="loading-container">
-      <BaseLoadingSpinner />
-      <div class="loading-text">Vérification...</div>
-    </div>
-
-    <div v-else-if="loadingResend" class="loading-container">
-      <BaseLoadingSpinner />
-      <div class="loading-text">Renvoi de l'e-mail...</div>
-    </div>
+    <BaseLoadingSpinner v-if="loading" text="Vérification..." />
+    <BaseLoadingSpinner v-else-if="loadingResend" text="Renvoi de l'e-mail..." />
 
     <div v-else-if="emailVerified">
       <p>✅ Votre adresse e-mail <b>{{ email }}</b> est vérifiée.</p>
@@ -99,14 +92,6 @@ function goToSignupPage() {
 <style scoped>
 .content {
   margin-top: 20px;
-}
-
-.loading-container {
-  text-align: center;
-}
-
-.loading-text {
-  margin-top: 10px;
 }
 
 p {

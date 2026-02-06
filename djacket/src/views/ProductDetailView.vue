@@ -93,10 +93,7 @@ function addToCart() {
       </div>
     </template>
     
-    <div v-else class="loading-container">
-      <BaseLoadingSpinner />
-      <div class="loading-text">Chargement...</div>
-    </div>
+    <BaseLoadingSpinner v-else class="loading-spinner" text="Chargement..." />
 
   </div>
 </template>
@@ -191,9 +188,8 @@ function addToCart() {
   color: var(--color-success);
 }
 
-.loading-container {
+.loading-spinner {
   margin-top: 50px;
-  text-align: center;
 }
 
 @media (max-width: 1100px) {
