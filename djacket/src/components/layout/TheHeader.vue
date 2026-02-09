@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/auth"
 import { useUserStore } from "@/stores/user"
 import { useCartStore } from "@/stores/cart"
 
-import type { Category } from "@/views/CategoryDetailView.vue"
+import type { Category } from "@/components/products/ProductCard.vue"
 
 import BaseSvgIcon from "../base/BaseSvgIcon.vue"
 import BaseModal from "../base/BaseModal.vue"

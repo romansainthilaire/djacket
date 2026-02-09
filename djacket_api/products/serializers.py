@@ -15,17 +15,13 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductListSerializer(serializers.ModelSerializer):
 
-    category_slug = serializers.SlugRelatedField(
-        source="category",
-        slug_field="slug",
-        read_only=True
-    )
+    category = CategorySerializer()
 
     class Meta:
         model = Product
         fields = [
             "id",
-            "category_slug",
+            "category",
             "name",
             "price",
             "thumbnail"

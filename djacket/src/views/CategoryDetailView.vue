@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue"
+import { ref, computed, onMounted, watch } from "vue"
 import api from "@/plugins/axios"
 
 import type { Product } from "@/components/products/ProductCard.vue"
@@ -7,47 +7,37 @@ import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
-export type Category = {
-  name: string,
-  slug: string
-}
 
 const props = defineProps<{
   categorySlug: string
 }>()
 
-const category = ref<Category | null>(null)
 const products = ref<Product[]>([])
 
-async function fetchCategory() {
-  const response = await api.get(`categories/${props.categorySlug}/`)
-  category.value = response.data
-}
-
-async function fetchProducts() {
-  const response = await api.get(`products?category=${props.categorySlug}`)
-  products.value = response.data
-}
-
-onMounted(async () => {
-  await fetchCategory()
-  await fetchProducts()
-  document.title = `Djacket - ${category.value!.name}`
+const category = computed(() => {
+  return products.value[0]!.category
 })
 
-watch(() => props.categorySlug, async () => {
-  category.value = null
+async function fetchProducts() {
   products.value = []
-  await fetchCategory()
-  await fetchProducts()
+  const response = await api.get(`products?category=${props.categorySlug}`)
+  products.value = response.data
   document.title = `Djacket - ${category.value!.name}`
+}
+
+onMounted(() => {
+  fetchProducts()
+})
+
+watch(() => props.categorySlug, () => {
+  fetchProducts()
 })
 </script>
 
 <template>
   <div class="content">
 
-    <template v-if="category && products.length">
+    <template v-if="products.length">
       <BaseBreadcrumb
         :items="[
           { title: 'Accueil', to: '/' },

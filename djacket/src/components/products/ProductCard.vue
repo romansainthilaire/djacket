@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
 
+export type Category = {
+  name: string
+  slug: string
+}
+
 export type Product = {
   id: number
-  categorySlug: string
+  category: Category
   name: string
   price: string
   thumbnail: string
@@ -21,7 +26,7 @@ function goToProductDetail(categorySlug: string, productId: number) {
 </script>
 
 <template>
-  <div class="product-card" @click="goToProductDetail(props.product.categorySlug, props.product.id)">
+  <div class="product-card" @click="goToProductDetail(props.product.category.slug, props.product.id)">
     <img class="product-thumbnail" :src="props.product.thumbnail" :alt="props.product.name" />
     <div class="product-info">
       <div class="product-name">{{ props.product.name }}</div>
