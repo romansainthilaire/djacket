@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import BaseSvgIcon from "./BaseSvgIcon.vue"
+import closeIcon from "@/assets/svg-icons/close.svg?raw"
+
+
 type Props = {
   id: string
   type: "text" | "email"
@@ -6,6 +10,8 @@ type Props = {
   required?: boolean
   errorMessage?: string
   helpText?: string
+  placeholder?: string
+  showClearButton?: boolean
 }
 
 const {
@@ -14,7 +20,9 @@ const {
   label = "",
   required = false,
   errorMessage = "",
-  helpText = ""
+  helpText = "",
+  placeholder = "",
+  showClearButton = false
 } = defineProps<Props>()
 
 const value = defineModel<string>({ required: true })
@@ -23,12 +31,22 @@ const value = defineModel<string>({ required: true })
 <template>
   <div class="form-field">
     <label v-if="label" :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      :type="type"
-      :required="required"
-      v-model="value"
-    />
+    <div class="input-container">
+      <input
+        :id="id"
+        :type="type"
+        :required="required"
+        :placeholder="placeholder"
+        v-model="value"
+      />
+      <button
+        v-if="showClearButton && value"
+        class="clear-button"
+        @click="value = ''"
+      >
+        <BaseSvgIcon :svg="closeIcon" height="22px" color="var(--color-primary)" />
+      </button>
+    </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     <p v-else-if="helpText" class="help-text">{{ helpText }}</p>
   </div>
@@ -46,6 +64,10 @@ label {
   font-size: 16px;
 }
 
+.input-container {
+  position: relative;
+}
+
 input {
   width: 100%;
   box-sizing: border-box;
@@ -59,6 +81,17 @@ input {
 
 input:focus {
   outline: 1px solid var(--color-primary);
+}
+
+input::placeholder {
+  color: rgb(150, 150, 150);
+}
+
+.clear-button {
+  position: absolute;
+  right: 5px;
+  top: 9px;
+  background-color: transparent;
 }
 
 .error-message {

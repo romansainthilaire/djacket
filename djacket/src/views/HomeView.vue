@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref,computed, onMounted } from "vue"
 import api from "@/plugins/axios"
 
 import type { Product } from "@/components/products/ProductCard.vue"
+import BaseInput from "@/components/base/BaseInput.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
 
 const products = ref<Product[]>([])
+const search = ref("")
+
+const filteredProducts = computed(() => {
+  if (!search.value.trim()) {
+    return products.value
+  }
+  const searchTerms = search.value.toLowerCase().split(" ").filter(Boolean)
+  return products.value.filter(product => {
+    const productName = product.name.toLowerCase()
+    return searchTerms.some(term => productName.includes(term))
+  })
+})
 
 onMounted(async () => {
   const response = await api.get("products/")
@@ -23,9 +36,25 @@ onMounted(async () => {
       <h2>Le meilleur endroit pour trouver votre veste idéale.</h2>
     </div>
 
-    <h3>Tous les produits</h3>
+    <div class="search-container">
+      <BaseInput
+        id="search"
+        type="text"
+        v-model="search"
+        placeholder="Rechercher une veste"
+        show-clear-button
+      />
+    </div>
 
-    <ProductGrid v-if="products.length" :products="products" />
+    <h3>
+      <template v-if="search">Produits trouvés ({{ filteredProducts.length }})</template>
+      <template v-else>Tous les produits ({{ products.length }})</template>
+    </h3>
+
+    <template v-if="products.length">
+      <ProductGrid v-if="filteredProducts.length" :products="filteredProducts" />
+      <p v-else class="no-results">Aucun produit ne correspond à votre recherche.</p>
+    </template>
 
     <BaseLoadingSpinner v-else text="Chargement..." />
 
@@ -65,13 +94,23 @@ h2 {
   margin-top: 15px;
 }
 
+.search-container {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 60px;
+}
+
 h3 {
   font-size: 30px;
   font-weight: 500;
   text-align: center;
-  margin-top: 80px;
-  margin-bottom: 50px;
+  margin: 50px 0;
   color: var(--color-primary);
+}
+
+.no-results {
+  text-align: center;
+  color: rgb(100, 100, 100);
 }
 
 @media (max-width: 600px) {
