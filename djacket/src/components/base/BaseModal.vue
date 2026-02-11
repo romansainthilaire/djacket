@@ -99,7 +99,7 @@ function confirm() {
 }
 
 .close-button {
-  background: transparent;
+  background: none;
   margin-top: 10px;
   margin-right: 10px;
 }
