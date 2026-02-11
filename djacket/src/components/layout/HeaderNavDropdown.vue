@@ -75,7 +75,7 @@ function onClickOutside(event: MouseEvent) {
   font-size: 16px;
   line-height: initial;
   padding: 6px 12px;
-  background-color: transparent;
+  background: none;
   border-radius: 4px;
   margin: 0 5px;
   transition: background-color 0.3s ease;
@@ -118,11 +118,11 @@ function onClickOutside(event: MouseEvent) {
   }
 
   .dropdown-button:hover {
-    background-color: transparent;
+    background: none;
   }
 
   .dropdown-button.is-open {
-    background-color: transparent;
+    background: none;
     text-decoration: underline;
     text-underline-offset: 4px;
   }

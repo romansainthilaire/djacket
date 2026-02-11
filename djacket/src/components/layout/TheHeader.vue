@@ -233,7 +233,7 @@ nav {
   }
 
   .nav-link:hover {
-    background-color: transparent;
+    background: none;
   }
 
   .auth {

@@ -91,7 +91,7 @@ input::placeholder {
   position: absolute;
   right: 5px;
   top: 9px;
-  background-color: transparent;
+  background: none;
 }
 
 .error-message {
