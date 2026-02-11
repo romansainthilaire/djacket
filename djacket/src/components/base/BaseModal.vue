@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import BaseSvgIcon from "./BaseSvgIcon.vue"
 import BaseButton from "./BaseButton.vue"
+import closeIcon from "@/assets/svg-icons/close.svg?raw"
 
 type Props = {
   title: string
@@ -40,7 +42,9 @@ function confirm() {
         <div class="modal-header">
           <div class="modal-title">{{ title }}</div>
           <div class="modal-close" v-if="showCloseButton">
-            <button class="close-button" @click="close()">&times;</button>
+            <button class="close-button" @click="close()">
+              <BaseSvgIcon :svg="closeIcon" height="20px" color="rgb(80, 80, 80)" />
+            </button>
           </div>
         </div>
 
@@ -84,22 +88,20 @@ function confirm() {
 .modal-header {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
   background-color: var(--color-primary-light);
 }
 
 .modal-title {
+  padding: 20px;
   font-size: 20px;
   font-weight: 600;
   color: var(--color-primary);
-  padding-right: 20px;
 }
 
 .close-button {
-  color: rgb(80, 80, 80);
-  background: none;
-  font-size: 30px;
-  margin-right: -5px;
+  background: transparent;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .modal-body {
