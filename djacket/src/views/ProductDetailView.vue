@@ -7,14 +7,14 @@ import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
 type Product = {
-  id: number,
+  id: number
   category: {
-    name: string,
+    name: string
     slug: string
   }
-  name: string,
-  description: string,
-  price: string,
+  name: string
+  description: string
+  price: string
   image: string
 }
 

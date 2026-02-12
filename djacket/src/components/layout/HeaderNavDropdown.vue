@@ -3,13 +3,13 @@ import { ref, onMounted, onBeforeUnmount, useTemplateRef } from "vue"
 
 
 type DropdownLink = {
-  text: string,
+  text: string
   to: string
 }
 
 type Props = {
-  name: string,
-  links: DropdownLink[],
+  name: string
+  links: DropdownLink[]
   menuWidth?: string
 }
 

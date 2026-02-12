@@ -5,7 +5,7 @@ import arrowForwardIcon from "@/assets/svg-icons/arrow-forward.svg?raw"
 
 
 type BreadcrumbItem = {
-  title: string,
+  title: string
   to?: string
 }
 
