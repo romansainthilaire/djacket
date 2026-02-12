@@ -111,7 +111,7 @@ function onClickOutside(event: MouseEvent) {
   background-color: var(--color-primary-light);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
   .dropdown-button {
     margin: 8px 0;
     padding: 0;

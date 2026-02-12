@@ -191,7 +191,7 @@ nav {
   background-color: rgb(0, 160, 160);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
   header {
     height: auto;
   }
