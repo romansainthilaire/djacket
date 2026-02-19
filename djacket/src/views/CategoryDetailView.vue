@@ -4,6 +4,7 @@ import api from "@/plugins/axios"
 
 import type { Product } from "@/components/products/ProductCard.vue"
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
+import BaseInput from "@/components/base/BaseInput.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
@@ -16,6 +17,19 @@ const products = ref<Product[]>([])
 
 const category = computed(() => {
   return products.value[0]!.category
+})
+
+const search = ref("")
+
+const filteredProducts = computed(() => {
+  if (!search.value.trim()) {
+    return products.value
+  }
+  const searchTerms = search.value.toLowerCase().split(" ").filter(Boolean)
+  return products.value.filter(product => {
+    const productName = product.name.toLowerCase()
+    return searchTerms.some(term => productName.includes(term))
+  })
 })
 
 async function fetchProducts() {
@@ -44,8 +58,26 @@ watch(() => props.categorySlug, () => {
           { title: category.name }
         ]"
       />
+
       <h1>Collection {{ category.name }}</h1>
-      <ProductGrid class="products" :products="products" />
+
+      <p class="nb-products-found">
+        {{ filteredProducts.length }}
+        produit{{ filteredProducts.length > 1 ? "s" : "" }}
+        trouvé{{ filteredProducts.length > 1 ? "s" : "" }}
+      </p>
+
+      <div class="search-container">
+        <BaseInput
+          id="search"
+          type="text"
+          v-model="search"
+          placeholder="Rechercher une veste"
+          show-clear-button
+        />
+      </div>
+
+      <ProductGrid class="products" :products="filteredProducts" />
     </template>
     
     <BaseLoadingSpinner v-else class="loading-spinner" text="Chargement..." />
@@ -63,8 +95,21 @@ h1 {
   font-weight: 500;
   text-align: center;
   margin-top: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   color: var(--color-primary);
+}
+
+.nb-products-found {
+  font-size: 16px;
+  text-align: center;
+  color: rgb(80, 80, 80);
+}
+
+.search-container {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 60px;
 }
 
 .loading-spinner {
@@ -79,7 +124,10 @@ h1 {
   h1 {
     font-size: 20px;
     margin-top: 30px;
-    margin-bottom: 40px;
+  }
+
+  .nb-products-found {
+    font-size: 14px;
   }
 }
 </style>
