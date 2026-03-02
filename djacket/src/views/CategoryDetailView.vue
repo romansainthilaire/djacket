@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue"
 import api from "@/plugins/axios"
+import { useRouter } from "vue-router"
 
 import type { Product } from "@/components/products/ProductCard.vue"
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
@@ -12,6 +13,8 @@ import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 const props = defineProps<{
   categorySlug: string
 }>()
+
+const router = useRouter()
 
 const products = ref<Product[]>([])
 
@@ -33,10 +36,16 @@ const filteredProducts = computed(() => {
 })
 
 async function fetchProducts() {
-  products.value = []
-  const response = await api.get(`products?category=${props.categorySlug}`)
-  products.value = response.data
-  document.title = `Djacket - ${category.value!.name}`
+  try {
+    const response = await api.get(`products?category=${props.categorySlug}`)
+    products.value = response.data
+  } catch (error: any) {
+    if (error.status == 404) {
+      router.push({ name: "not-found" })
+      return
+    }
+  }
+  document.title = `Djacket - ${category.value?.name}`
 }
 
 onMounted(() => {

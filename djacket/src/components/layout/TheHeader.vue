@@ -63,7 +63,7 @@ function logout() {
               ...categories.map(category => ({ text: category.name, to: `/${category.slug}` }))
             ]"
           />
-          <RouterLink class="nav-link" to="/shopping-cart">
+          <RouterLink class="nav-link" to="/cart">
             <BaseSvgIcon class="shopping-cart-icon" :svg="shoppingCartIcon" color="white" width="25px" />
             Panier
             <span v-if="cartStore.totalQuantity > 0" class="cart-total-quantity">

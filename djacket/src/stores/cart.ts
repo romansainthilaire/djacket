@@ -2,7 +2,11 @@ import { defineStore } from "pinia"
 import { ref, computed } from "vue"
 
 type Item = {
-  productId: number
+  product: {
+    id: number
+    name: string
+    price: number
+  }
   quantity: number
 }
 
@@ -22,8 +26,16 @@ export const useCartStore = defineStore("cart", () => {
     return totalQuantity
   })
 
+  const totalPrice = computed((): number => {
+    let totalPrice = 0
+    cart.value.forEach(item => {
+      totalPrice += item.product.price * item.quantity
+    })
+    return totalPrice
+  })
+
   function addToCart(item: Item) {
-    const existingItem = cart.value.find(i => i.productId == item.productId)
+    const existingItem = cart.value.find(i => i.product.id == item.product.id)
     if (existingItem) {
       existingItem.quantity += item.quantity
     } else {
@@ -35,6 +47,7 @@ export const useCartStore = defineStore("cart", () => {
   return {
     cart,
     totalQuantity,
+    totalPrice,
     addToCart
   }
 })

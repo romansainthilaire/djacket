@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
@@ -30,7 +32,8 @@ class ProductViewSet(mixins.ListModelMixin,
         queryset = Product.objects.select_related("category")
         category_slug = self.request.query_params.get("category")
         if category_slug:
-            queryset = queryset.filter(category__slug=category_slug)
+            category = get_object_or_404(Category, slug=category_slug)
+            queryset = queryset.filter(category=category)
         return queryset
 
     def get_serializer_class(self):

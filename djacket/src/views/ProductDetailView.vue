@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
 import api from "@/plugins/axios"
+import { useRouter } from "vue-router"
 import { useCartStore } from "@/stores/cart"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
@@ -22,6 +23,7 @@ const props = defineProps<{
   productId: number
 }>()
 
+const router = useRouter()
 const cartStore = useCartStore()
 
 const product = ref<Product | null>(null)
@@ -33,8 +35,15 @@ const isValidQuantity = computed(() => {
 })
 
 onMounted(async () => {
-  const response = await api.get(`products/${props.productId}/`)
-  product.value = response.data
+  try {
+    const response = await api.get(`products/${props.productId}/`)
+    product.value = response.data
+  } catch (error: any) {
+    if (error.status == 404) {
+      router.push({ name: "not-found" })
+      return
+    }
+  }
   document.title = `Djacket - ${product.value?.name}`
 })
 
@@ -43,7 +52,11 @@ function addToCart() {
     return
   }
   cartStore.addToCart({
-    productId: props.productId,
+    product: {
+      id: product.value!.id,
+      name: product.value!.name,
+      price: parseFloat(product.value!.price)
+    },
     quantity: quantity.value
   })
   addToCartSuccessMessage.value = `

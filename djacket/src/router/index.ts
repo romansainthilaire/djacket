@@ -8,6 +8,7 @@ import NotFoundView from "../views/NotFoundView.vue"
 import HomeView from "../views/HomeView.vue"
 import CategoryDetailView from "../views/CategoryDetailView.vue"
 import ProductDetailView from "../views/ProductDetailView.vue"
+import CartView from "../views/CartView.vue"
 
 
 const router = createRouter({
@@ -31,6 +32,12 @@ const router = createRouter({
       name: "product-detail",
       component: ProductDetailView,
       props: route => ({ productId: Number(route.params.productId) })
+    },
+    {
+      path: "/cart",
+      name: "cart",
+      component: CartView,
+      meta: { title: "Panier" }
     },
     {
       path: "/:pathMatch(.*)*",
