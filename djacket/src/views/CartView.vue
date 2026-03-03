@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCartStore } from "@/stores/cart"
 
+import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseSvgIcon from "@/components/base/BaseSvgIcon.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
@@ -13,6 +14,12 @@ const cartStore = useCartStore()
 
 <template>
   <div class="content">
+    <BaseBreadcrumb
+      :items="[
+        { title: 'Accueil', to: '/' },
+        { title: 'Votre panier' }
+      ]"
+    />
 
     <h1>Votre panier</h1>
 
@@ -65,11 +72,11 @@ const cartStore = useCartStore()
 
 <style scoped>
 .content {
-  margin-top: 50px;
   margin-bottom: 100px;
 }
 
 h1 {
+  margin-top: 40px;
   color: var(--color-primary);
   font-size: 30px;
   font-weight: 500;
