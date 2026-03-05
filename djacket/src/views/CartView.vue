@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { ref } from "vue"
 import { useCartStore } from "@/stores/cart"
+import type { Item } from "@/stores/cart"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
+import BaseModal from "@/components/base/BaseModal.vue"
 import BaseSvgIcon from "@/components/base/BaseSvgIcon.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
@@ -9,6 +12,8 @@ import addIcon from "@/assets/svg-icons/add.svg?raw"
 import removeIcon from "@/assets/svg-icons/remove.svg?raw"
 
 const cartStore = useCartStore()
+
+const itemToRemove = ref<Item | null>(null)
 </script>
 
 <template>
@@ -22,44 +27,70 @@ const cartStore = useCartStore()
 
     <h1>Votre panier</h1>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Produit</th>
-          <th>Prix</th>
-          <th>Quantité</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in cartStore.cart" :key="item.product.id">
-          <td>{{ item.product.name }}</td>
-          <td data-label="Prix">{{ item.product.price.toFixed(2) }} €</td>
-          <td data-label="Quantité">
-            <div class="quantity">
-              {{ item.quantity }}
-              <button class="add-button">
-                <BaseSvgIcon :svg="addIcon" color="white" width="16px" />
-              </button>
-              <button class="remove-button">
-                <BaseSvgIcon :svg="removeIcon" color="white" width="16px" />
-              </button>
-            </div>
-          </td>
-          <td data-label="Total">{{ (item.product.price * item.quantity).toFixed(2) }} €</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="summary-card">
-      <h2>Total de votre panier</h2>
-      <p class="summary-details">
-        <span class="total-price">{{ cartStore.totalPrice.toFixed(2) }} €</span>
-        ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
+    <template v-if="cartStore.totalQuantity == 0">
+      <p class="empty-cart-message">
+        Vous n'avez aucun article dans votre panier.
       </p>
-      <BaseButton>Procéder au paiement</BaseButton>
-    </div>
+    </template>
+
+    <template v-else>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in cartStore.cart" :key="item.product.id">
+            <td>{{ item.product.name }}</td>
+            <td data-label="Prix">{{ item.product.price.toFixed(2) }} €</td>
+            <td data-label="Quantité">
+              <div class="quantity">
+                {{ item.quantity }}
+                <button
+                  class="add-button"
+                  @click="cartStore.increaseQuantity(item)"
+                >
+                  <BaseSvgIcon :svg="addIcon" color="white" width="16px" />
+                </button>
+                <button
+                  class="remove-button"
+                  @click="item.quantity > 1 ? cartStore.decreaseQuantity(item) : itemToRemove = item"
+                >
+                  <BaseSvgIcon :svg="removeIcon" color="white" width="16px" />
+                </button>
+              </div>
+            </td>
+            <td data-label="Total">{{ (item.product.price * item.quantity).toFixed(2) }} €</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="summary-card">
+        <h2>Total de votre panier</h2>
+        <p class="summary-details">
+          <span class="total-price">{{ cartStore.totalPrice.toFixed(2) }} €</span>
+          ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
+        </p>
+        <BaseButton>Procéder au paiement</BaseButton>
+      </div>
+
+      <BaseModal
+        v-if="itemToRemove"
+        :title="itemToRemove.product.name"
+        text="Voulez-vous retirer ce produit du panier ?"
+        show-close-button
+        show-confirm-button
+        @close="itemToRemove = null"
+        @confirm="cartStore.removeFromCart(itemToRemove)"
+      />
+
+    </template>
 
   </div>
 </template>
@@ -74,6 +105,11 @@ h1 {
   color: var(--color-primary);
   font-size: 30px;
   font-weight: 500;
+}
+
+.empty-cart-message {
+  margin-top: 20px;
+  color: rgb(100, 100, 100);
 }
 
 table {

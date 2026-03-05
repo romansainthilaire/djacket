@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { ref, computed } from "vue"
 
-type Item = {
+export type Item = {
   product: {
     id: number
     name: string
@@ -44,10 +44,34 @@ export const useCartStore = defineStore("cart", () => {
     localStorage.setItem("cart", JSON.stringify(cart.value))
   }
 
+  function removeFromCart(item: Item) {
+    cart.value = cart.value.filter(i => i.product.id != item.product.id)
+    localStorage.setItem("cart", JSON.stringify(cart.value))
+  }
+
+  function increaseQuantity(item: Item) {
+    const existingItem = cart.value.find(i => i.product.id == item.product.id)
+    if (existingItem) {
+      existingItem.quantity += 1
+      localStorage.setItem("cart", JSON.stringify(cart.value))
+    }
+  }
+
+  function decreaseQuantity(item: Item) {
+    const existingItem = cart.value.find(i => i.product.id == item.product.id)
+    if (existingItem && existingItem.quantity > 1) {
+      existingItem.quantity -= 1
+      localStorage.setItem("cart", JSON.stringify(cart.value))
+    }
+  }
+
   return {
     cart,
     totalQuantity,
     totalPrice,
-    addToCart
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity
   }
 })
