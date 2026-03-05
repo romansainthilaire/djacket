@@ -7,7 +7,6 @@ import BaseButton from "@/components/base/BaseButton.vue"
 
 import addIcon from "@/assets/svg-icons/add.svg?raw"
 import removeIcon from "@/assets/svg-icons/remove.svg?raw"
-import closeIcon from "@/assets/svg-icons/close.svg?raw"
 
 const cartStore = useCartStore()
 </script>
@@ -36,8 +35,8 @@ const cartStore = useCartStore()
       <tbody>
         <tr v-for="item in cartStore.cart" :key="item.product.id">
           <td>{{ item.product.name }}</td>
-          <td>{{ item.product.price.toFixed(2) }} €</td>
-          <td>
+          <td data-label="Prix">{{ item.product.price.toFixed(2) }} €</td>
+          <td data-label="Quantité">
             <div class="quantity">
               {{ item.quantity }}
               <button class="add-button">
@@ -48,12 +47,7 @@ const cartStore = useCartStore()
               </button>
             </div>
           </td>
-          <td>{{ (item.product.price * item.quantity).toFixed(2) }} €</td>
-          <td>
-            <button class="delete-button">
-              <BaseSvgIcon :svg="closeIcon" color="white" width="16px" />
-            </button>
-          </td>
+          <td data-label="Total">{{ (item.product.price * item.quantity).toFixed(2) }} €</td>
         </tr>
       </tbody>
     </table>
@@ -62,7 +56,7 @@ const cartStore = useCartStore()
       <h2>Total de votre panier</h2>
       <p class="summary-details">
         <span class="total-price">{{ cartStore.totalPrice.toFixed(2) }} €</span>
-        ({{ cartStore.totalQuantity }} produits)
+        ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
       </p>
       <BaseButton>Procéder au paiement</BaseButton>
     </div>
@@ -72,7 +66,7 @@ const cartStore = useCartStore()
 
 <style scoped>
 .content {
-  margin-bottom: 100px;
+  padding-bottom: 100px;
 }
 
 h1 {
@@ -149,10 +143,54 @@ h2 {
 }
 
 @media (max-width: 600px) {
+  .content {
+    padding-bottom: 80px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+  }
+
+  table {
+    border-radius: none;
+    box-shadow: none;
+    margin-top: 30px;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin-bottom: 35px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  td::before {
+    content: attr(data-label);
+  }
+
+  td:first-child {
+    border-top: none;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+  }
+
   .summary-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 0;
   }
 }
 </style>
