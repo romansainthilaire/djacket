@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { useUserStore } from "@/stores/user"
 import { useCartStore } from "@/stores/cart"
 import type { Item } from "@/stores/cart"
 
@@ -11,9 +13,15 @@ import BaseButton from "@/components/base/BaseButton.vue"
 import addIcon from "@/assets/svg-icons/add.svg?raw"
 import removeIcon from "@/assets/svg-icons/remove.svg?raw"
 
+const router = useRouter()
+const userStore = useUserStore()
 const cartStore = useCartStore()
 
 const itemToRemove = ref<Item | null>(null)
+
+function goToPaymentPage() {
+  router.push({ name: "payment" })
+}
 </script>
 
 <template>
@@ -42,7 +50,6 @@ const itemToRemove = ref<Item | null>(null)
             <th>Prix</th>
             <th>Quantité</th>
             <th>Total</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -53,16 +60,16 @@ const itemToRemove = ref<Item | null>(null)
               <div class="quantity">
                 {{ item.quantity }}
                 <button
-                  class="add-button"
-                  @click="cartStore.increaseQuantity(item)"
-                >
-                  <BaseSvgIcon :svg="addIcon" color="white" width="16px" />
-                </button>
-                <button
                   class="remove-button"
                   @click="item.quantity > 1 ? cartStore.decreaseQuantity(item) : itemToRemove = item"
                 >
                   <BaseSvgIcon :svg="removeIcon" color="white" width="16px" />
+                </button>
+                <button
+                  class="add-button"
+                  @click="cartStore.increaseQuantity(item)"
+                >
+                  <BaseSvgIcon :svg="addIcon" color="white" width="16px" />
                 </button>
               </div>
             </td>
@@ -77,7 +84,10 @@ const itemToRemove = ref<Item | null>(null)
           <span class="total-price">{{ cartStore.totalPrice.toFixed(2) }} €</span>
           ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
         </p>
-        <BaseButton>Procéder au paiement</BaseButton>
+        <p class="login-required-message" v-if="!userStore.user">
+          Vous devez être connecté pour procéder au paiement.
+        </p>
+        <BaseButton @click="goToPaymentPage()">Procéder au paiement</BaseButton>
       </div>
 
       <BaseModal
@@ -137,16 +147,11 @@ td:not(:first-child) {
   text-wrap: nowrap;
 }
 
-.add-button,
 .remove-button,
-.delete-button {
+.add-button {
   background-color: rgb(200, 200, 200);
   border-radius: 50%;
   padding: 2px;
-}
-
-.add-button,
-.remove-button {
   margin-left: 7px;
 }
 
@@ -170,6 +175,12 @@ h2 {
 .summary-details {
   margin-top: 10px;
   margin-bottom: 30px;
+}
+
+.login-required-message {
+  color: rgb(100, 100, 100);
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .total-price {
@@ -227,6 +238,11 @@ h2 {
     flex-direction: column;
     align-items: center;
     margin-top: 0;
+  }
+
+  .login-required-message {
+    text-align: center;
+    margin-bottom: 15px;
   }
 }
 </style>

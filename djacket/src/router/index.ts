@@ -9,6 +9,7 @@ import HomeView from "../views/HomeView.vue"
 import CategoryDetailView from "../views/CategoryDetailView.vue"
 import ProductDetailView from "../views/ProductDetailView.vue"
 import CartView from "../views/CartView.vue"
+import PaymentView from "../views/PaymentView.vue"
 
 
 const router = createRouter({
@@ -38,6 +39,15 @@ const router = createRouter({
       name: "cart",
       component: CartView,
       meta: { title: "Panier" }
+    },
+    {
+      path: "/cart/payment",
+      name: "payment",
+      component: PaymentView,
+      meta: {
+        title: "Paiement",
+        loginRequired: true
+      }
     },
     {
       path: "/:pathMatch(.*)*",
