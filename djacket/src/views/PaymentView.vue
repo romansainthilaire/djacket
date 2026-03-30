@@ -1,9 +1,84 @@
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from "vue"
 import { useCartStore } from "@/stores/cart"
+import { loadStripe } from "@stripe/stripe-js"
+import api from "@/plugins/axios"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 
 const cartStore = useCartStore()
+
+const stripe = ref<any>(null)
+const stripeElements = ref<any>(null)
+const stripePaymentElement = ref<any>(null)
+
+const loading = ref(false)
+const errorMessage = ref("")
+
+const shippingFullName = ref("")
+const shippingAddressLine1 = ref("")
+const shippingAddressLine2 = ref("")
+const shippingPostalCode = ref("")
+const shippingCity = ref("")
+const shippingCountry = ref("")
+
+const billingFullName = ref("")
+const billingAddressLine1 = ref("")
+const billingAddressLine2 = ref("")
+const billingPostalCode = ref("")
+const billingCity = ref("")
+const billingCountry = ref("")
+
+onMounted(async () => {
+  stripe.value = await loadStripe("pk_test_51QV6q404TSsKpI2jt7YePW2642t5OfO7LtRIJ4YqlWQUgFfmfcIMd5zJG30NkugDcEAIA5Vl5WNYeJQmgnpv7RVP00VWlUJ2Y7")
+})
+
+async function checkout() {
+  loading.value = true
+  errorMessage.value = ""
+  try {
+    const response = await api.post("orders/checkout/", {
+      items: cartStore.cart.map((item) => ({ product: item.product.id, quantity: item.quantity })),
+      shippingFullName: shippingFullName.value,
+      shippingAddressLine1: shippingAddressLine1.value,
+      shippingAddressLine2: shippingAddressLine2.value,
+      shippingPostalCode: shippingPostalCode.value,
+      shippingCity: shippingCity.value,
+      shippingCountry: shippingCountry.value,
+      billingFullName: billingFullName.value,
+      billingAddressLine1: billingAddressLine1.value,
+      billingAddressLine2: billingAddressLine2.value,
+      billingPostalCode: billingPostalCode.value,
+      billingCity: billingCity.value,
+      billingCountry: billingCountry.value
+    })
+    const clientSecret = response.data.clientSecret
+    await nextTick()
+    if (!stripePaymentElement.value) {
+      stripeElements.value = stripe.value.elements({ clientSecret: clientSecret })
+      stripePaymentElement.value = stripeElements.value.create("payment")
+      stripePaymentElement.value.mount("#stripe-payment-element")
+    }
+  } catch (error) {
+    errorMessage.value = "Erreur lors de la création du paiement."
+  } finally {
+    loading.value = false
+  }
+}
+
+async function confirmPayment() {
+  loading.value = true
+  const { error } = await stripe.value.confirmPayment({
+    elements: stripeElements.value,
+    confirmParams: {
+      return_url: "http://localhost:5173/payment-status"
+    }
+  })
+  if (error) {
+    errorMessage.value = error.message
+  }
+  loading.value = false
+}
 </script>
 
 <template>
@@ -16,7 +91,7 @@ const cartStore = useCartStore()
       ]"
     />
 
-    <h1>Paiement</h1>
+    <h1>Votre commande</h1>
 
     <table>
       <thead>
@@ -44,6 +119,34 @@ const cartStore = useCartStore()
         ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
       </p>
     </div>
+
+    <h2>Adresse de livraison</h2>
+
+    <input v-model="shippingFullName" placeholder="Nom complet ou raison sociale" />
+    <input v-model="shippingAddressLine1" placeholder="Numéro et nom de la voie" />
+    <input v-model="shippingAddressLine2" placeholder="Complément d'adresse" />
+    <input v-model="shippingPostalCode" placeholder="Code postal" />
+    <input v-model="shippingCity" placeholder="Ville" />
+    <input v-model="shippingCountry" placeholder="Pays" />
+
+    <h2>Adresse de facturation</h2>
+
+    <input v-model="billingFullName" placeholder="Nom complet ou raison sociale" />
+    <input v-model="billingAddressLine1" placeholder="Numéro et nom de la voie" />
+    <input v-model="billingAddressLine2" placeholder="Complément d'adresse" />
+    <input v-model="billingPostalCode" placeholder="Code postal" />
+    <input v-model="billingCity" placeholder="Ville" />
+    <input v-model="billingCountry" placeholder="Pays" />
+
+    <button @click="checkout()" :disabled="loading">Passer au paiement</button>
+
+    <div v-if="stripePaymentElement">
+      <h2>Paiement</h2>
+      <div id="stripe-payment-element"></div>
+      <button @click="confirmPayment()" :disabled="loading">Confirmer et payer</button>
+    </div>
+
+    <p v-if="errorMessage">{{ errorMessage }}</p>
 
   </div>
 </template>

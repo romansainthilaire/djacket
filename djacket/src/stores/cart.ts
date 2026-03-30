@@ -65,6 +65,11 @@ export const useCartStore = defineStore("cart", () => {
     }
   }
 
+  function clear() {
+    cart.value = []
+    localStorage.removeItem("cart")
+  }
+
   return {
     cart,
     totalQuantity,
@@ -72,6 +77,7 @@ export const useCartStore = defineStore("cart", () => {
     addToCart,
     removeFromCart,
     increaseQuantity,
-    decreaseQuantity
+    decreaseQuantity,
+    clear
   }
 })

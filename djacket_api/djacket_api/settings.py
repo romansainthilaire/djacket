@@ -16,6 +16,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STRIPE_SECRET_KEY = "sk_test_51QV6q404TSsKpI2j1Y9tP1OCVrjXMO2JrDmWG52Yh1o33gt0KqQxVPd21KFIRjtu8utwl2yhn8Llh7L5CWz53E1V00JvWGbSlq"  # noqa: E501
+STRIPE_WEBHOOK_SECRET = "whsec_8bb32b93842169517961839b4a7247856617978d70869e663f51cdf3f58be054"
 
 # Application definition
 
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "users",
     "products",
+    "orders",
     "django_cleanup.apps.CleanupConfig"
 ]
 

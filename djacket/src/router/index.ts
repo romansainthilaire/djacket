@@ -10,6 +10,7 @@ import CategoryDetailView from "../views/CategoryDetailView.vue"
 import ProductDetailView from "../views/ProductDetailView.vue"
 import CartView from "../views/CartView.vue"
 import PaymentView from "../views/PaymentView.vue"
+import PaymentStatusView from "../views/PaymentStatusView.vue"
 
 
 const router = createRouter({
@@ -44,6 +45,15 @@ const router = createRouter({
       path: "/cart/payment",
       name: "payment",
       component: PaymentView,
+      meta: {
+        title: "Paiement",
+        loginRequired: true
+      }
+    },
+    {
+      path: "/payment-status",
+      name: "payment-status",
+      component: PaymentStatusView,
       meta: {
         title: "Paiement",
         loginRequired: true

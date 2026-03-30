@@ -85,9 +85,9 @@ function goToPaymentPage() {
           ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
         </p>
         <p class="login-required-message" v-if="!userStore.user">
-          Vous devez être connecté pour procéder au paiement.
+          Vous devez être connecté pour finaliser votre commande.
         </p>
-        <BaseButton @click="goToPaymentPage()">Procéder au paiement</BaseButton>
+        <BaseButton @click="goToPaymentPage()">Finaliser ma commande</BaseButton>
       </div>
 
       <BaseModal

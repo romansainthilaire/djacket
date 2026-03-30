@@ -54,34 +54,37 @@ class UserProfileViewSet(mixins.CreateModelMixin,
     def verify_email(self, request):
         token = request.query_params.get("token")
         if not token:
-            return Response({"detail": "Token missing."}, status=400)
+            return Response({"detail": "Token missing."}, status=status.HTTP_400_BAD_REQUEST)
 
         email = verify_email_token(token)
         if email:
             try:
                 user = UserProfile.objects.get(email=email)
             except UserProfile.DoesNotExist:
-                return Response({"detail": "User not found."}, status=404)
+                return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
             if user.email_verified:
-                return Response({"detail": "Email already verified.", "email": email}, status=200)
+                return Response({"detail": "Email already verified.", "email": email}, status=status.HTTP_200_OK)
 
             user.email_verified = True
             user.save()
 
-            return Response({"detail": "Email verified.", "email": email}, status=200)
+            return Response({"detail": "Email verified.", "email": email}, status=status.HTTP_200_OK)
 
         extracted_email = extract_email_from_token(token)
         if extracted_email:
-            return Response({"detail": "Token invalid or expired.", "email": extracted_email}, status=410)
+            return Response(
+                {"detail": "Token invalid or expired.", "email": extracted_email},
+                status=status.HTTP_410_GONE
+            )
 
-        return Response({"detail": "Invalid verification link."}, status=400)
+        return Response({"detail": "Invalid verification link."}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=["post"], url_path="resend-verification-email")
     def resend_verification_email(self, request):
         email = request.data.get("email")
         if not email:
-            return Response({"detail": "Email is required."}, status=400)
+            return Response({"detail": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             user = UserProfile.objects.get(email=email)
@@ -90,7 +93,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
         except UserProfile.DoesNotExist:
             pass
 
-        return Response({"detail": "Verification email sent if the account exists."}, status=200)
+        return Response({"detail": "Verification email sent if the account exists."}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["get"], url_path="me")
     def get_self_info(self, request):
@@ -102,7 +105,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
     def reset_password(self, request):
         email = request.data.get("email")
         if not email:
-            return Response({"detail": "Email is required."}, status=400)
+            return Response({"detail": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
 
         user = UserProfile.objects.filter(email=email).first()
 
@@ -113,7 +116,7 @@ class UserProfileViewSet(mixins.CreateModelMixin,
             user.save()
             send_temporary_password_email(user, new_password)
 
-        return Response({"detail": "Temporary password sent if the account exists."}, status=200)
+        return Response({"detail": "Temporary password sent if the account exists."}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["put"], url_path="change-password")
     def change_password(self, request):
