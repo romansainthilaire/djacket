@@ -113,7 +113,7 @@ async function confirmPayment() {
     </table>
 
     <div class="summary-card">
-      <h2>Total de votre panier</h2>
+      <p class="summary-title">Total de votre panier</p>
       <p class="summary-details">
         <span class="total-price">{{ cartStore.totalPrice.toFixed(2) }} €</span>
         ({{ cartStore.totalQuantity }} article{{ cartStore.totalQuantity > 1 ? "s" : "" }})
@@ -195,7 +195,7 @@ td:not(:first-child) {
   padding: 20px 15px;
 }
 
-h2 {
+.summary-title {
   font-size: 16px;
   font-weight: 500;
 }
