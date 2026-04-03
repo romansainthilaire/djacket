@@ -263,7 +263,21 @@ watch(billingCountry, () => {
     </div>
 
     <div class="form-card">
-      <p class="shipping-address-title">Adresse de livraison</p>
+      <div class="shipping-address-title-container">
+        <p class="shipping-address-title">Adresse de livraison</p>
+        <BaseButton
+          class="shipping-address-edit-button"
+          v-if="stripePaymentElement"
+          @click="cancelPayment()"
+          color="rgb(100, 100, 100)"
+          bg-color="rgb(220, 220, 220)"
+          bg-color-hover="rgb(220, 220, 220)"
+          size="small"
+          :disabled="loading"
+        >
+          Modifier
+        </BaseButton>
+      </div>
       <BaseInput
         id="shipping-full-name"
         type="text"
@@ -328,7 +342,21 @@ watch(billingCountry, () => {
         </span>
       </div>
       <template v-if="!useSameAddress">
-        <p class="billing-address-title">Adresse de facturation</p>
+        <div class="billing-address-title-container">
+          <p class="billing-address-title">Adresse de facturation</p>
+          <BaseButton
+            class="billing-address-edit-button"
+            v-if="stripePaymentElement"
+            @click="cancelPayment()"
+            color="rgb(100, 100, 100)"
+            bg-color="rgb(220, 220, 220)"
+            bg-color-hover="rgb(220, 220, 220)"
+            size="small"
+            :disabled="loading"
+          >
+            Modifier
+          </BaseButton>
+        </div>
         <BaseInput
           id="billing-full-name"
           type="text"
@@ -395,25 +423,14 @@ watch(billingCountry, () => {
 
     <div id="stripe-payment-element" v-show="stripePaymentElement"></div>
     
-    <div class="payment-buttons-container" v-if="stripePaymentElement">
-      <BaseButton
-        class="cancel-payment-button"
-        @click="cancelPayment()"
-        color="rgb(100, 100, 100)"
-        bg-color="rgb(220, 220, 220)"
-        bg-color-hover="rgb(220, 220, 220)"
-        :disabled="loading"
-      >
-        Annuler
-      </BaseButton>
-      <BaseButton
-        class="confirm-payment-button"
-        @click="confirmPayment()"
-        :disabled="loading"
-      >
-        Confirmer et payer
-      </BaseButton>
-    </div>
+    <BaseButton
+      class="confirm-payment-button"
+      v-if="stripePaymentElement"
+      @click="confirmPayment()"
+      :disabled="loading"
+    >
+      Confirmer et payer
+    </BaseButton>
 
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
 
@@ -482,6 +499,13 @@ td:not(:first-child) {
   margin-right: 5px;
 }
 
+.shipping-address-title-container,
+.billing-address-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .postal-code-city-country {
   display: flex;
   gap: 20px;
@@ -512,11 +536,12 @@ td:not(:first-child) {
   font-size: 14px;
 }
 
-.billing-address-title {
+.billing-address-title-container {
   margin-top: 30px;
 }
 
-.checkout-button {
+.checkout-button,
+.confirm-payment-button {
   margin: auto;
   margin-top: 60px;
 }
@@ -526,13 +551,6 @@ td:not(:first-child) {
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   padding: 15px;
-}
-
-.payment-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 60px;
 }
 
 .error-message {
@@ -600,18 +618,14 @@ td:not(:first-child) {
     margin-top: 0;
   }
 
-  .shipping-address-title,
-  .billing-address-title {
-    text-align: center;
+  .shipping-address-title-container,
+  .billing-address-title-container {
+    flex-direction: column;
   }
 
-  .checkout-button {
+  .checkout-button,
+  .confirm-payment-button {
     margin-top: 40px;
-  }
-
-  .payment-buttons-container {
-    margin-top: 40px;
-    gap: 20px;
   }
 }
 </style>
