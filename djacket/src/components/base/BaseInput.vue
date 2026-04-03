@@ -8,6 +8,7 @@ type Props = {
   type: "text" | "email"
   label?: string
   required?: boolean
+  disabled?: boolean
   errorMessage?: string
   helpText?: string
   placeholder?: string
@@ -19,6 +20,7 @@ const {
   type = "text",
   label = "",
   required = false,
+  disabled = false,
   errorMessage = "",
   helpText = "",
   placeholder = "",
@@ -36,11 +38,12 @@ const value = defineModel<string>({ required: true })
         :id="id"
         :type="type"
         :required="required"
+        :disabled="disabled"
         :placeholder="placeholder"
         v-model="value"
       />
       <button
-        v-if="showClearButton && value"
+        v-if="showClearButton && value && !disabled"
         class="clear-button"
         @click="value = ''"
       >

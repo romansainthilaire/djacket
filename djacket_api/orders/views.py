@@ -17,6 +17,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class OrderViewSet(mixins.ListModelMixin,
                    mixins.RetrieveModelMixin,
+                   mixins.DestroyModelMixin,
                    GenericViewSet):
 
     serializer_class = OrderSerializer

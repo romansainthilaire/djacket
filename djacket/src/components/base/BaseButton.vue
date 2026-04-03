@@ -58,6 +58,7 @@ button {
   background-color: v-bind(bgColor);
   color: v-bind(color);
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 button:hover {
