@@ -94,7 +94,6 @@ watch(password, () => {
 
     <BaseInput
       v-model="email"
-      id="email"
       type="email"
       label="Adresse e-mail"
       required
@@ -104,7 +103,6 @@ watch(password, () => {
 
     <BaseInput
       v-model="username"
-      id="username"
       type="text"
       label="Nom d'utilisateur"
       required
@@ -114,7 +112,6 @@ watch(password, () => {
     <BaseInputPasswordWithValidation
       v-model="password"
       ref="passwordRef"
-      id="password"
       label="Mot de passe"
       required
       :error-message="passwordErrorMessage"

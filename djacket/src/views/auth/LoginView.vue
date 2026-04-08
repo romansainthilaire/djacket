@@ -64,7 +64,6 @@ watch([email, password], () => {
 
     <BaseInput
       v-model="email"
-      id="email"
       type="email"
       label="Adresse e-mail"
       required
@@ -72,7 +71,6 @@ watch([email, password], () => {
 
     <BaseInputPassword
       v-model="password"
-      id="password"
       label="Mot de passe"
       required
     />

@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { useId, computed } from "vue"
 import BaseInputPassword from "@/components/base/BaseInputPassword.vue"
 
 type Props = {
-  id: string
   label?: string
   required?: boolean
   errorMessage?: string
 }
 
 const {
-  id,
   label = "",
   required = false,
   errorMessage = ""
 } = defineProps<Props>()
 
+const id = useId()
 const password = defineModel<string>({ required: true })
 
 const passwordValidationRules = computed((): Array<{ text: string, checked: boolean }> => [

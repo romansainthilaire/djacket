@@ -56,7 +56,6 @@ watch(email, () => {
     
     <BaseInput
       v-model="email"
-      id="email"
       type="email"
       label="Adresse e-mail"
       required

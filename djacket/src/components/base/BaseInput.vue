@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useId } from "vue"
+
 import BaseSvgIcon from "./BaseSvgIcon.vue"
 import closeIcon from "@/assets/svg-icons/close.svg?raw"
 
 
 type Props = {
-  id: string
   type: "text" | "email"
   label?: string
   required?: boolean
@@ -16,7 +17,6 @@ type Props = {
 }
 
 const {
-  id,
   type,
   label = "",
   required = false,
@@ -27,6 +27,7 @@ const {
   showClearButton = false
 } = defineProps<Props>()
 
+const id = useId()
 const value = defineModel<string>({ required: true })
 </script>
 

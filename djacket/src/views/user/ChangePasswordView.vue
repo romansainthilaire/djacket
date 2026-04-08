@@ -74,7 +74,6 @@ watch(newPassword, () => {
 
     <BaseInputPassword
       v-model="oldPassword"
-      id="old-password"
       label="Mot de passe actuel"
       required
       :error-message="oldPasswordErrorMessage"
@@ -83,7 +82,6 @@ watch(newPassword, () => {
     <BaseInputPasswordWithValidation
       v-model="newPassword"
       ref="newPasswordRef"
-      id="new-password"
       label="Nouveau mot de passe"
       required
       :error-message="newPasswordErrorMessage"

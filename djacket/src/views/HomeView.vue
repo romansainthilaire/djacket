@@ -38,7 +38,6 @@ onMounted(async () => {
 
     <div class="search-container">
       <BaseInput
-        id="search"
         type="text"
         v-model="search"
         placeholder="Rechercher une veste"

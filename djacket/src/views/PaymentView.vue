@@ -280,7 +280,6 @@ watch(billingCountry, () => {
         </BaseButton>
       </div>
       <BaseInput
-        id="shipping-full-name"
         type="text"
         v-model="shippingFullName"
         placeholder="Nom complet ou raison sociale"
@@ -288,7 +287,6 @@ watch(billingCountry, () => {
         :error-message="shippingFullNameError"
       />
       <BaseInput
-        id="shipping-address-line1"
         type="text"
         v-model="shippingAddressLine1"
         placeholder="Numéro et nom de la voie"
@@ -296,7 +294,6 @@ watch(billingCountry, () => {
         :error-message="shippingAddressLine1Error"
       />
       <BaseInput
-        id="shipping-address-line2"
         type="text"
         v-model="shippingAddressLine2"
         placeholder="Complément d'adresse"
@@ -305,7 +302,6 @@ watch(billingCountry, () => {
       <div class="postal-code-city-country">
         <BaseInput
           class="postal-code"
-          id="shipping-postal-code"
           type="text"
           v-model="shippingPostalCode"
           placeholder="Code postal"
@@ -314,7 +310,6 @@ watch(billingCountry, () => {
         />
         <BaseInput
           class="city"
-          id="shipping-city"
           type="text"
           v-model="shippingCity"
           placeholder="Ville"
@@ -323,7 +318,6 @@ watch(billingCountry, () => {
         />
         <BaseInput
           class="country"
-          id="shipping-country"
           type="text"
           v-model="shippingCountry"
           placeholder="Pays"
@@ -354,7 +348,6 @@ watch(billingCountry, () => {
           </BaseButton>
         </div>
         <BaseInput
-          id="billing-full-name"
           type="text"
           v-model="billingFullName"
           placeholder="Nom complet ou raison sociale"
@@ -362,7 +355,6 @@ watch(billingCountry, () => {
           :error-message="billingFullNameError"
         />
         <BaseInput
-          id="billing-address-line1"
           type="text"
           v-model="billingAddressLine1"
           placeholder="Numéro et nom de la voie"
@@ -370,7 +362,6 @@ watch(billingCountry, () => {
           :error-message="billingAddressLine1Error"
         />
         <BaseInput
-          id="billing-address-line2"
           type="text"
           v-model="billingAddressLine2"
           placeholder="Complément d'adresse"
@@ -379,7 +370,6 @@ watch(billingCountry, () => {
         <div class="postal-code-city-country">
           <BaseInput
             class="postal-code"
-            id="billing-postal-code"
             type="text"
             v-model="billingPostalCode"
             placeholder="Code postal"
@@ -388,7 +378,6 @@ watch(billingCountry, () => {
           />
           <BaseInput
             class="city"
-            id="billing-city"
             type="text"
             v-model="billingCity"
             placeholder="Ville"
@@ -397,7 +386,6 @@ watch(billingCountry, () => {
           />
           <BaseInput
             class="country"
-            id="billing-country"
             type="text"
             v-model="billingCountry"
             placeholder="Pays"

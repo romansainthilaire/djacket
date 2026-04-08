@@ -59,7 +59,6 @@ watch(username, () => {
 
     <BaseInput
       v-model="username"
-      id="username"
       type="text"
       label="Nouveau nom d'utilisateur"
       required

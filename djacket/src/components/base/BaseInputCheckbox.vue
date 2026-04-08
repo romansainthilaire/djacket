@@ -11,8 +11,8 @@ const {
   disabled = false
 } = defineProps<Props>()
 
-const value = defineModel<boolean>()
 const id = useId()
+const value = defineModel<boolean>()
 </script>
 
 <template>

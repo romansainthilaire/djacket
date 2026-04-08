@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef, nextTick } from "vue"
+import { useId, ref, useTemplateRef, nextTick } from "vue"
 
 import BaseSvgIcon from "./BaseSvgIcon.vue"
 
@@ -8,19 +8,18 @@ import eyeOffIcon from "@/assets/svg-icons/eye-off.svg?raw"
 
 
 type Props = {
-  id: string
   label?: string
   required?: boolean
   errorMessage?: string
 }
 
 const {
-  id,
   label = "",
   required = false,
   errorMessage = ""
 } = defineProps<Props>()
 
+const id = useId()
 const password = defineModel<string>({ required: true })
 
 const showPassword = ref(false)
