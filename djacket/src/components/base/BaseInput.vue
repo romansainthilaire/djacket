@@ -17,7 +17,7 @@ type Props = {
 
 const {
   id,
-  type = "text",
+  type,
   label = "",
   required = false,
   disabled = false,

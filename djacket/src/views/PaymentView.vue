@@ -6,6 +6,7 @@ import api from "@/plugins/axios"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputCheckbox from "@/components/base/BaseInputCheckbox.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
 const cartStore = useCartStore()
@@ -330,17 +331,12 @@ watch(billingCountry, () => {
           :error-message="shippingCountryError"
         />
       </div>
-      <div class="same-shipping-and-billing-address-container">
-        <input
-          class="same-shipping-and-billing-address-input"
-          type="checkbox"
-          v-model="useSameAddress"
-          :disabled="!!stripePaymentElement"
-        />
-        <span class="same-shipping-and-billing-address-label">
-          L'adresse de facturation est identique à l'adresse de livraison.
-        </span>
-      </div>
+      <BaseInputCheckbox
+        class="use-same-address-checkbox"
+        label="L'adresse de facturation est identique à l'adresse de livraison."
+        v-model="useSameAddress"
+        :disabled="!!stripePaymentElement"
+      />
       <template v-if="!useSameAddress">
         <div class="billing-address-title-container">
           <p class="billing-address-title">Adresse de facturation</p>
@@ -517,23 +513,8 @@ td:not(:first-child) {
   flex: 1;
 }
 
-.same-shipping-and-billing-address-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.use-same-address-checkbox {
   margin-top: 15px;
-}
-
-.same-shipping-and-billing-address-input {
-  accent-color: var(--color-primary);
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.same-shipping-and-billing-address-label {
-  color: rgb(80, 80, 80);
-  font-size: 14px;
 }
 
 .billing-address-title-container {
