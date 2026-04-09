@@ -59,7 +59,6 @@ watch(username, () => {
 
     <BaseInputText
       v-model="username"
-      type="text"
       label="Nouveau nom d'utilisateur"
       required
       :error-message="usernameErrorMessage"

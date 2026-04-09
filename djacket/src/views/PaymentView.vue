@@ -280,21 +280,18 @@ watch(billingCountry, () => {
         </BaseButton>
       </div>
       <BaseInputText
-        type="text"
         v-model="shippingFullName"
         placeholder="Nom complet ou raison sociale"
         :disabled="!!stripePaymentElement"
         :error-message="shippingFullNameError"
       />
       <BaseInputText
-        type="text"
         v-model="shippingAddressLine1"
         placeholder="Numéro et nom de la voie"
         :disabled="!!stripePaymentElement"
         :error-message="shippingAddressLine1Error"
       />
       <BaseInputText
-        type="text"
         v-model="shippingAddressLine2"
         placeholder="Complément d'adresse"
         :disabled="!!stripePaymentElement"
@@ -302,7 +299,6 @@ watch(billingCountry, () => {
       <div class="postal-code-city-country">
         <BaseInputText
           class="postal-code"
-          type="text"
           v-model="shippingPostalCode"
           placeholder="Code postal"
           :disabled="!!stripePaymentElement"
@@ -310,7 +306,6 @@ watch(billingCountry, () => {
         />
         <BaseInputText
           class="city"
-          type="text"
           v-model="shippingCity"
           placeholder="Ville"
           :disabled="!!stripePaymentElement"
@@ -318,7 +313,6 @@ watch(billingCountry, () => {
         />
         <BaseInputText
           class="country"
-          type="text"
           v-model="shippingCountry"
           placeholder="Pays"
           :disabled="!!stripePaymentElement"
@@ -348,21 +342,18 @@ watch(billingCountry, () => {
           </BaseButton>
         </div>
         <BaseInputText
-          type="text"
           v-model="billingFullName"
           placeholder="Nom complet ou raison sociale"
           :disabled="!!stripePaymentElement"
           :error-message="billingFullNameError"
         />
         <BaseInputText
-          type="text"
           v-model="billingAddressLine1"
           placeholder="Numéro et nom de la voie"
           :disabled="!!stripePaymentElement"
           :error-message="billingAddressLine1Error"
         />
         <BaseInputText
-          type="text"
           v-model="billingAddressLine2"
           placeholder="Complément d'adresse"
           :disabled="!!stripePaymentElement"
@@ -370,7 +361,6 @@ watch(billingCountry, () => {
         <div class="postal-code-city-country">
           <BaseInputText
             class="postal-code"
-            type="text"
             v-model="billingPostalCode"
             placeholder="Code postal"
             :disabled="!!stripePaymentElement"
@@ -378,7 +368,6 @@ watch(billingCountry, () => {
           />
           <BaseInputText
             class="city"
-            type="text"
             v-model="billingCity"
             placeholder="Ville"
             :disabled="!!stripePaymentElement"
@@ -386,7 +375,6 @@ watch(billingCountry, () => {
           />
           <BaseInputText
             class="country"
-            type="text"
             v-model="billingCountry"
             placeholder="Pays"
             :disabled="!!stripePaymentElement"

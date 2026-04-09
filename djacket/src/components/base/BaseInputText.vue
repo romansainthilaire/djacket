@@ -6,7 +6,7 @@ import closeIcon from "@/assets/svg-icons/close.svg?raw"
 
 
 type Props = {
-  type: "text" | "email"
+  type?: "text" | "email" | "tel"
   label?: string
   required?: boolean
   disabled?: boolean
@@ -17,7 +17,7 @@ type Props = {
 }
 
 const {
-  type,
+  type = "text",
   label = "",
   required = false,
   disabled = false,

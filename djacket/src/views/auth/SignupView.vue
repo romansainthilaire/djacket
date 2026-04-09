@@ -103,7 +103,6 @@ watch(password, () => {
 
     <BaseInputText
       v-model="username"
-      type="text"
       label="Nom d'utilisateur"
       required
       :error-message="usernameErrorMessage"

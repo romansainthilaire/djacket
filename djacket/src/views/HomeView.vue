@@ -38,7 +38,6 @@ onMounted(async () => {
 
     <div class="search-container">
       <BaseInputText
-        type="text"
         v-model="search"
         placeholder="Rechercher une veste"
         show-clear-button
