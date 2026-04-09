@@ -3,7 +3,7 @@ import { ref,computed, onMounted } from "vue"
 import api from "@/plugins/axios"
 
 import type { Product } from "@/components/products/ProductCard.vue"
-import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputText from "@/components/base/BaseInputText.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
@@ -37,7 +37,7 @@ onMounted(async () => {
     </div>
 
     <div class="search-container">
-      <BaseInput
+      <BaseInputText
         type="text"
         v-model="search"
         placeholder="Rechercher une veste"

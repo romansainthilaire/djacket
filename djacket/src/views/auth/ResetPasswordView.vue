@@ -5,7 +5,7 @@ import { useAuthStore } from "@/stores/auth"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseForm from "@/components/base/BaseForm.vue"
-import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputText from "@/components/base/BaseInputText.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
@@ -54,7 +54,7 @@ watch(email, () => {
       Entrez votre adresse e-mail pour recevoir un mot de passe temporaire :
     </p>
     
-    <BaseInput
+    <BaseInputText
       v-model="email"
       type="email"
       label="Adresse e-mail"

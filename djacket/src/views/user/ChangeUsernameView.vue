@@ -5,7 +5,7 @@ import { useUserStore } from "@/stores/user"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseForm from "@/components/base/BaseForm.vue"
-import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputText from "@/components/base/BaseInputText.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
@@ -57,7 +57,7 @@ watch(username, () => {
       Votre nom d'utilisateur actuel est : <b>{{ userStore.user?.username }}</b>
     </p>
 
-    <BaseInput
+    <BaseInputText
       v-model="username"
       type="text"
       label="Nouveau nom d'utilisateur"

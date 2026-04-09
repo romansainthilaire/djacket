@@ -5,7 +5,7 @@ import { useRouter } from "vue-router"
 
 import type { Product } from "@/components/products/ProductCard.vue"
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
-import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputText from "@/components/base/BaseInputText.vue"
 import ProductGrid from "@/components/products/ProductGrid.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
@@ -77,7 +77,7 @@ watch(() => props.categorySlug, () => {
       </p>
 
       <div class="search-container">
-        <BaseInput
+        <BaseInputText
           type="text"
           v-model="search"
           placeholder="Rechercher une veste"

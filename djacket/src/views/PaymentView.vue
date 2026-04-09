@@ -5,7 +5,7 @@ import { loadStripe } from "@stripe/stripe-js"
 import api from "@/plugins/axios"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
-import BaseInput from "@/components/base/BaseInput.vue"
+import BaseInputText from "@/components/base/BaseInputText.vue"
 import BaseInputCheckbox from "@/components/base/BaseInputCheckbox.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 
@@ -279,28 +279,28 @@ watch(billingCountry, () => {
           Modifier
         </BaseButton>
       </div>
-      <BaseInput
+      <BaseInputText
         type="text"
         v-model="shippingFullName"
         placeholder="Nom complet ou raison sociale"
         :disabled="!!stripePaymentElement"
         :error-message="shippingFullNameError"
       />
-      <BaseInput
+      <BaseInputText
         type="text"
         v-model="shippingAddressLine1"
         placeholder="Numéro et nom de la voie"
         :disabled="!!stripePaymentElement"
         :error-message="shippingAddressLine1Error"
       />
-      <BaseInput
+      <BaseInputText
         type="text"
         v-model="shippingAddressLine2"
         placeholder="Complément d'adresse"
         :disabled="!!stripePaymentElement"
       />
       <div class="postal-code-city-country">
-        <BaseInput
+        <BaseInputText
           class="postal-code"
           type="text"
           v-model="shippingPostalCode"
@@ -308,7 +308,7 @@ watch(billingCountry, () => {
           :disabled="!!stripePaymentElement"
           :error-message="shippingPostalCodeError"
         />
-        <BaseInput
+        <BaseInputText
           class="city"
           type="text"
           v-model="shippingCity"
@@ -316,7 +316,7 @@ watch(billingCountry, () => {
           :disabled="!!stripePaymentElement"
           :error-message="shippingCityError"
         />
-        <BaseInput
+        <BaseInputText
           class="country"
           type="text"
           v-model="shippingCountry"
@@ -347,28 +347,28 @@ watch(billingCountry, () => {
             Modifier
           </BaseButton>
         </div>
-        <BaseInput
+        <BaseInputText
           type="text"
           v-model="billingFullName"
           placeholder="Nom complet ou raison sociale"
           :disabled="!!stripePaymentElement"
           :error-message="billingFullNameError"
         />
-        <BaseInput
+        <BaseInputText
           type="text"
           v-model="billingAddressLine1"
           placeholder="Numéro et nom de la voie"
           :disabled="!!stripePaymentElement"
           :error-message="billingAddressLine1Error"
         />
-        <BaseInput
+        <BaseInputText
           type="text"
           v-model="billingAddressLine2"
           placeholder="Complément d'adresse"
           :disabled="!!stripePaymentElement"
         />
         <div class="postal-code-city-country">
-          <BaseInput
+          <BaseInputText
             class="postal-code"
             type="text"
             v-model="billingPostalCode"
@@ -376,7 +376,7 @@ watch(billingCountry, () => {
             :disabled="!!stripePaymentElement"
             :error-message="billingPostalCodeError"
           />
-          <BaseInput
+          <BaseInputText
             class="city"
             type="text"
             v-model="billingCity"
@@ -384,7 +384,7 @@ watch(billingCountry, () => {
             :disabled="!!stripePaymentElement"
             :error-message="billingCityError"
           />
-          <BaseInput
+          <BaseInputText
             class="country"
             type="text"
             v-model="billingCountry"
