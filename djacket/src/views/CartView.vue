@@ -111,7 +111,7 @@ function goToPaymentPage() {
 }
 
 h1 {
-  margin-top: 40px;
+  margin-top: 30px;
   color: var(--color-primary);
   font-size: 30px;
   font-weight: 500;
@@ -197,7 +197,7 @@ td:not(:first-child) {
   h1 {
     text-align: center;
     font-size: 25px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   table {

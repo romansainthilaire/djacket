@@ -103,13 +103,11 @@ async function deleteAccount() {
   background-color: var(--color-success-light);
   color: var(--color-success);
   padding: 10px 15px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 h1 {
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   color: var(--color-primary);
   font-size: 25px;
 }

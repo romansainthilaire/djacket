@@ -101,7 +101,7 @@ h1 {
   font-size: 30px;
   font-weight: 500;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-bottom: 10px;
   color: var(--color-primary);
 }
@@ -130,7 +130,7 @@ h1 {
 
   h1 {
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .nb-products-found {

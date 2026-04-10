@@ -34,7 +34,7 @@ const emit = defineEmits<{
 .content {
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 100px;
 }
 

@@ -120,7 +120,7 @@ function addToCart() {
 .breadcrumb {
   width: 100%;
   text-align: left;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .product-detail {
@@ -222,7 +222,7 @@ function addToCart() {
   }
 
   .breadcrumb {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .product-info {

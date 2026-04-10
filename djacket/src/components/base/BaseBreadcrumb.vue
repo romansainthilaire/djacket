@@ -32,7 +32,7 @@ const props = defineProps<{
 
 <style scoped>
 .breadcrumb {
-  margin: 10px 0;
+  padding: 10px 0;
 }
 
 .breadcrumb-item {
