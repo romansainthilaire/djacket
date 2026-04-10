@@ -16,7 +16,7 @@ const value = defineModel<boolean>()
 </script>
 
 <template>
-  <div class="checkbox-container">
+  <div class="input-container">
     <input
       type="checkbox"
       v-model="value"
@@ -28,7 +28,7 @@ const value = defineModel<boolean>()
 </template>
 
 <style scoped>
-.checkbox-container {
+.input-container {
   display: flex;
   align-items: center;
   gap: 5px;

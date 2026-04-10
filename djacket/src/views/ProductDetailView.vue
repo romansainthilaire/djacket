@@ -5,6 +5,7 @@ import { useRouter } from "vue-router"
 import { useCartStore } from "@/stores/cart"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
+import BaseInputNumber from "@/components/base/BaseInputNumber.vue"
 import BaseLoadingSpinner from "@/components/base/BaseLoadingSpinner.vue"
 
 type Product = {
@@ -92,7 +93,7 @@ function addToCart() {
         <div class="product-purchase">
           <h2 class="product-price">Prix : <span class="product-price-value">{{ product.price }} €</span></h2>
           <div class="add-to-cart-container">
-            <input class="quantity-input" type="number" min="1" step="1" v-model="quantity">
+            <BaseInputNumber class="quantity" v-model="quantity" :min="1" :step="1" />
             <button
               class="add-to-cart-button" 
               @click="addToCart()"
@@ -162,21 +163,11 @@ function addToCart() {
   align-items: center;
 }
 
-.quantity-input {
+.quantity::v-deep input {
   height: 40px;
   width: 80px;
-  box-sizing: border-box;
-  padding: 0 10px;
-  border: none;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  outline: 1px solid rgb(200, 200, 200);
-  color: var(--color-primary);
-  font-size: 18px;
-}
-
-.quantity-input:focus {
-  outline: 1px solid var(--color-primary);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .add-to-cart-button {
