@@ -65,10 +65,10 @@ async function togglePasswordVisibility() {
 .form-field {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 label {
-  margin-bottom: 5px;
   font-size: 16px;
 }
 
@@ -94,7 +94,6 @@ button {
 }
 
 .error-message {
-  margin-top: 5px;
   font-size: 13px;
   color: var(--color-error);
 }

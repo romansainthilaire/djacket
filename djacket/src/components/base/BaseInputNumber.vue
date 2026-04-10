@@ -66,10 +66,10 @@ function onInput(event: Event) {
 .form-field {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 
 label {
-  margin-bottom: 5px;
   font-size: 16px;
 }
 
@@ -93,13 +93,11 @@ input::placeholder {
 }
 
 .error-message {
-  margin-top: 5px;
   font-size: 13px;
   color: var(--color-error);
 }
 
 .help-text {
-  margin-top: 5px;
   font-size: 13px;
   color: rgb(100, 100, 100);
 }
