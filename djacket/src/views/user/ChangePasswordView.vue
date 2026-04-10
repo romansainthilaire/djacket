@@ -73,6 +73,7 @@ watch(newPassword, () => {
   <BaseForm title="Modification du mot de passe" @submit="changePassword()">
 
     <BaseInputPassword
+      class="old-password"
       v-model="oldPassword"
       label="Mot de passe actuel"
       required
@@ -80,6 +81,7 @@ watch(newPassword, () => {
     />
 
     <BaseInputPasswordWithValidation
+      class="new-password"
       v-model="newPassword"
       ref="newPasswordRef"
       label="Nouveau mot de passe"
@@ -98,6 +100,11 @@ watch(newPassword, () => {
 </template>
 
 <style scoped>
+.old-password,
+.new-password {
+  margin-top: 20px;
+}
+
 .error-message {
   margin-top: 15px;
   font-size: 13px;

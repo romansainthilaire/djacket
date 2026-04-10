@@ -55,6 +55,7 @@ watch(email, () => {
     </p>
     
     <BaseInputText
+      class="email"
       v-model="email"
       type="email"
       label="Adresse e-mail"
@@ -76,6 +77,10 @@ watch(email, () => {
 <style scoped>
 .intro {
   margin-top: 30px;
+}
+
+.email {
+  margin-top: 20px;
 }
 
 .error-message {

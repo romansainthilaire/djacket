@@ -63,6 +63,7 @@ watch([email, password], () => {
   <BaseForm title="Connexion" @submit="login()">
 
     <BaseInputText
+      class="email"
       v-model="email"
       type="email"
       label="Adresse e-mail"
@@ -70,6 +71,7 @@ watch([email, password], () => {
     />
 
     <BaseInputPassword
+      class="password"
       v-model="password"
       label="Mot de passe"
       required
@@ -108,6 +110,11 @@ watch([email, password], () => {
 </template>
 
 <style scoped>
+.email,
+.password {
+  margin-top: 20px;
+}
+
 .error-message {
   margin-top: 20px;
   font-size: 13px;

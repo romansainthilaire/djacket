@@ -60,7 +60,6 @@ const value = defineModel<string>({ required: true })
 .form-field {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 }
 
 label {

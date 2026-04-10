@@ -35,28 +35,30 @@ defineExpose({
 </script>
 
 <template>
+  <div>
 
-  <BaseInputPassword
-    v-model="password"
-    :id="id"
-    :label="label"
-    :required="required"
-    :error-message="errorMessage"
-  />
+    <BaseInputPassword
+      v-model="password"
+      :id="id"
+      :label="label"
+      :required="required"
+      :error-message="errorMessage"
+    />
 
-  <div class="password-validation-rules">
-    Doit inclure :
-    <ul>
-      <li
-        v-for="rule in passwordValidationRules"
-        :key="rule.text"
-        :class="{ 'checked': rule.checked }"
-      >
-        <span>{{ rule.text }}</span>
-      </li>
-    </ul>
+    <div class="password-validation-rules">
+      Doit inclure :
+      <ul>
+        <li
+          v-for="rule in passwordValidationRules"
+          :key="rule.text"
+          :class="{ 'checked': rule.checked }"
+        >
+          <span>{{ rule.text }}</span>
+        </li>
+      </ul>
+    </div>
+
   </div>
-
 </template>
 
 <style scoped>

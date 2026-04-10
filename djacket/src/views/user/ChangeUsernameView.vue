@@ -58,6 +58,7 @@ watch(username, () => {
     </p>
 
     <BaseInputText
+      class="username"
       v-model="username"
       label="Nouveau nom d'utilisateur"
       required
@@ -77,6 +78,10 @@ watch(username, () => {
 <style scoped>
 .intro {
   margin-top: 30px;
+}
+
+.username {
+  margin-top: 20px;
 }
 
 .error-message {

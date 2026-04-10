@@ -280,18 +280,21 @@ watch(billingCountry, () => {
         </BaseButton>
       </div>
       <BaseInputText
+        class="full-name"
         v-model="shippingFullName"
         placeholder="Nom complet ou raison sociale"
         :disabled="!!stripePaymentElement"
         :error-message="shippingFullNameError"
       />
       <BaseInputText
+        class="address-line1"
         v-model="shippingAddressLine1"
         placeholder="Numéro et nom de la voie"
         :disabled="!!stripePaymentElement"
         :error-message="shippingAddressLine1Error"
       />
       <BaseInputText
+        class="address-line2"
         v-model="shippingAddressLine2"
         placeholder="Complément d'adresse"
         :disabled="!!stripePaymentElement"
@@ -320,7 +323,7 @@ watch(billingCountry, () => {
         />
       </div>
       <BaseInputCheckbox
-        class="use-same-address-checkbox"
+        class="use-same-address"
         label="L'adresse de facturation est identique à l'adresse de livraison."
         v-model="useSameAddress"
         :disabled="!!stripePaymentElement"
@@ -342,18 +345,21 @@ watch(billingCountry, () => {
           </BaseButton>
         </div>
         <BaseInputText
+          class="full-name"
           v-model="billingFullName"
           placeholder="Nom complet ou raison sociale"
           :disabled="!!stripePaymentElement"
           :error-message="billingFullNameError"
         />
         <BaseInputText
+          class="address-line1"
           v-model="billingAddressLine1"
           placeholder="Numéro et nom de la voie"
           :disabled="!!stripePaymentElement"
           :error-message="billingAddressLine1Error"
         />
         <BaseInputText
+          class="address-line2"
           v-model="billingAddressLine2"
           placeholder="Complément d'adresse"
           :disabled="!!stripePaymentElement"
@@ -478,6 +484,16 @@ td:not(:first-child) {
   gap: 10px;
 }
 
+.full-name,
+.address-line1,
+.address-line2,
+.postal-code,
+.city,
+.country,
+.use-same-address {
+  margin-top: 20px;
+}
+
 .postal-code-city-country {
   display: flex;
   gap: 20px;
@@ -487,10 +503,6 @@ td:not(:first-child) {
 .city,
 .country {
   flex: 1;
-}
-
-.use-same-address-checkbox {
-  margin-top: 15px;
 }
 
 .billing-address-title-container {

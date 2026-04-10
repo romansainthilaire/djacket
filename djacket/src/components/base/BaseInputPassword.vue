@@ -65,7 +65,6 @@ async function togglePasswordVisibility() {
 .form-field {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 }
 
 label {
