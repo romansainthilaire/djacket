@@ -23,8 +23,8 @@ class OrderStatus(models.TextChoices):
 class Order(models.Model):
 
     class Meta:
-        verbose_name = "Order"
-        verbose_name_plural = "Orders"
+        verbose_name = "order"
+        verbose_name_plural = "orders"
         ordering = ["-created_at"]
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,8 +58,8 @@ class Order(models.Model):
 class OrderItem(models.Model):
 
     class Meta:
-        verbose_name = "Order Item"
-        verbose_name_plural = "Order Items"
+        verbose_name = "order item"
+        verbose_name_plural = "order items"
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,8 +83,8 @@ class OrderItem(models.Model):
 class InvoiceSequence(models.Model):
 
     class Meta:
-        verbose_name = "Invoice Sequence"
-        verbose_name_plural = "Invoice Sequences"
+        verbose_name = "invoice sequence"
+        verbose_name_plural = "invoice sequences"
         ordering = ["-year"]
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -100,8 +100,8 @@ class InvoiceSequence(models.Model):
 class Invoice(models.Model):
 
     class Meta:
-        verbose_name = "Invoice"
-        verbose_name_plural = "Invoices"
+        verbose_name = "invoice"
+        verbose_name_plural = "invoices"
         ordering = ["-created_at"]
 
     created_at = models.DateTimeField(auto_now_add=True)

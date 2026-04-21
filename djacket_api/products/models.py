@@ -9,8 +9,8 @@ from django.core.files import File
 class Category(models.Model):
 
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = "category"
+        verbose_name_plural = "categories"
         ordering = ["name"]
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,8 +26,8 @@ class Category(models.Model):
 class Product(models.Model):
 
     class Meta:
-        verbose_name = "Product"
-        verbose_name_plural = "Products"
+        verbose_name = "product"
+        verbose_name_plural = "products"
         ordering = ["name"]
 
     created_at = models.DateTimeField(auto_now_add=True)

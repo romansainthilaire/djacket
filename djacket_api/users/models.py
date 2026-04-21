@@ -27,8 +27,8 @@ class UserProfileManager(BaseUserManager):
 class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
-        verbose_name = "User"
-        verbose_name_plural = "Users"
+        verbose_name = "user"
+        verbose_name_plural = "users"
         ordering = ["-last_login"]
 
     created_at = models.DateTimeField(auto_now_add=True)
