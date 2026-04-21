@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from products.models import Product
 
-from .models import Order, OrderItem
+from .models import Order, OrderItem, Invoice
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -69,3 +69,14 @@ class OrderSerializer(serializers.ModelSerializer):
         if not items:
             raise serializers.ValidationError("Order must contain at least one item.")
         return items
+
+
+class InvoiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Invoice
+        fields = [
+            "id",
+            "number",
+            "created_at"
+        ]

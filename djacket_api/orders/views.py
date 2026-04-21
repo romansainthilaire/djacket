@@ -2,6 +2,10 @@ import stripe
 
 from django.conf import settings
 from django.db import transaction
+from django.urls import reverse
+from django.shortcuts import get_object_or_404, render
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+from django.http import HttpResponse
 
 from rest_framework import status, mixins
 from rest_framework.decorators import action
@@ -9,8 +13,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from products.models import Product
-from .models import Order, OrderItem
-from .serializers import OrderSerializer
+from .models import Order, OrderItem, Invoice
+from .serializers import OrderSerializer, InvoiceSerializer
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -80,3 +84,32 @@ class OrderViewSet(mixins.ListModelMixin,
             },
             status=status.HTTP_201_CREATED
         )
+
+
+class InvoiceViewSet(mixins.ListModelMixin, GenericViewSet):
+
+    serializer_class = InvoiceSerializer
+
+    def get_queryset(self):
+        return Invoice.objects.filter(order__user=self.request.user)
+
+    @action(detail=True, methods=["get"], url_path="url")
+    def invoice(self, request, pk=None):
+        invoice = self.get_object()
+        signer = TimestampSigner()
+        signed_invoice_id = signer.sign(str(invoice.id))
+        invoice_url = request.build_absolute_uri(
+            reverse("invoice-html", args=[signed_invoice_id])
+        )
+        return Response({"url": invoice_url})
+
+
+def invoice_html(request, signed_invoice_id):
+    signer = TimestampSigner()
+    try:
+        invoice_id = signer.unsign(signed_invoice_id, max_age=300)  # 5 min
+    except (BadSignature, SignatureExpired):
+        return HttpResponse("Invalid or expired link.", status=status.HTTP_403_FORBIDDEN)
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    context = {"invoice": invoice}
+    return render(request, "orders/invoice.html", context)

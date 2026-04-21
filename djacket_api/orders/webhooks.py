@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 
-from .models import Order, OrderStatus
+from .models import Order, OrderStatus, Invoice
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -68,6 +68,7 @@ def stripe_webhook(request):
         order.status = OrderStatus.PAID
         order.paid_at = timezone.now()
         order.save()
+        Invoice.objects.create(order=order)
 
     elif event["type"] == "payment_intent.payment_failed":
         if order.status == OrderStatus.PENDING:

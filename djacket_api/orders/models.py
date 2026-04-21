@@ -1,7 +1,8 @@
 import uuid
 
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from products.models import Product
 
@@ -77,3 +78,53 @@ class OrderItem(models.Model):
     @property
     def subtotal(self):
         return self.product_price * self.quantity
+
+
+class InvoiceSequence(models.Model):
+
+    class Meta:
+        verbose_name = "Invoice Sequence"
+        verbose_name_plural = "Invoice Sequences"
+        ordering = ["-year"]
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    year = models.PositiveIntegerField(unique=True)
+    last_number = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.year} → {self.last_number}"
+
+
+class Invoice(models.Model):
+
+    class Meta:
+        verbose_name = "Invoice"
+        verbose_name_plural = "Invoices"
+        ordering = ["-created_at"]
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    order = models.OneToOneField(Order, related_name="invoice", on_delete=models.CASCADE)
+    number = models.CharField(max_length=20, unique=True, editable=False)
+
+    def __str__(self):
+        return self.number
+
+    def save(self, *args, **kwargs):
+        if not self.number:
+            self.number = self.generate_number()
+        super().save(*args, **kwargs)
+
+    def generate_number(self):
+        current_year = timezone.now().year
+        with transaction.atomic():
+            sequence, _ = InvoiceSequence.objects.select_for_update().get_or_create(
+                year=current_year,
+                defaults={"last_number": 0}
+            )
+            sequence.last_number += 1
+            sequence.save()
+            return f"FA{current_year}{sequence.last_number:05d}"
