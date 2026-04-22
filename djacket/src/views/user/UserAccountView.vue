@@ -240,4 +240,10 @@ td:last-child {
   margin-top: 20px;
   font-style: italic;
 }
+
+@media (max-width: 600px) {
+  th, td {
+    padding: 10px;
+  }
+}
 </style>
