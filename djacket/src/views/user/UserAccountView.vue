@@ -38,7 +38,7 @@ async function deleteAccount() {
     <BaseBreadcrumb
       :items="[
         { title: 'Accueil', to: '/' },
-        { title: 'Compte utilisateur' }
+        { title: 'Espace utilisateur' }
       ]"
     />
 
@@ -46,7 +46,7 @@ async function deleteAccount() {
       Modifications enregistrées avec succès.
     </div>
 
-    <h1>Compte utilisateur</h1>
+    <h2 class="user-account-title">Votre compte</h2>
 
     <div class="user-info">Date de création du compte : {{ formatDate(userStore.user?.createdAt) }}</div>
     <div class="user-info">
@@ -91,6 +91,8 @@ async function deleteAccount() {
       </div>
     </BaseModal>
 
+    <h2 class="user-invoices-title">Vos factures</h2>
+
   </div>
 </template>
 
@@ -106,10 +108,18 @@ async function deleteAccount() {
   margin: 20px 0;
 }
 
-h1 {
-  margin: 20px 0;
+.user-account-title,
+.user-invoices-title {
   color: var(--color-primary);
   font-size: 25px;
+}
+
+.user-account-title {
+  margin: 20px 0;
+}
+
+.user-invoices-title {
+  margin-top: 40px;
 }
 
 .user-info {

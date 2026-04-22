@@ -65,7 +65,7 @@ watch(newPassword, () => {
   <BaseBreadcrumb
     :items="[
       { title: 'Accueil', to: '/' },
-      { title: 'Compte utilisateur', to: '/user-account' },
+      { title: 'Espace utilisateur', to: '/user-account' },
       { title: 'Modification du mot de passe' }
     ]"
   />

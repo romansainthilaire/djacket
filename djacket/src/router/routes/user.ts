@@ -9,7 +9,7 @@ export default [
       name: "user-account",
       component: UserAccountView,
       meta: {
-        title: "Compte utilisateur",
+        title: "Espace utilisateur",
         loginRequired: true
       }
     },
