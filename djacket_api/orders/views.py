@@ -94,7 +94,7 @@ class InvoiceViewSet(mixins.ListModelMixin, GenericViewSet):
         return Invoice.objects.filter(order__user=self.request.user)
 
     @action(detail=True, methods=["get"], url_path="url")
-    def invoice(self, request, pk=None):
+    def url(self, request, pk=None):
         invoice = self.get_object()
         signer = TimestampSigner()
         signed_invoice_id = signer.sign(str(invoice.id))

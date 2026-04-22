@@ -2,12 +2,21 @@
 import { ref, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useUserStore } from "@/stores/user"
+import api from "@/plugins/axios"
 import { formatDate } from "@/utils/format"
 
 import BaseBreadcrumb from "@/components/base/BaseBreadcrumb.vue"
 import BaseButton from "@/components/base/BaseButton.vue"
 import BaseModal from "@/components/base/BaseModal.vue"
+import BaseSvgIcon from "@/components/base/BaseSvgIcon.vue"
 
+import eyeIcon from "@/assets/svg-icons/eye.svg?raw"
+
+type Invoice = {
+  id: number
+  number: string
+  createdAt: string
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -15,6 +24,8 @@ const userStore = useUserStore()
 
 const showSuccessMessage = ref(false)
 const showDeleteAccountModal = ref(false)
+
+const invoices = ref<Invoice[]>([])
 
 onMounted(() => {
   if (route.query.modified == "true") {
@@ -24,12 +35,24 @@ onMounted(() => {
     delete newQuery.modified
     router.replace({ query: newQuery })
   }
+  fetchInvoices()
 })
 
 async function deleteAccount() {
   await userStore.deleteUser()
   showDeleteAccountModal.value = false
   router.push({ name: "login" })
+}
+
+async function fetchInvoices() {
+  const response = await api.get("invoices/")
+  invoices.value = response.data
+}
+
+async function viewInvoice(invoice: Invoice) {
+  const response = await api.get(`invoices/${invoice.id}/url/`)
+  const url = response.data.url
+  window.open(url, "_blank")
 }
 </script>
 
@@ -93,12 +116,35 @@ async function deleteAccount() {
 
     <h2 class="user-invoices-title">Vos factures</h2>
 
+    <table v-if="invoices.length">
+      <thead>
+        <tr>
+          <th>Numéro de facture</th>
+          <th>Date de création</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="invoice in invoices" :key="invoice.id">
+          <td>{{ invoice.number }}</td>
+          <td>{{ formatDate(invoice.createdAt) }}</td>
+          <td>
+            <button class="view-button" @click="viewInvoice(invoice)">
+              <BaseSvgIcon :svg="eyeIcon" color="white" width="22px" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p v-else class="no-invoices">Aucune facture disponible.</p>
+
   </div>
 </template>
 
 <style scoped>
 .content {
-  padding-bottom: 50px
+  padding-bottom: 100px
 }
 
 .success-message {
@@ -157,5 +203,41 @@ async function deleteAccount() {
 
 .delete-account-modal-button {
   margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 25px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  text-align: left;
+  padding: 15px;
+}
+
+th {
+  font-weight: 500;
+}
+
+td {
+  border-top: 1px solid rgb(220, 220, 220);
+}
+
+td:last-child {
+  text-align: right;
+}
+
+.view-button {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  padding: 2px 3px 1px 3px;
+}
+
+.no-invoices {
+  margin-top: 20px;
+  font-style: italic;
 }
 </style>
