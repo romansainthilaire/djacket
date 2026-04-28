@@ -1,4 +1,4 @@
-# Djacket
+# 🧥 Djacket
 
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
@@ -17,3 +17,25 @@ Le projet propose une interface moderne et une API robuste pour gérer les produ
 - Authentification des utilisateurs
 - Paiement sécurisé avec Stripe
 - Génération de factures
+
+## Installation
+
+### Backend (Django + DRF)
+
+```bash
+cd djacket_api
+python -m venv venv
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux / macOS
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Frontend (Vue 3)
+
+```bash
+cd djacket
+npm install
+npm run dev
+```
