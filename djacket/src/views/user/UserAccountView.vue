@@ -69,7 +69,7 @@ async function viewInvoice(invoice: Invoice) {
       Modifications enregistrées avec succès.
     </div>
 
-    <h2 class="user-account-title">Votre compte</h2>
+    <h2 class="user-account-title">Mon compte</h2>
 
     <div class="user-info">Date de création du compte : {{ formatDate(userStore.user?.createdAt) }}</div>
     <div class="user-info">
@@ -114,7 +114,7 @@ async function viewInvoice(invoice: Invoice) {
       </div>
     </BaseModal>
 
-    <h2 class="user-invoices-title">Vos factures</h2>
+    <h2 class="user-invoices-title">Mes factures</h2>
 
     <table v-if="invoices.length">
       <thead>
